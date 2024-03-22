@@ -1,0 +1,70 @@
+import pyautogui
+import time
+
+
+wylosowane_kolory = [(199, 22, 199), (255, 255, 23), (246, 246, 246), (255,165,0), (49, 171, 253), (19, 202, 19),
+                     (255, 99, 99),(0,0,0)]  # in order: pink, yellow,white, orange, blue, green,red
+kolory = ['pink','yellow','white','orange','blue','green','red','black']
+
+timer = 0
+a = imput('input   S   to start')
+if a == 'S':
+
+
+    #time.sleep(1)
+
+    x, y = pyautogui.position()
+
+    aktualny_kolor = pyautogui.pixel(x, y)
+    najblizszy_kolor = min(wylosowane_kolory,
+                           key=lambda k: sum(abs(k[i] - aktualny_kolor[i]) for i in range(3)))
+    print(aktualny_kolor)
+    print(najblizszy_kolor)
+    colors =[]
+    #print(colors)
+    for j in range(8):
+        for i in range(8):
+
+            new_x = x + 53 * i
+            new_y = y + 53 * j
+
+            aktualny_kolor = pyautogui.pixel(new_x, new_y)
+
+            najblizszy_kolor = min(wylosowane_kolory,
+                                   key=lambda k: sum(abs(k[i] - aktualny_kolor[i]) for i in range(3)))
+
+            for k, kolor in enumerate(wylosowane_kolory):
+                if najblizszy_kolor == kolor:
+                    colors.append(kolory[k])
+                    break
+
+    print(colors)
+
+
+    color_mapping = {
+        'pink': '🟪',
+        'yellow': '🟨',
+        'white': '⬜',
+        'orange': '🟧',
+        'blue': '🟦',
+        'green': '🟩',
+        'red': '🟥',
+        'black': '⬛'
+    }
+
+    color = [['' for _ in range(8)] for _ in range(8)]
+
+    for i in range(8):
+        for j in range(8):
+            index = (i * 8 + j) % len(colors)
+
+            color[i][j] = color_mapping[colors[index]]
+
+    for row in color:
+        print(' '.join(row))
+
+    print(color)
+
+
+
+# 53px 220,570
