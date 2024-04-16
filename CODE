@@ -6,10 +6,19 @@ from PIL import ImageGrab, Image, ImageEnhance
 import cv2
 from matplotlib import pyplot as plt
 import subprocess
-
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+start_time =time.time()
 #opening the game
 subprocess.Popen(["D:\\Bejeweled 2 Deluxe\\Bejeweled2.exe"])
-
 
 #windows title moving to the corner
 win = pyautogui.getWindowsWithTitle('Bejeweled 2 Deluxe 1.0')[0]
@@ -20,7 +29,7 @@ win.moveTo(0, 0)
 
 
 #(82, 76, 24),
-wylosowane_kolory = [(199, 22, 199), (200, 200, 100), (246, 246, 246), (255,165,0), (49, 171, 253), (19, 202, 19),
+wylosowane_kolory = [(199, 22, 199), (200, 200, 100), (230, 220, 220), (255,165,0), (49, 171, 253), (19, 202, 19),
                      (255, 99, 99),(0,0,0),(82, 76, 24),(255,255,255)]  # in order: pink, yellow,white, orange, blue, green,red
 kolory = ['pink','yellow','white','orange','blue','green','red','black','brown','rainbow']
 
@@ -29,8 +38,8 @@ timer = 0
 #coordinated for drawing dots on image
 kordy = []
 a = ''
-
-if a == '':
+import cProfile
+def test():
 
     x, y = pyautogui.position()
     width, height = 85 * 8, 84 * 8
@@ -59,7 +68,7 @@ if a == '':
         #print(colors)
         for j in range(8):
             for i in range(8):
-                new_x = x + 85 * i + 42
+                new_x = x + 85 * i + 41
                 new_y = y + 84 * j + 42
 
                 aktualny_kolor = pyautogui.pixel(new_x, new_y)
@@ -218,7 +227,7 @@ if a == '':
         elif first_color_array[i] == '🟪' and second_color_array[i] == 'P':
             pre_final_board.append('🟣')
     # 🔴🟠🟡🟢🔵🟣
-    #print(fpre array{pre_final_board})
+    print(f'pre array{pre_final_board}')
     final_board = [['' for _ in range(8)] for _ in range(8)]
     color_mapping = {
         '🟨': '🟨',
@@ -246,3 +255,153 @@ if a == '':
     # Wyświetlenie ramki final_board
     for row in final_board:
         print(row)
+    end_time = time.time()
+    print(f' elapsed in seconds:{end_time - start_time}')
+
+    check_for_moves(final_board)
+
+def check_for_moves(final_board):
+    horizontal_pair_of_gems = []
+    vertical_pair_of_gems = []
+    available_vertical_moves = 0
+    for i in range(8):
+        for j in range(7):
+            if final_board[i][j] == final_board[i][j + 1]:
+                horizontal_pair_of_gems.append(((j,i),(j+1,i)))
+    for j in range(8):
+        for i in range(7):
+            if final_board[i][j] == final_board[i+1][j]:
+                vertical_pair_of_gems.append(((j,i),(j,i+1)))
+    print('vertical pairs:')
+    print(vertical_pair_of_gems)
+    print('horizontal pairs:')
+    print(horizontal_pair_of_gems)
+    #print(horizontal_pair_of_gems[0][0])
+    #print(len(horizontal_pair_of_gems))
+    #for i in range(len(horizontal_pair_of_gems)):
+    #if final_board[horizontal_pair_of_gems[i][0][0]][horizontal_pair_of_gems[i][0][1]] == final_board[horizontal_pair_of_gems[i][0][0]][horizontal_pair_of_gems[i][0][1]]
+    #print(final_board[vertical_pair_of_gems[2][0][0]][vertical_pair_of_gems[2][0][1]])
+
+    for i in range(len(vertical_pair_of_gems)):
+        try:
+            print(vertical_pair_of_gems[i])
+            print(final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])])
+
+            if (vertical_pair_of_gems[i][0][0])-1 < 0 or (vertical_pair_of_gems[i][0][1])-1  < 0:
+
+                print('incorrect position for gem 1 higher and 1 to the left')
+
+
+
+            else:
+
+                print(f'gem higher 1 and left:{final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])-1]}') # lewy
+
+
+
+                if final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] == final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])-1]:
+
+                    print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 HIGHER 1 LEFT{bcolors.ENDC}')
+
+                    available_vertical_moves += 1
+
+
+
+
+            print(f'{bcolors.WARNING}position of gen on the left {(vertical_pair_of_gems[i][0][0])-1} {(vertical_pair_of_gems[i][0][1])-1}{bcolors.ENDC}')
+
+
+
+
+            if (vertical_pair_of_gems[i][0][0]) + 1 >8 or (vertical_pair_of_gems[i][0][1])-1  < 0 or (vertical_pair_of_gems[i][0][1]) > 8: # might have errors
+
+                print('incorrect position for gem 1 higher and 1 to the right')
+                print((vertical_pair_of_gems[i][0][0]) + 1,(vertical_pair_of_gems[i][0][1])-1)
+
+
+
+
+            else:
+
+                print(f' gem higher 1 and 1 to the right: {final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])+1]}') # prawy
+
+
+
+                if final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] == final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])+1]:
+
+                    print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 HIGHER 1 RIGHT{bcolors.ENDC}')
+
+                    available_vertical_moves += 1
+
+
+
+            print(f'{bcolors.WARNING} position of gem in the right{(vertical_pair_of_gems[i][0][0]) + 1} {(vertical_pair_of_gems[i][0][1]-1)}{bcolors.ENDC}')
+
+            #print(f' MOVES: {available_vertical_moves}')
+
+            if (vertical_pair_of_gems[i][0][0]) < 0 or (vertical_pair_of_gems[i][0][1])-2 < 0:
+
+                print('incorrect position for gem 2 higher')
+
+
+
+
+            else:
+
+                print(f' gem higher by 2:{final_board[(vertical_pair_of_gems[i][0][1])-2][(vertical_pair_of_gems[i][0][0])]}') # nad parą
+
+
+
+                if final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] == final_board[(vertical_pair_of_gems[i][0][1])-2][(vertical_pair_of_gems[i][0][0])]:
+
+                    available_vertical_moves += 1
+
+                    print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 2 HIGHER{bcolors.ENDC}')
+
+
+
+
+            print(f'{bcolors.WARNING}position of game 2 higher {(vertical_pair_of_gems[i][0][0])} {(vertical_pair_of_gems[i][0][1]) - 2}{bcolors.ENDC}')
+
+            print('------------')
+
+        except:pass
+    #print(f'{bcolors.FAIL} VERTICAL MOVES: {available_vertical_moves}{bcolors.ENDC}')
+
+
+    #HORIZONTAL EASY MOVES
+    available_horizontal_moves = 0
+
+    ''' for i in range(len(vertical_pair_of_gems)):
+        try:
+            print(vertical_pair_of_gems[i])
+            print(final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])])
+
+            if (vertical_pair_of_gems[i][0][0]) < 0 or (vertical_pair_of_gems[i][0][1])  < 0:
+                print('incorrect position for gem 1 higher and 1 to the left')
+            else:
+                print(f'gem higher 1 and left:{final_board[(vertical_pair_of_gems[i][0][1])+1][(vertical_pair_of_gems[i][0][0])+1]}') # lewy
+            print(f'{bcolors.WARNING}position of gen on the left {(vertical_pair_of_gems[i][0][0])+1} {(vertical_pair_of_gems[i][0][1]+1)}{bcolors.ENDC}')
+
+            if (vertical_pair_of_gems[i][0][0]) < 0 or (vertical_pair_of_gems[i][0][1])  > 8: # might have errors
+                print('incorrect position for gem 1 higher and 1 to the right')
+            else:
+                print(f' gem higher 1 and 1 to the right: {final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])]}') # prawy
+            print(f'{bcolors.WARNING} position of gem in the right{(vertical_pair_of_gems[i][0][0])} {(vertical_pair_of_gems[i][0][1])}{bcolors.ENDC}')
+
+            if (vertical_pair_of_gems[i][0][0]) < 0 or (vertical_pair_of_gems[i][0][1]) < 0:
+                print('incorrect position for gem 2 higher')
+            else:
+                print(f' gem higher by 2:{final_board[(vertical_pair_of_gems[i][0][0])][(vertical_pair_of_gems[i][0][1])]}') # nad parą
+            print(f'{bcolors.WARNING}position of game 2 higher {(vertical_pair_of_gems[i][0][0])} {(vertical_pair_of_gems[i][0][1])}{bcolors.ENDC}')
+
+            print('------------')
+        except:pass'''
+    '''for i in range(len(horizontal_pair_of_gems)):
+        print(horizontal_pair_of_gems[i][0])
+        print(horizontal_pair_of_gems[i][0][0])
+    for i in range(len(horizontal_pair_of_gems)):
+        print(horizontal_pair_of_gems[i][0][1])'''
+test()
+
+#cProfile.run('test()')
