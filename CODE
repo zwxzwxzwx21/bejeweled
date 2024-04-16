@@ -366,8 +366,93 @@ def check_for_moves(final_board):
             print('------------')
 
         except:pass
-    #print(f'{bcolors.FAIL} VERTICAL MOVES: {available_vertical_moves}{bcolors.ENDC}')
+    print(f'=================================================')
+    for i in range(len(vertical_pair_of_gems)):
+        try:
+            print(vertical_pair_of_gems[i])
+            print(final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])])
 
+            if (vertical_pair_of_gems[i][1][0])-1 < 0 or (vertical_pair_of_gems[i][1][1])+1 > 8:
+
+                print('incorrect position for gem 1 lower and 1 to the left')
+
+
+
+            else:
+
+                print(f'gem lower 1 and left:{final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])-1]}') # lewy
+
+
+
+                if final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] == final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])-1]:
+
+                    print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 lower 1 LEFT{bcolors.ENDC}')
+
+                    available_vertical_moves += 1
+
+
+
+
+            print(f'{bcolors.WARNING}position of gen on the left {(vertical_pair_of_gems[i][1][0])-1} {(vertical_pair_of_gems[i][1][1])+1}{bcolors.ENDC}')
+
+
+
+
+            if (vertical_pair_of_gems[i][1][0]) + 1 >8 or (vertical_pair_of_gems[i][1][1])+1  > 8 or (vertical_pair_of_gems[i][1][1]) > 8: # might have errors
+
+                print('incorrect position for gem 1 lower and 1 to the right')
+                print((vertical_pair_of_gems[i][1][0]) + 1,(vertical_pair_of_gems[i][1][1])+1)
+
+
+
+
+            else:
+
+                print(f' gem lower 1 and 1 to the right: {final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])+1]}') # prawy
+
+
+
+                if final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] == final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])+1]:
+
+                    print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 lower 1 RIGHT{bcolors.ENDC}')
+
+                    available_vertical_moves += 1
+
+
+
+            print(f'{bcolors.WARNING} position of gem in the right{(vertical_pair_of_gems[i][1][0]) + 1} {(vertical_pair_of_gems[i][1][1]+1)}{bcolors.ENDC}')
+
+            #print(f' MOVES: {available_vertical_moves}')
+
+            if (vertical_pair_of_gems[i][1][0]) < 0 or (vertical_pair_of_gems[i][1][1])+2 > 8:
+
+                print('incorrect position for gem 2 lower')
+
+
+
+
+            else:
+
+                print(f' gem lower by 2:{final_board[(vertical_pair_of_gems[i][1][1])+2][(vertical_pair_of_gems[i][1][0])]}') # pod parą
+
+
+
+                if final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] == final_board[(vertical_pair_of_gems[i][1][1])+2][(vertical_pair_of_gems[i][0][0])]:
+
+                    available_vertical_moves += 1
+
+                    print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 2 lower{bcolors.ENDC}')
+
+
+
+
+            print(f'{bcolors.WARNING}position of game 2 lower {(vertical_pair_of_gems[i][1][0])} {(vertical_pair_of_gems[i][1][1]) - 2}{bcolors.ENDC}')
+
+            print('------------')
+
+        except:pass
+    #print(f'{bcolors.FAIL} VERTICAL MOVES: {available_vertical_moves}{bcolors.ENDC}')
+    print(f'{bcolors.OKBLUE}VERTICAL MOVES: {available_vertical_moves}{bcolors.ENDC}')
 
     #HORIZONTAL EASY MOVES
     available_horizontal_moves = 0
