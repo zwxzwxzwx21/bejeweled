@@ -675,7 +675,7 @@ def check_for_moves(final_board):
             except:pass
 
     print('############ MOVES BY 4 ###############')
-    #moves by 4!!!
+    #moves by 4!!! horizontal
     for i in range(8):
         for j in range(8):
 
@@ -688,14 +688,14 @@ def check_for_moves(final_board):
                                 if j+3 < 8:
                                     if final_board[i][j] == final_board[i][j+3]:
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j+2} {i} fourth gem at x: {j+3} {i}')
-                        if i - 1 > 0 and j + 1 < 8:
+                        if i - 1 > -1 and j + 1 < 8:
                             if final_board[i][j] == final_board[i - 1][j + 1]:
                                 if j+3 < 8:
                                     if final_board[i][j] == final_board[i][j+3]:
                                         print(
                                             f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i - 1} third {j + 2} {i} fourth gem at x: {j + 3} {i}')
 
-                        if i - 1 > 0 and j + 1 < 8:
+                        if i - 1 > -1 and j + 1 < 8:
                             if final_board[i][j] == final_board[i - 1][j + 1]:
                                 if j-1 > -1:
                                     if final_board[i][j] == final_board[i][j - 1]:
@@ -706,6 +706,51 @@ def check_for_moves(final_board):
                                 if j - 1 > -1:
                                     if final_board[i][j] == final_board[i][j - 1]:
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j + 2} {i} fourth gem at x: {j-1} {i}')
+
+
+    #vertical;
+    print("@@@@@@@@@@@@@@@ 4 moves vertical; @@@@@@@@@@@@@@@@@@")
+    for i in range(8):
+        for j in range(8):
+
+           if i + 2 < 8:
+                if final_board[i][j] == final_board[i+2][j]:
+
+                        if i+1 < 8 and j+1 < 8:
+                            if final_board[i][j] == final_board[i+1][j+1] :
+                                if i + 3 < 8:
+                                    if final_board[i][j] == final_board[i+3][j]:
+                                        print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i+3}')
+
+                        if i+1 < 8 and j-1 > -1:
+                            if final_board[i][j] == final_board[i+1][j-1] :
+                                if i + 3 < 8:
+                                    if final_board[i][j] == final_board[i+3][j]:
+                                        print(f' four move found with gem at x: {j} y: {i}, second gem at {j-1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i+3}')
+
+                        if j-1 > -1 and i+1 < 8 and i -1 > -1 :
+                            if final_board[i][j] == final_board[i+1][j-1] :
+                                if i + 3 < 8:
+                                    if final_board[i][j] == final_board[i - 1][j]:
+                                        print(f' four move found with gem at x: {j} y: {i}, second gem at {j - 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i-1}')
+
+                        if i+1 < 8 and j+1 < 8 and i -1 > -1 :
+                            if final_board[i][j] == final_board[i+1][j+1] :
+                                if i + 3 < 8:
+                                    if final_board[i][j] == final_board[i-1][j]:
+                                        print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i-1}')
+
+
+                        '''if i+1 < 8 and j-1 > -1:
+                            if final_board[i][j] == final_board[i+1][j-1]:
+                                print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i + 2][j]} x2: {j}, y2: {i + 2}')
+    
+                                print(f'move found with gem at x: {j-1} y: {i+1}')'''
+
+
+
+
+
     print('$$$$$$$$$$$$$$ MOVES BY 5 $$$$$$$$$$$$$$$$$')
     for i in range(8):
         for j in range(8):
@@ -726,6 +771,28 @@ def check_for_moves(final_board):
                                         print(f' five move found with gem at x: {j+1} y: {i-1}, second gem at {j-1} {i} third gem at {j} {i} fourth {j + 2} {i} fifth gem at x: {j + 3} {i}')
 
 
+
+
+    print("@@@@@@@@@@@@@@@ 5 moves vertical; @@@@@@@@@@@@@@@@@@")
+    for i in range(8):
+        for j in range(8):
+
+            if i + 2 < 8:
+                if final_board[i][j] == final_board[i + 2][j]:
+
+                    if i + 1 < 8 and j + 1 < 8:
+                        if final_board[i][j] == final_board[i + 1][j + 1]:
+                            if i + 3 < 8 and i -1 > -1:
+                                if final_board[i][j] == final_board[i + 3][j] and final_board[i][j] == final_board[i-1][j]:
+                                    print(f' five move found with gem at x: {j+1} y: {i+1}, second gem at {j} {i - 1} third {j} {i} fourth gem at x: {j} {i + 2} fifth gem at x: {j} {i+3}')
+
+                    if i + 1 < 8 and j - 1 > -1:
+                        if final_board[i][j] == final_board[i + 1][j - 1]:
+                            if i + 3 < 8 and i-1 > -1:
+                                if final_board[i][j] == final_board[i + 3][j] and final_board[i][j] == final_board[i-1][j]:
+                                    print(f' four move found with gem at x: {j-1} y: {i+1}, second gem at {j} {i - 1} third {j} {i} fourth gem at x: {j} {i + 2} fifth gem at x {j} {i+3}')
+
+
 '''TODO:
 powered gems matched with normal gems , i think the best would be to go by each poerwed gem cuz there are like 5 at best on the board so it shoulnt be that bad
 (powered with powered should be already done, cant really test because of how rare that scenario is :/)
@@ -739,14 +806,14 @@ add moves by 5
 
 
 final_board =\
-[['🟨', '🟨', '🟦', '🟨', '🟨', '🟨', '🟩', '🟩'],
-['🟩', '⬜', '🟨', '🟪', '🟩', '🟩', '⬜', '🟩'],
-['🟨', '🟧', '🟥', '🟦', '⬜', '🟦', '⬜', '🟥'],
-['🟦', '🟥', '🟪', '🟦', '🟦', '🟧', '🟦', '🟦'],
-['🟧', '🌈', '⬜', '⚪', '🟦', '🟦', '🟧', '🟦'],
-['🟥', '🟪', '⬜', '🟠', '🟪', '🟥', '🟦', '🟥'],
-['🟥', '🟥', '🟧', '🟥', '🟥', '🟪', '🟪', '🟦'],
-['🟧', '🟧', '🟥', '🟧', '🟧', '🟪', '🟪', '🟪']]
+[['🟨', '🟨', '🟦', '🟩', '🟨', '🟨', '🟩', '🟩'],
+['🟨', '🟨', '🟨', '🟪', '🟩', '🟩', '⬜', '🟩'],
+['🟨', '🟨', '🟥', '🟦', '⬜', '🟦', '🟩', '🟥'],
+['🟨', '🟪', '🟪', '🟦', '🟩', '🟪', '🟩', '🟩'],
+['🟨', '🌈', '🟪', '⚪', '🟦', '🟪', '🟧', '🟩'],
+['🟪', '🟥', '⬜', '🟠', '🟪', '🟥', '🟦', '🟥'],
+['🟥', '🟥', '🟧', '🟥', '🟥', '🟪', '🟩', '🟦'],
+['🟥', '🟩', '🟥', '🟧', '🟧', '🟪', '🟪', '🟦']]
 check_for_moves(final_board)
 #test()
 #cProfile.run('test()')
