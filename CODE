@@ -6,6 +6,7 @@ from PIL import ImageGrab, Image, ImageEnhance
 import cv2
 from matplotlib import pyplot as plt
 import subprocess
+import copy
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -16,6 +17,7 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+debug = False
 start_time =time.time()
 #opening the game
 subprocess.Popen(["D:\\Bejeweled 2 Deluxe\\Bejeweled2.exe"])
@@ -154,34 +156,14 @@ def test():
             for j in range(8):
                 index = (i * 8 + j) % len(colors)
                 color_power[i][j] = color_mapping[colors[index]]
-        #for row in color_power:
-            #print(' '.join(row))
+        for row in color_power:
+            print(' '.join(row))
         #print(f' [color_power]= {color_power}')
     #print(array_color)
     #print(len(kordy))
     #print(kordy)
-    # Wykonaj zrzut ekranu
-    '''width, height = 85 * 8, 84 * 8
-    xx, yy = 305,62
-    # Wykonaj zrzut ekranu w określonym obszarze
-    screenshot = pyautogui.screenshot(region=(xx, yy, width, height))
-    screenshot.save("screenshot.png")
-
-    # Załaduj zrzut ekranu
-    edited_screenshot = Image.open("screenshot.png")
 
 
-    # Zapisz zedytowany zrzut ekranu
-    edited_screenshot.save("edited_screenshot.png")
-
-    image = cv2.imread('screenshot.png')
-    for x, y in kordy:
-        image = cv2.circle(image, (x, y), radius=0, color=(255, 255, 255), thickness=-3)
-
-    # Wyświetl obraz
-    cv2.imshow('Modified Image', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()'''
     # compare arrays to determine what is what
     first_color_array = []
     second_color_array = []
@@ -257,13 +239,51 @@ def test():
         print(row)
     end_time = time.time()
     print(f' elapsed in seconds:{end_time - start_time}')
+    global original_board
+    original_board =copy.deepcopy(final_board)
+    print(f' orig {original_board}') # dobry
+    #convert the board to cound powered gems as normal gems so you can make moves with normal and powered
+    converted_board = [['' for _ in range(8)] for _ in range(8)]
+    emoji_mapping = {
+        '🟨': '🟨',  # yellow
+        '🟦': '🟦',  # blue
+        '🟩': '🟩',  # green
+        '🟪': '🟪',  # purple
+        '⬜': '⬜',  # white
+        '🟥': '🟥',  # red
+        '🌈': '🌈',  # rainbow
+        '⚪': '⬜',  # white circle
+        '🔵': '🟦',  # blue circle -> blue square
+        '🔴': '🟥',  # red circle -> red square
+        '🟣': '🟪',  # purple circle -> purple square
+        '🟢': '🟩',  # green circle -> green square
+        '🟠': '🟧',  # orange
+        '🟡': '🟨'  # yellow circle -> yellow square
+    }
+    for i in range(8):
+        for j in range(8):
+            gem = final_board[i][j]
+            if gem in emoji_mapping:
+                converted_board[i][j] = emoji_mapping[gem]
+            else:
+                converted_board[i][j] = gem
+    for row in converted_board:
+        print(' '.join(row))
+    check_for_moves(converted_board)
 
-    check_for_moves(final_board)
 
 def check_for_moves(final_board):
     horizontal_pair_of_gems = []
     vertical_pair_of_gems = []
     available_vertical_moves = 0
+
+    #moves based off of position of the gem that will create a move, ie. the one that dissapeares after move
+    #gem positions will be stored here and off of those arrays moves will be calculated
+    moves_to_left = []
+    moves_to_right = []
+    moves_to_down = []
+    moves_to_up = []
+
     for i in range(8):
         for j in range(7):
             if final_board[i][j] == final_board[i][j + 1]:
@@ -276,79 +296,82 @@ def check_for_moves(final_board):
     print(vertical_pair_of_gems)
     print('horizontal pairs:')
     print(horizontal_pair_of_gems)
-    #print(horizontal_pair_of_gems[0][0])
-    #print(len(horizontal_pair_of_gems))
-    #for i in range(len(horizontal_pair_of_gems)):
-    #if final_board[horizontal_pair_of_gems[i][0][0]][horizontal_pair_of_gems[i][0][1]] == final_board[horizontal_pair_of_gems[i][0][0]][horizontal_pair_of_gems[i][0][1]]
-    #print(final_board[vertical_pair_of_gems[2][0][0]][vertical_pair_of_gems[2][0][1]])
 
+    print('vertical moves with pair')
     for i in range(len(vertical_pair_of_gems)):
         #try:
-            print(vertical_pair_of_gems[i])
-            print(final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])])
+            if debug:print(vertical_pair_of_gems[i])
+            if debug:print(final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])])
 
             if (vertical_pair_of_gems[i][0][0])-1 < 0 or (vertical_pair_of_gems[i][0][1])-1  < 0:
 
-                print('incorrect position for gem 1 higher and 1 to the left')
+                if debug:print('incorrect position for gem 1 higher and 1 to the left')
 
 
 
             else:
-
-                print(f'gem higher 1 and left:{final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])-1]}') # lewy
+                if debug:
+                    print(f'gem higher 1 and left:{final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])-1]}') # lewy
 
 
 
                 if final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] == final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])-1]:
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 HIGHER 1 LEFT{bcolors.ENDC}')
+                    move = ((vertical_pair_of_gems[i][0][0]) - 1, vertical_pair_of_gems[i][0][1] - 1,'316')
+                    if move not in moves_to_right:
+                        moves_to_right.append(move)
+
 
                     available_vertical_moves += 1
 
 
 
 
-            print(f'{bcolors.WARNING}position of gen on the left {(vertical_pair_of_gems[i][0][0])-1} {(vertical_pair_of_gems[i][0][1])-1}{bcolors.ENDC}')
+            if debug: print(f'{bcolors.WARNING}position of gen on the left {(vertical_pair_of_gems[i][0][0])-1} {(vertical_pair_of_gems[i][0][1])-1}{bcolors.ENDC}')
 
 
 
 
             if (vertical_pair_of_gems[i][0][0]) + 1 >7 or (vertical_pair_of_gems[i][0][1])-1  < 0 or (vertical_pair_of_gems[i][0][1]) > 8: # might have errors
-
-                print('incorrect position for gem 1 higher and 1 to the right')
-                #print((vertical_pair_of_gems[i][0][0]) + 1,(vertical_pair_of_gems[i][0][1])-1)
+                if debug:
+                    print('incorrect position for gem 1 higher and 1 to the right')
+                    #  print((vertical_pair_of_gems[i][0][0]) + 1,(vertical_pair_of_gems[i][0][1])-1)
 
 
 
 
             else:
-
-                print(f' gem higher 1 and 1 to the right: {final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])+1]}') # prawy
+                if debug:
+                    print(f' gem higher 1 and 1 to the right: {final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])+1]}') # prawy
 
 
 
                 if final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] == final_board[(vertical_pair_of_gems[i][0][1])-1][(vertical_pair_of_gems[i][0][0])+1]:
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 HIGHER 1 RIGHT{bcolors.ENDC}')
+                    move = ((vertical_pair_of_gems[i][0][0])+1,(vertical_pair_of_gems[i][0][1])-1,'348')
+                    if move not in moves_to_left:
 
+                        moves_to_left.append(move)
                     available_vertical_moves += 1
 
 
 
-            print(f'{bcolors.WARNING} position of gem in the right{(vertical_pair_of_gems[i][0][0]) + 1} {(vertical_pair_of_gems[i][0][1]-1)}{bcolors.ENDC}')
+            if debug:print(f'{bcolors.WARNING} position of gem in the right{(vertical_pair_of_gems[i][0][0]) + 1} {(vertical_pair_of_gems[i][0][1]-1)}{bcolors.ENDC}')
 
             #print(f' MOVES: {available_vertical_moves}')
 
             if (vertical_pair_of_gems[i][0][0]) < 0 or (vertical_pair_of_gems[i][0][1])-2 < 0:
-
-                print('incorrect position for gem 2 higher')
+                if debug:
+                    print('incorrect position for gem 2 higher')
 
 
 
 
             else:
 
-                print(f' gem higher by 2:{final_board[(vertical_pair_of_gems[i][0][1])-2][(vertical_pair_of_gems[i][0][0])]}') # nad parą
+                if debug:print(f' gem higher by 2:{final_board[(vertical_pair_of_gems[i][0][1])-2][(vertical_pair_of_gems[i][0][0])]}') # nad parą
 
 
 
@@ -357,30 +380,32 @@ def check_for_moves(final_board):
                     available_vertical_moves += 1
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 2 HIGHER{bcolors.ENDC}')
+                    move = ((vertical_pair_of_gems[i][0][0]),(vertical_pair_of_gems[i][0][1])-2,'378')
+                    if move not in moves_to_down:
+
+                        moves_to_down.append(move)
 
 
 
+            if debug:print(f'{bcolors.WARNING}position of game 2 higher {(vertical_pair_of_gems[i][0][0])} {(vertical_pair_of_gems[i][0][1]) - 2}{bcolors.ENDC}')
 
-            print(f'{bcolors.WARNING}position of game 2 higher {(vertical_pair_of_gems[i][0][0])} {(vertical_pair_of_gems[i][0][1]) - 2}{bcolors.ENDC}')
+            if debug:print('------------')
 
-            print('------------')
 
-        #except:pass
-    print(f'=================================================')
     for i in range(len(vertical_pair_of_gems)):
         #try:
             print(vertical_pair_of_gems[i])
-            print(final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])])
+            if debug:print(final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])])
 
             if (vertical_pair_of_gems[i][1][0])-1 < 0 or (vertical_pair_of_gems[i][1][1])+1 > 7:
 
-                print('incorrect position for gem 1 lower and 1 to the left')
+                if debug:print('incorrect position for gem 1 lower and 1 to the left')
 
 
 
             else:
 
-                print(f'gem lower 1 and left:{final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])-1]}') # lewy
+                if debug:print(f'gem lower 1 and left:{final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])-1]}') # lewy
 
 
 
@@ -388,19 +413,22 @@ def check_for_moves(final_board):
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 lower 1 LEFT{bcolors.ENDC}')
 
+                    move = ((vertical_pair_of_gems[i][1][0])-1,(vertical_pair_of_gems[i][1][1])+1,'411')
+                    if move not in moves_to_right:
+                        moves_to_right.append(move)
                     available_vertical_moves += 1
 
 
 
 
-            print(f'{bcolors.WARNING}position of gen on the left {(vertical_pair_of_gems[i][1][0])-1} {(vertical_pair_of_gems[i][1][1])+1}{bcolors.ENDC}')
+            if debug:print(f'{bcolors.WARNING}position of gen on the left {(vertical_pair_of_gems[i][1][0])-1} {(vertical_pair_of_gems[i][1][1])+1}{bcolors.ENDC}')
 
 
 
 
             if (vertical_pair_of_gems[i][1][0]) + 1 >7 or (vertical_pair_of_gems[i][1][1])+1  > 7 or (vertical_pair_of_gems[i][1][1]) > 8: # might have errors
 
-                print('incorrect position for gem 1 lower and 1 to the right')
+                if debug:print('incorrect position for gem 1 lower and 1 to the right')
                 #print((vertical_pair_of_gems[i][1][0]) + 1,(vertical_pair_of_gems[i][1][1])+1)
 
 
@@ -408,32 +436,36 @@ def check_for_moves(final_board):
 
             else:
 
-                print(f' gem lower 1 and 1 to the right: {final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])+1]}') # prawy
+                if debug:print(f' gem lower 1 and 1 to the right: {final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])+1]}') # prawy
 
 
 
                 if final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] == final_board[(vertical_pair_of_gems[i][1][1])+1][(vertical_pair_of_gems[i][1][0])+1]:
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 lower 1 RIGHT{bcolors.ENDC}')
+                    move = ((vertical_pair_of_gems[i][1][0])+1,(vertical_pair_of_gems[i][1][1])+1,'441')
+                    if move not in moves_to_left:
+
+                        moves_to_left.append(move)
 
                     available_vertical_moves += 1
 
 
 
-            print(f'{bcolors.WARNING} position of gem in the righT {(vertical_pair_of_gems[i][1][0]) + 1} {(vertical_pair_of_gems[i][1][1]+1)}{bcolors.ENDC}')
+            if debug:print(f'{bcolors.WARNING} position of gem in the righT {(vertical_pair_of_gems[i][1][0]) + 1} {(vertical_pair_of_gems[i][1][1]+1)}{bcolors.ENDC}')
 
             #print(f' MOVES: {available_vertical_moves}')
 
             if (vertical_pair_of_gems[i][1][0]) < 0 or (vertical_pair_of_gems[i][1][1])+2 > 7:
 
-                print('incorrect position for gem 2 lower')
+                if debug:print('incorrect position for gem 2 lower')
 
 
 
 
             else:
 
-                print(f' gem lower by 2:{final_board[(vertical_pair_of_gems[i][1][1])+2][(vertical_pair_of_gems[i][1][0])]}') # pod parą
+                if debug:print(f' gem lower by 2:{final_board[(vertical_pair_of_gems[i][1][1])+2][(vertical_pair_of_gems[i][1][0])]}') # pod parą
 
 
 
@@ -442,88 +474,98 @@ def check_for_moves(final_board):
                     available_vertical_moves += 1
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 2 lower{bcolors.ENDC}')
+                    move = ((vertical_pair_of_gems[i][1][0]),(vertical_pair_of_gems[i][1][1])+2,'472')
+                    if move not in moves_to_up:
+
+                        moves_to_up.append(move)
 
 
 
+            if debug:print(f'{bcolors.WARNING}position of game 2 lower {(vertical_pair_of_gems[i][1][0])} {(vertical_pair_of_gems[i][1][1]) + 2}{bcolors.ENDC}')
 
-            print(f'{bcolors.WARNING}position of game 2 lower {(vertical_pair_of_gems[i][1][0])} {(vertical_pair_of_gems[i][1][1]) + 2}{bcolors.ENDC}')
+            if debug:print('------------')
 
-            print('------------')
 
-        #except:pass
     #print(f'{bcolors.FAIL} VERTICAL MOVES: {available_vertical_moves}{bcolors.ENDC}')
     print(f'{bcolors.OKBLUE}VERTICAL MOVES: {available_vertical_moves}{bcolors.ENDC}')
 
     #HORIZONTAL EASY MOVES
+    print('horizontal moves with pair')
     available_horizontal_moves = 0
     print(f'################ HORIZONTAL MOVES #####################')
     for i in range(len(horizontal_pair_of_gems)):
         #try:
             print(horizontal_pair_of_gems[i])
-            print(final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])])
+            if debug:print(final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])])
 
             if (horizontal_pair_of_gems[i][0][0])-1 < 0 or (horizontal_pair_of_gems[i][0][1])-1  < 0:
 
-                print('incorrect position for gem 1 higher and 1 to the left')
+                if debug:print('incorrect position for gem 1 higher and 1 to the left')
 
 
 
             else:
 
-                print(f'gem higher 1 and left:{final_board[(horizontal_pair_of_gems[i][0][1])-1][(horizontal_pair_of_gems[i][0][0])-1]}') # lewy
+                if debug:print(f'gem higher 1 and left:{final_board[(horizontal_pair_of_gems[i][0][1])-1][(horizontal_pair_of_gems[i][0][0])-1]}') # lewy
 
 
 
                 if final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] == final_board[(horizontal_pair_of_gems[i][0][1])-1][(horizontal_pair_of_gems[i][0][0])-1]:
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 HIGHER 1 LEFT{bcolors.ENDC}')
+                    move = ((horizontal_pair_of_gems[i][0][0])-1,(horizontal_pair_of_gems[i][0][1])-1,'511')
+                    if move not in moves_to_down:
 
+                        moves_to_down.append(move)
                     available_horizontal_moves += 1
 
 
 
 
-            print(f'{bcolors.WARNING}position of gen 1 higher on the left {(horizontal_pair_of_gems[i][0][0])-1} {(horizontal_pair_of_gems[i][0][1])-1}{bcolors.ENDC}')
+            if debug:print(f'{bcolors.WARNING}position of gen 1 higher on the left {(horizontal_pair_of_gems[i][0][0])-1} {(horizontal_pair_of_gems[i][0][1])-1}{bcolors.ENDC}')
 
 
 
 
             if (horizontal_pair_of_gems[i][0][0]) - 1 <0 or (horizontal_pair_of_gems[i][0][1])+1  > 7 or (horizontal_pair_of_gems[i][0][1]) > 8: # might have errors
 
-                print('incorrect position for gem 1 lower and 1 to the left')
-                print((horizontal_pair_of_gems[i][0][0]) - 1,(horizontal_pair_of_gems[i][0][1])+1)
+                if debug:print('incorrect position for gem 1 lower and 1 to the left')
+                if debug:print((horizontal_pair_of_gems[i][0][0]) - 1,(horizontal_pair_of_gems[i][0][1])+1)
 
 
 
 
             else:
 
-                print(f' gem lower 1 and 1 to the left: {final_board[(horizontal_pair_of_gems[i][0][1])+1][(horizontal_pair_of_gems[i][0][0])-1]}') # prawy
+                if debug:print(f' gem lower 1 and 1 to the left: {final_board[(horizontal_pair_of_gems[i][0][1])+1][(horizontal_pair_of_gems[i][0][0])-1]}') # prawy
 
 
 
                 if final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] == final_board[(horizontal_pair_of_gems[i][0][1])+1][(horizontal_pair_of_gems[i][0][0])-1]:
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 LOWER 1 LEFT{bcolors.ENDC}')
+                    move = ((horizontal_pair_of_gems[i][0][0])-1,(horizontal_pair_of_gems[i][0][1])+1,'542')
+                    if move not in moves_to_up:
 
+                        moves_to_up.append(move)
                     available_horizontal_moves += 1
 
 
 
-            print(f'{bcolors.WARNING} position of gem in the left{(horizontal_pair_of_gems[i][0][0]) - 1} {(horizontal_pair_of_gems[i][0][1]+1)}{bcolors.ENDC}')
+            if debug:print(f'{bcolors.WARNING} position of gem in the left{(horizontal_pair_of_gems[i][0][0]) - 1} {(horizontal_pair_of_gems[i][0][1]+1)}{bcolors.ENDC}')
 
             #print(f' MOVES: {available_vertical_moves}')
 
             if (horizontal_pair_of_gems[i][0][0])-2 < 0 or (horizontal_pair_of_gems[i][0][1]) < 0:
 
-                print('incorrect position for gem 2 to left')
+                if debug:print('incorrect position for gem 2 to left')
 
 
 
 
             else:
 
-                print(f' gem left  by 2:{final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])-2]}') # nad parą
+                if debug:print(f' gem left  by 2:{final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])-2]}') # nad parą
 
 
 
@@ -532,83 +574,91 @@ def check_for_moves(final_board):
                     available_horizontal_moves += 1
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 2 TO LEFT{bcolors.ENDC}')
+                    move = ((horizontal_pair_of_gems[i][0][0])-2,(horizontal_pair_of_gems[i][0][1]),'572')
+                    if move not in moves_to_right:
+
+                        moves_to_right.append(move)
 
 
 
+            if debug:print(f'{bcolors.WARNING}position of game 2 to left {(horizontal_pair_of_gems[i][0][0])-2} {(horizontal_pair_of_gems[i][0][1])}{bcolors.ENDC}')
 
-            print(f'{bcolors.WARNING}position of game 2 to left {(horizontal_pair_of_gems[i][0][0])-2} {(horizontal_pair_of_gems[i][0][1])}{bcolors.ENDC}')
+            if debug:print('------------')
 
-            print('------------')
 
-        #except:continue
-    print('##################################')
     for i in range(len(horizontal_pair_of_gems)):
         #try:
             print(horizontal_pair_of_gems[i])
-            print(final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])])
+            if debug:print(final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])])
 
             if (horizontal_pair_of_gems[i][1][0])+1 > 7 or (horizontal_pair_of_gems[i][1][1])-1  < 0:
 
-                print('incorrect position for gem 1 higher and 1 to the right')
+                if debug:print('incorrect position for gem 1 higher and 1 to the right')
 
 
 
             else:
 
-                print(f'gem higher 1 and right:{final_board[(horizontal_pair_of_gems[i][1][1])-1][(horizontal_pair_of_gems[i][1][0])+1]}') # lewy
+                if debug:print(f'gem higher 1 and right:{final_board[(horizontal_pair_of_gems[i][1][1])-1][(horizontal_pair_of_gems[i][1][0])+1]}') # lewy
 
 
 
                 if final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] == final_board[(horizontal_pair_of_gems[i][1][1])-1][(horizontal_pair_of_gems[i][1][0])+1]:
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 HIGHER 1 RIGHT{bcolors.ENDC}')
+                    move = ((horizontal_pair_of_gems[i][1][0])+1,(horizontal_pair_of_gems[i][1][1])-1,'604')
+                    if move not in moves_to_down:
 
+                        moves_to_down.append(move)
                     available_horizontal_moves += 1
 
 
 
 
-            print(f'{bcolors.WARNING}position of gen 1 higher on the right {(horizontal_pair_of_gems[i][1][0])+1} {(horizontal_pair_of_gems[i][1][1])-1}{bcolors.ENDC}')
+            if debug:print(f'{bcolors.WARNING}position of gen 1 higher on the right {(horizontal_pair_of_gems[i][1][0])+1} {(horizontal_pair_of_gems[i][1][1])-1}{bcolors.ENDC}')
 
 
 
 
             if (horizontal_pair_of_gems[i][1][0]) + 1 > 7 or (horizontal_pair_of_gems[i][1][1])+1  > 7: # might have errors
 
-                print('incorrect position for gem 1 lower and 1 to the right')
-                print((horizontal_pair_of_gems[i][1][0]) + 1,(horizontal_pair_of_gems[i][1][1])+1)
+                if debug:print('incorrect position for gem 1 lower and 1 to the right')
+                if debug:print((horizontal_pair_of_gems[i][1][0]) + 1,(horizontal_pair_of_gems[i][1][1])+1)
 
 
 
 
             else:
 
-                print(f' gem lower 1 and 1 to the right: {final_board[(horizontal_pair_of_gems[i][1][1])+1][(horizontal_pair_of_gems[i][1][0])+1]}') # prawy
+                if debug:print(f' gem lower 1 and 1 to the right: {final_board[(horizontal_pair_of_gems[i][1][1])+1][(horizontal_pair_of_gems[i][1][0])+1]}') # prawy
 
 
 
                 if final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] == final_board[(horizontal_pair_of_gems[i][1][1])+1][(horizontal_pair_of_gems[i][1][0])+1]:
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 1 LOWER 1 RIGHT{bcolors.ENDC}')
+                    move = ((horizontal_pair_of_gems[i][1][0])+1,(horizontal_pair_of_gems[i][1][1])+1,'635')
+                    if move not in moves_to_up:
 
+                        moves_to_up.append(move)
                     available_horizontal_moves += 1
 
 
 
-            print(f'{bcolors.WARNING} position of gem in the right{(horizontal_pair_of_gems[i][1][0]) + 1} {(horizontal_pair_of_gems[i][1][1]+1)}{bcolors.ENDC}')
+            if debug:print(f'{bcolors.WARNING} position of gem in the right{(horizontal_pair_of_gems[i][1][0]) + 1} {(horizontal_pair_of_gems[i][1][1]+1)}{bcolors.ENDC}')
 
             #print(f' MOVES: {available_vertical_moves}')
 
             if (horizontal_pair_of_gems[i][1][0])+2 > 7 or (horizontal_pair_of_gems[i][1][1]) < 0:
 
-                print('incorrect position for gem 2 to right')
+                if debug:print('incorrect position for gem 2 to right')
 
 
 
 
             else:
 
-                print(f' gem right  by 2:{final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])+2]}') # nad parą
+                if debug:print(f' gem right  by 2:{final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])+2]}') # nad parą
 
 
 
@@ -617,18 +667,21 @@ def check_for_moves(final_board):
                     available_horizontal_moves += 1
 
                     print(f'{bcolors.OKBLUE}MOVE FOUND FOR GEM 2 TO RIGHT{bcolors.ENDC}')
+                    move = ((horizontal_pair_of_gems[i][1][0])+2,(horizontal_pair_of_gems[i][1][1]),'665')
+                    if move not in moves_to_left:
+
+                        moves_to_left.append(move)
 
 
 
+            if debug:print(f'{bcolors.WARNING}position of game 2 to right {(horizontal_pair_of_gems[i][1][0])+2} {(horizontal_pair_of_gems[i][1][1])}{bcolors.ENDC}')
 
-            print(f'{bcolors.WARNING}position of game 2 to right {(horizontal_pair_of_gems[i][1][0])+2} {(horizontal_pair_of_gems[i][1][1])}{bcolors.ENDC}')
+            if debug:print('------------')
 
-            print('------------')
 
-        #except:continue
     print(f'{bcolors.OKBLUE}HORIZONTAL MOVES: {available_horizontal_moves}{bcolors.ENDC}')
+    print('horizontal moves with empty middle')
 
-    print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
     #checking for moves that would be 2 in same row and 1 higher/lower/left/right but in the middle in general
     for i in range(8):
         for j in range(8):
@@ -642,15 +695,25 @@ def check_for_moves(final_board):
                         if final_board[i][j] == final_board[i+1][j+1] :
                             print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i][j + 2]} x2: {j + 2}, y2: {i}')
                             print(f'move found with gem at x: {j+1} y: {i+1}')
-                    if i-1 > 0 and j+1 < 8:
+                            move = (j+1,i+1,'693')
+                            if move not in moves_to_up:
+
+                                moves_to_up.append(move)
+
+
+                    if i-1 > -1 and j+1 < 8:
                         if final_board[i][j] == final_board[i-1][j+1]:
                             print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i][j + 2]} x2: {j + 2}, y2: {i}')
                             print(f'move found with gem at x: {j+1} y: {i-1}')
+                            move = (j+1,i-1,'703')
+                            if move not in moves_to_down:
 
+                                moves_to_down.append(move)
 
             except:pass
     #same but vertical
-    print('$$$$$$$$$$$$$$$$$$')
+    print('vertical  moves with empty middle')
+
     for i in range(8):
         for j in range(8):
             try:
@@ -665,12 +728,18 @@ def check_for_moves(final_board):
                             print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i + 2][j]} x2: {j}, y2: {i + 2}')
 
                             print(f'move found with gem at x: {j+1} y: {i+1}')
+                            move = (j+1,i+1,'726')
+                            if move not in moves_to_left:
+                                moves_to_left.append(move)
                     if i+1 < 8 and j-1 > -1:
                         if final_board[i][j] == final_board[i+1][j-1]:
                             print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i + 2][j]} x2: {j}, y2: {i + 2}')
 
                             print(f'move found with gem at x: {j-1} y: {i+1}')
+                            move = ( j - 1,i + 1,'734')
+                            if move not in moves_to_right:
 
+                                moves_to_right.append(move)
 
             except:pass
 
@@ -687,26 +756,36 @@ def check_for_moves(final_board):
                             if final_board[i][j] == final_board[i + 1][j + 1]:
                                 if j+3 < 8:
                                     if final_board[i][j] == final_board[i][j+3]:
+                                        move = (j+1,i+1,'754')
+                                        if move not in moves_to_up:
+
+                                            moves_to_up.append(move)
+
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j+2} {i} fourth gem at x: {j+3} {i}')
                         if i - 1 > -1 and j + 1 < 8:
                             if final_board[i][j] == final_board[i - 1][j + 1]:
                                 if j+3 < 8:
                                     if final_board[i][j] == final_board[i][j+3]:
-                                        print(
-                                            f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i - 1} third {j + 2} {i} fourth gem at x: {j + 3} {i}')
-
+                                        print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i - 1} third {j + 2} {i} fourth gem at x: {j + 3} {i}')
+                                        move = ( j + 1,i - 1,'765')
+                                        if move not in moves_to_down:
+                                            moves_to_down.append(move)
                         if i - 1 > -1 and j + 1 < 8:
                             if final_board[i][j] == final_board[i - 1][j + 1]:
                                 if j-1 > -1:
                                     if final_board[i][j] == final_board[i][j - 1]:
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i - 1} third {j+2} {i} fourth gem at x: {j-1} {i}')
-
+                                        move = ( j + 1,i - 1,'773')
+                                        if move not in moves_to_down:
+                                            moves_to_down.append(move)
                         if i + 1 < 8 and j + 1 < 8:
                             if final_board[i][j] == final_board[i + 1][j + 1]:
                                 if j - 1 > -1:
                                     if final_board[i][j] == final_board[i][j - 1]:
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j + 2} {i} fourth gem at x: {j-1} {i}')
-
+                                        move = ( j + 1,i + 1,'781')
+                                        if move not in moves_to_up:
+                                            moves_to_up.append(move)
 
     #vertical;
     print("@@@@@@@@@@@@@@@ 4 moves vertical; @@@@@@@@@@@@@@@@@@")
@@ -721,25 +800,33 @@ def check_for_moves(final_board):
                                 if i + 3 < 8:
                                     if final_board[i][j] == final_board[i+3][j]:
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i+3}')
-
+                                        move = (j + 1,i + 1 ,'798')
+                                        if move not in moves_to_left:
+                                            moves_to_left.append(move)
                         if i+1 < 8 and j-1 > -1:
                             if final_board[i][j] == final_board[i+1][j-1] :
                                 if i + 3 < 8:
                                     if final_board[i][j] == final_board[i+3][j]:
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j-1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i+3}')
-
+                                        move = (j - 1,i + 1 ,'806')
+                                        if move not in moves_to_right:
+                                            moves_to_right.append(move)
                         if j-1 > -1 and i+1 < 8 and i -1 > -1 :
                             if final_board[i][j] == final_board[i+1][j-1] :
                                 if i + 3 < 8:
                                     if final_board[i][j] == final_board[i - 1][j]:
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j - 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i-1}')
-
+                                        move = ( j - 1,i + 1,'814')
+                                        if move not in moves_to_right:
+                                            moves_to_right.append(move)
                         if i+1 < 8 and j+1 < 8 and i -1 > -1 :
                             if final_board[i][j] == final_board[i+1][j+1] :
                                 if i + 3 < 8:
                                     if final_board[i][j] == final_board[i-1][j]:
                                         print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i-1}')
-
+                                        move = ( j + 1,i + 1,'822')
+                                        if move not in moves_to_left:
+                                            moves_to_left.append(move)
 
                         '''if i+1 < 8 and j-1 > -1:
                             if final_board[i][j] == final_board[i+1][j-1]:
@@ -764,12 +851,17 @@ def check_for_moves(final_board):
                                 if j+3 < 8 and j - 1 > -1:
                                     if final_board[i][j] == final_board[i][j+3] and final_board[i][j] == final_board[i][j-1] :
                                         print(f' five move found with gem at x: {j+1} y: {i+1}, second gem at {j-1} {i}  third gem at {j} {i} fourth {j+2} {i} fifth gem at x: {j+3} {i}')
+                                        move = (j + 1,i + 1,'849')
+                                        if move not in moves_to_up:
+                                            moves_to_up.append(move)
                         if i - 1 > -1 and j + 1 < 8:
                             if final_board[i][j] == final_board[i - 1][j + 1]:
                                 if j+3 < 8 and j - 1 > -1:
                                     if final_board[i][j] == final_board[i][j+3] and final_board[i][j] == final_board[i][j-1]:
                                         print(f' five move found with gem at x: {j+1} y: {i-1}, second gem at {j-1} {i} third gem at {j} {i} fourth {j + 2} {i} fifth gem at x: {j + 3} {i}')
-
+                                        move = ( j + 1,i - 1,'857')
+                                        if move not in moves_to_down:
+                                            moves_to_down.append(move)
 
 
 
@@ -785,35 +877,205 @@ def check_for_moves(final_board):
                             if i + 3 < 8 and i -1 > -1:
                                 if final_board[i][j] == final_board[i + 3][j] and final_board[i][j] == final_board[i-1][j]:
                                     print(f' five move found with gem at x: {j+1} y: {i+1}, second gem at {j} {i - 1} third {j} {i} fourth gem at x: {j} {i + 2} fifth gem at x: {j} {i+3}')
-
+                                    move = (j + 1,i + 1 ,'875')
+                                    if move not in moves_to_left:
+                                        moves_to_left.append(move)
                     if i + 1 < 8 and j - 1 > -1:
                         if final_board[i][j] == final_board[i + 1][j - 1]:
                             if i + 3 < 8 and i-1 > -1:
                                 if final_board[i][j] == final_board[i + 3][j] and final_board[i][j] == final_board[i-1][j]:
-                                    print(f' four move found with gem at x: {j-1} y: {i+1}, second gem at {j} {i - 1} third {j} {i} fourth gem at x: {j} {i + 2} fifth gem at x {j} {i+3}')
+
+                                    print(f' five move found with gem at x: {j-1} y: {i+1}, second gem at {j} {i - 1} third {j} {i} fourth gem at x: {j} {i + 2} fifth gem at x {j} {i+3}')
+                                    move = (j - 1,i + 1 ,'884')
+                                    if move not in moves_to_right:
+                                        moves_to_right.append(move)
 
 
-'''TODO:
-powered gems matched with normal gems , i think the best would be to go by each poerwed gem cuz there are like 5 at best on the board so it shoulnt be that bad
-(powered with powered should be already done, cant really test because of how rare that scenario is :/)
 
-add moves by 4
-add moves by 5 
+    print(f'{bcolors.BOLD} MOVES {bcolors.ENDC}')
+    print(f'{bcolors.BOLD}{bcolors.OKCYAN} TO LEFT: {moves_to_left}')
+    print(f'{bcolors.BOLD}{bcolors.OKCYAN} TO RIGHT: {moves_to_right}')
+    print(f'{bcolors.BOLD}{bcolors.OKCYAN} TO UP: {moves_to_up}')
+    print(f'{bcolors.BOLD}{bcolors.OKCYAN} TO DOWN: {moves_to_down}{bcolors.ENDC}')
 
-'''
+    calculate_moves(original_board,final_board)
 
 
+
+
+    #SCORING AND WRITING BOARD
+def calculate_moves(original_board,final_board):
+
+        print(f' orig {original_board}')
+        rainbow_gems = [] # gems next to rainbow to remove if using rainbow is a good move
+        #niszceznie gemow na oryginalnym nboardzie
+        '''for i in range(8):
+            for j in range(8):
+                if original_board[i][j] == '🌈':
+                    print(f'rainbow gem found gems around: {original_board[i-1][j]} {original_board[i+1][j]} {original_board[i][j+1]} {original_board[i][j-1]}')
+                    if original_board[i-1][j] not in original_board:
+                        rainbow_gems.append(original_board[i-1][j])
+                    if original_board[i + 1][j] not in original_board:
+                        rainbow_gems.append(original_board[i+1][j])
+                    if original_board[i][j+1] not in original_board:
+                        rainbow_gems.append(original_board[i][j+1])
+                    if original_board[i][j-1] not in original_board:
+                        rainbow_gems.append(original_board[i][j-1])'''
+        #niszczenie gemow i pobieranie ich posyzji na zmienionym boardzie gdzie powered gems jest taki sam jak zwykly gem
+        for i in range(8):
+            for j in range(8):
+                if original_board[i][j] == '🌈':
+                    print(f'rainbow gem found gems around: {final_board[i-1][j]} {final_board[i+1][j]} {final_board[i][j+1]} {final_board[i][j-1]}')
+                    if final_board[i-1][j] not in final_board:
+                        rainbow_gems.append(final_board[i-1][j])
+                    if final_board[i + 1][j] not in final_board:
+                        rainbow_gems.append(final_board[i+1][j])
+                    if final_board[i][j+1] not in final_board:
+                        rainbow_gems.append(final_board[i][j+1])
+                    if final_board[i][j-1] not in final_board:
+                        rainbow_gems.append(final_board[i][j-1])
+        rainbow_gems_1 = [] # position of gem 1 on board to remove
+        rainbow_gems_2 = [] # position of gem 2 on board to remove
+        rainbow_gems_3 = [] # position of gem 3 on board to remove
+        rainbow_gems_4 = [] # position of gem 4 on board to remove
+        for gem in rainbow_gems:
+            board = copy.deepcopy(final_board)
+
+
+            for i in range(8):
+                for j in range(8):
+
+                    if board[i][j] == gem:
+
+                        board[i][j] = '⬛'
+                        if gem == rainbow_gems[0]:
+                            move = (j,i)
+                            rainbow_gems_1.append(move)
+                        if gem == rainbow_gems[1]:
+                            move = (j,i)
+                            rainbow_gems_2.append(move)
+                        if gem == rainbow_gems[2]:
+                            move = (j,i)
+                            rainbow_gems_3.append(move)
+                        if gem == rainbow_gems[3]:
+                            move = (j,i)
+                            rainbow_gems_4.append(move)
+            for row in board:
+                print(' '.join(row))
+            print('-----------------------')
+
+        print(rainbow_gems_1)
+        print(rainbow_gems_2)
+        print(rainbow_gems_3)
+        print(rainbow_gems_4)
+        powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
+        for i in range(len(rainbow_gems_1)):
+                if original_board[rainbow_gems_1[i][1]][rainbow_gems_1[i][0]] in powered_gems_array:
+                    print(f'powered  gem found in array 1 after rainbow move at {rainbow_gems_1[i][0]} {[rainbow_gems_1[i][1]]}')
+                    explode_gem(board,rainbow_gems_1[i][1],rainbow_gems_1[i][0], 'board 1')
+        for i in range(len(rainbow_gems_2)):
+                if original_board[rainbow_gems_2[i][1]][rainbow_gems_2[i][0]] in powered_gems_array:
+                    print(f'powered  gem found in array 2 after rainbow move at {rainbow_gems_2[i][0]} {[rainbow_gems_2[i][1]]}')
+                    explode_gem(board,rainbow_gems_2[i][1],rainbow_gems_2[i][0],'board 2')
+        for i in range(len(rainbow_gems_3)):
+                if original_board[rainbow_gems_3[i][1]][rainbow_gems_3[i][0]] in powered_gems_array:
+                    print(f'powered  gem found in array 3  after rainbow move at {rainbow_gems_3[i][0]} {[rainbow_gems_3[i][1]]}')
+                    explode_gem(board,rainbow_gems_3[i][1],rainbow_gems_3[i][0],'board 3')
+        for i in range(len(rainbow_gems_4)):
+                if original_board[rainbow_gems_4[i][1]][rainbow_gems_4[i][0]] in powered_gems_array:
+                    print(f'powered  gem found in array 4 after rainbow move at {rainbow_gems_4[i][0]} {[rainbow_gems_4[i][1]]}')
+                    explode_gem(board,rainbow_gems_4[i][1],rainbow_gems_4[i][0],'board 4')
+        print('-----------------------')
+        for row in board:
+                print(' '.join(row))
+        print('-----------------------')
+        #print(original_board)
+
+        #print(final_board)
+
+
+
+
+
+
+
+def explode_gem(board,y,x,strin):
+    pos_of_powered = []
+    powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
+    for i in range(8):
+        for j in range(8):
+            if original_board[j][i] in powered_gems_array:
+                pos = (i,j)
+                pos_of_powered.append(pos)
+    print(f'powered gem pos {pos_of_powered}')
+
+    def group_positions(positions):
+        # Initialize an empty list to store groups
+        groups = []
+
+        # Iterate through each position
+        for pos in positions:
+            # Check if the position can be added to an existing group
+            added_to_group = False
+            for group in groups:
+                for group_pos in group:
+                    # Check if the position is adjacent to any position in the group
+                    if abs(pos[0] - group_pos[0]) <= 1 and abs(pos[1] - group_pos[1]) <= 1:
+                        group.append(pos)
+                        added_to_group = True
+                        #print(f'{groups}')
+                        break
+                if added_to_group:
+                    #print(f'{groups}')
+                    break
+
+            # If not added to any existing group, create a new group
+            if not added_to_group:
+                groups.append([pos])
+        print(f'{groups}')
+        return groups
+
+    gem_groups =group_positions(pos_of_powered)
+    gem = (x,y)
+    group_of_gems = [] #chain
+
+    for group in gem_groups:
+        if gem in group:
+            print(f'gem found in group {group}')
+            group_of_gems = group
+
+    for pos in group_of_gems:
+        for i in range(pos[0]-1, pos[0]+2):
+            for j in range(pos[1]-1, pos[1]+2):
+                board[j][i] = '⬛'
+    '''gem_to_explode = []
+    board = copy.deepcopy(original_board)
+    powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
+    print(f'pos of gem exploding gem {y} {x}')
+    for row in board:
+        print(' '.join(row))
+    print(f'gem to explode {gem_to_explode}')
+    #print('exploding ')
+    for gems in gem_to_explode:
+        for i in range(gems[0]-1,gems[0]+2):
+            for j in range(gems[1]-1,gems[1]+2):
+
+                board[j][i] = '⬛'
+                '''
+    print('state of board after explode')
+    for row in board:
+        print(' '.join(row))
 
 
 final_board =\
-[['🟨', '🟨', '🟦', '🟩', '🟨', '🟨', '🟩', '🟩'],
-['🟨', '🟨', '🟨', '🟪', '🟩', '🟩', '⬜', '🟩'],
-['🟨', '🟨', '🟥', '🟦', '⬜', '🟦', '🟩', '🟥'],
-['🟨', '🟪', '🟪', '🟦', '🟩', '🟪', '🟩', '🟩'],
-['🟨', '🌈', '🟪', '⚪', '🟦', '🟪', '🟧', '🟩'],
-['🟪', '🟥', '⬜', '🟠', '🟪', '🟥', '🟦', '🟥'],
-['🟥', '🟥', '🟧', '🟥', '🟥', '🟪', '🟩', '🟦'],
-['🟥', '🟩', '🟥', '🟧', '🟧', '🟪', '🟪', '🟦']]
-check_for_moves(final_board)
-#test()
+[['🟨', '🟦', '🟦', '⬜', '🟥', '🟨', '🟦', '🟪'],
+['🟥', '🟪', '⬜', '🟪', '🟩', '🟨', '🟥', '🟥'],
+['🟦', '🟨', '🟥', '🟥', '🟩', '🟥', '🟪', '🟦'],
+['🟧', '⬜', '🟪', '🟪', '🟨', '⬜', '🟥', '🟥'],
+['🟨', '🟦', '⬜', '⚪', '🟦', '⬜', '🟦', '🟪'],
+['🟥', '🟪', '🟧', '🟠', '🟪', '🟧', '🟧', '🟥'],
+['🟥', '⬜', '🟧', '🟠', '🟥', '🟪', '🟧', '🟦'],
+['🟨', '🟨', '🟥', '🟪', '🟨', '🟩', '🟦', '🟪']]
+#check_for_moves(final_board)
+test()
 #cProfile.run('test()')
