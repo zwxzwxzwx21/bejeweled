@@ -904,94 +904,312 @@ def check_for_moves(final_board):
 
 
     #SCORING AND WRITING BOARD
+
+
+def calculate_moves1(original_board,final_board):
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def calculate_moves(original_board,final_board):
 
-        print(f' orig {original_board}')
-        rainbow_gems = [] # gems next to rainbow to remove if using rainbow is a good move
-        #niszceznie gemow na oryginalnym nboardzie
-        '''for i in range(8):
-            for j in range(8):
-                if original_board[i][j] == '🌈':
-                    print(f'rainbow gem found gems around: {original_board[i-1][j]} {original_board[i+1][j]} {original_board[i][j+1]} {original_board[i][j-1]}')
-                    if original_board[i-1][j] not in original_board:
-                        rainbow_gems.append(original_board[i-1][j])
-                    if original_board[i + 1][j] not in original_board:
-                        rainbow_gems.append(original_board[i+1][j])
-                    if original_board[i][j+1] not in original_board:
-                        rainbow_gems.append(original_board[i][j+1])
-                    if original_board[i][j-1] not in original_board:
-                        rainbow_gems.append(original_board[i][j-1])'''
-        #niszczenie gemow i pobieranie ich posyzji na zmienionym boardzie gdzie powered gems jest taki sam jak zwykly gem
-        for i in range(8):
-            for j in range(8):
-                if original_board[i][j] == '🌈':
-                    print(f'rainbow gem found gems around: {final_board[i-1][j]} {final_board[i+1][j]} {final_board[i][j+1]} {final_board[i][j-1]}')
-                    if final_board[i-1][j] not in final_board:
-                        rainbow_gems.append(final_board[i-1][j])
-                    if final_board[i + 1][j] not in final_board:
-                        rainbow_gems.append(final_board[i+1][j])
-                    if final_board[i][j+1] not in final_board:
-                        rainbow_gems.append(final_board[i][j+1])
-                    if final_board[i][j-1] not in final_board:
-                        rainbow_gems.append(final_board[i][j-1])
-        rainbow_gems_1 = [] # position of gem 1 on board to remove
-        rainbow_gems_2 = [] # position of gem 2 on board to remove
-        rainbow_gems_3 = [] # position of gem 3 on board to remove
-        rainbow_gems_4 = [] # position of gem 4 on board to remove
-        for gem in rainbow_gems:
-            board = copy.deepcopy(final_board)
-
-
+    print(f' orig {original_board}')
+    rainbow_gems = [] # gems next to rainbow to remove if using rainbow is a good move
+    #niszceznie gemow na oryginalnym nboardzie
+    for i in range(8):
+        if '🌈' in original_board[i]:
+            #niszczenie gemow i pobieranie ich posyzji na zmienionym boardzie gdzie powered gems jest taki sam jak zwykly gem
             for i in range(8):
                 for j in range(8):
+                    if original_board[i][j] == '🌈':
+                        if i-1>-1 and j+1 < 8 and j-1 > -1 and i+1 < 8:
+                            print(f'rainbow gem found gems around: {final_board[i-1][j]} {final_board[i+1][j]} {final_board[i][j+1]} {final_board[i][j-1]}')
+                        else:
+                            print('rainbow next to side board, gems found around:')
+                            if i - 1 > -1:
+                                print(final_board[i-1][j])
+                            if i + 1 < 8:
+                                print(final_board[i+1][j])
+                            if j + 1 < 8:
+                                final_board[i][j + 1]
+                            if j - 1 > -1:
+                                final_board[i][j - 1]
+                        if i-1 > -1:
+                            if final_board[i-1][j] not in final_board:
+                                rainbow_gems.append(final_board[i-1][j])
+                        if i+1 < 8:
+                            if final_board[i + 1][j] not in final_board:
+                                rainbow_gems.append(final_board[i+1][j])
+                        if j+1 < 8:
+                            if final_board[i][j+1] not in final_board:
+                                rainbow_gems.append(final_board[i][j+1])
+                        if j-1 > -1:
+                            if final_board[i][j-1] not in final_board:
+                                rainbow_gems.append(final_board[i][j-1])
+            rainbow_gems_1 = [] # position of gem 1 on board to remove
+            rainbow_gems_2 = [] # position of gem 2 on board to remove
+            rainbow_gems_3 = [] # position of gem 3 on board to remove
+            rainbow_gems_4 = [] # position of gem 4 on board to remove
+            loop = 0
+            for gem in rainbow_gems:
+                loop+=1
+                board = copy.deepcopy(final_board)
 
-                    if board[i][j] == gem:
 
-                        board[i][j] = '⬛'
-                        if gem == rainbow_gems[0]:
-                            move = (j,i)
-                            rainbow_gems_1.append(move)
-                        if gem == rainbow_gems[1]:
-                            move = (j,i)
-                            rainbow_gems_2.append(move)
-                        if gem == rainbow_gems[2]:
-                            move = (j,i)
-                            rainbow_gems_3.append(move)
-                        if gem == rainbow_gems[3]:
-                            move = (j,i)
-                            rainbow_gems_4.append(move)
-            for row in board:
+                for i in range(8):
+                    for j in range(8):
+
+                        if board[i][j] == gem or board[i][j] == '🌈':         # MAYBE BUGS????????????????????????????????????????????????? comment 🌈 if yes
+
+                            board[i][j] = '⬛'
+                            if gem == rainbow_gems[0]:
+                                move = (j,i)
+                                rainbow_gems_1.append(move)
+                            if gem == rainbow_gems[1]:
+                                move = (j,i)
+                                rainbow_gems_2.append(move)
+                            if len(rainbow_gems)>2:
+                                if gem == rainbow_gems[2]:
+                                    move = (j,i)
+                                    rainbow_gems_3.append(move)
+                            if len(rainbow_gems) > 3:
+                                if gem == rainbow_gems[3]:
+                                    move = (j,i)
+                                    rainbow_gems_4.append(move)
+                print(f'board after using rainbow moves for {gem}')
+                for row in board:
+                    print(' '.join(row))
+                if loop == 1:
+                    board_gem_1 = board
+                    print(board_gem_1)
+                elif loop == 2:
+                    board_gem_2 = board
+                    print(board_gem_2)
+                elif loop == 3:
+                    board_gem_3 = board
+                    print(board_gem_3)
+                elif loop == 4:
+                    board_gem_4 = board
+                    print(board_gem_4)
+
+                print('-----------------------')
+
+            print(f'board_gem_1 {rainbow_gems[0]}')
+            for row in board_gem_1:
                 print(' '.join(row))
+
+            print(f'board_gem_2 {rainbow_gems[1]}')
+            for row in board_gem_2:
+                print(' '.join(row))
+
+            if len(rainbow_gems) > 2:
+                print(f'board_gem_3 {rainbow_gems[2]}')
+                for row in board_gem_3:
+                    print(' '.join(row))
+
+            if len(rainbow_gems) > 3:
+                print(f'board_gem_4 {rainbow_gems[3]}')
+                for row in board_gem_4:
+                    print(' '.join(row))
+
+            print(f' lenght of array 1 (rainbow_gems_1){len(rainbow_gems_1)}')
+            print(f' lenght of array 1 (rainbow_gems_2){len(rainbow_gems_2)}')
+            if len(rainbow_gems) > 2:
+                print(f' lenght of array 1 (rainbow_gems_3){len(rainbow_gems_3)}')
+            if len(rainbow_gems) > 3:
+                print(f' lenght of array 1 (rainbow_gems_4){len(rainbow_gems_4)}')
+            powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
+            board2 = copy.deepcopy(original_board)
+            for i in range(len(rainbow_gems_1)):
+
+                    if original_board[rainbow_gems_1[i][1]][rainbow_gems_1[i][0]] in powered_gems_array:
+                        print(f'powered  gem found in array 1 after rainbow move at {rainbow_gems_1[i][0]} {rainbow_gems_1[i][1]}')
+                        explode_gem(board2,rainbow_gems_1[i][1],rainbow_gems_1[i][0], 'board 1',board_gem_1)
+                    else:
+                        score = 0
+                        for i in range(8):
+                            for j in range(8):
+                                if board_gem_1[j][i] == '⬛':
+                                    score += 100
+            print(f'score 1 {score}')
+            for i in range(len(rainbow_gems_2)):
+                    if original_board[rainbow_gems_2[i][1]][rainbow_gems_2[i][0]] in powered_gems_array:
+                        print(f'powered  gem found in array 2 after rainbow move at {rainbow_gems_2[i][0]} {rainbow_gems_2[i][1]}')
+                        explode_gem(board2,rainbow_gems_2[i][1],rainbow_gems_2[i][0],'board 2',board_gem_2)
+                    else:
+                        score = 0
+                        for i in range(8):
+                            for j in range(8):
+                                if board_gem_2[j][i] == '⬛':
+                                    score += 100
+            print(f'score 2 {score}')
+            if len(rainbow_gems) > 2:
+                for i in range(len(rainbow_gems_3)):
+                        if original_board[rainbow_gems_3[i][1]][rainbow_gems_3[i][0]] in powered_gems_array:
+                            print(f'powered  gem found in array 3  after rainbow move at {rainbow_gems_3[i][0]} {rainbow_gems_3[i][1]}')
+                            explode_gem(board2,rainbow_gems_3[i][1],rainbow_gems_3[i][0],'board 3',board_gem_3)
+                        else:
+                            score = 0
+                            for i in range(8):
+                                for j in range(8):
+                                    if board_gem_3[j][i] =='⬛':
+                                        score+=100
+            print(f'score 3 {score}')
+            if len(rainbow_gems) > 3:
+                for i in range(len(rainbow_gems_4)):
+                        if original_board[rainbow_gems_4[i][1]][rainbow_gems_4[i][0]] in powered_gems_array:
+                            print(f'powered  gem found in array 4 after rainbow move at {rainbow_gems_4[i][0]} {rainbow_gems_4[i][1]}')
+                            explode_gem(board2,rainbow_gems_4[i][1],rainbow_gems_4[i][0],'board 4',board_gem_4)
+                        else:
+                            score = 0
+                            for i in range(8):
+                                for j in range(8):
+                                    if board_gem_4[j][i] =='⬛':
+                                        score+=100
+            print(f'score 4 {score}')
+
             print('-----------------------')
 
-        print(rainbow_gems_1)
-        print(rainbow_gems_2)
-        print(rainbow_gems_3)
-        print(rainbow_gems_4)
-        powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
-        for i in range(len(rainbow_gems_1)):
-                if original_board[rainbow_gems_1[i][1]][rainbow_gems_1[i][0]] in powered_gems_array:
-                    print(f'powered  gem found in array 1 after rainbow move at {rainbow_gems_1[i][0]} {[rainbow_gems_1[i][1]]}')
-                    explode_gem(board,rainbow_gems_1[i][1],rainbow_gems_1[i][0], 'board 1')
-        for i in range(len(rainbow_gems_2)):
-                if original_board[rainbow_gems_2[i][1]][rainbow_gems_2[i][0]] in powered_gems_array:
-                    print(f'powered  gem found in array 2 after rainbow move at {rainbow_gems_2[i][0]} {[rainbow_gems_2[i][1]]}')
-                    explode_gem(board,rainbow_gems_2[i][1],rainbow_gems_2[i][0],'board 2')
-        for i in range(len(rainbow_gems_3)):
-                if original_board[rainbow_gems_3[i][1]][rainbow_gems_3[i][0]] in powered_gems_array:
-                    print(f'powered  gem found in array 3  after rainbow move at {rainbow_gems_3[i][0]} {[rainbow_gems_3[i][1]]}')
-                    explode_gem(board,rainbow_gems_3[i][1],rainbow_gems_3[i][0],'board 3')
-        for i in range(len(rainbow_gems_4)):
-                if original_board[rainbow_gems_4[i][1]][rainbow_gems_4[i][0]] in powered_gems_array:
-                    print(f'powered  gem found in array 4 after rainbow move at {rainbow_gems_4[i][0]} {[rainbow_gems_4[i][1]]}')
-                    explode_gem(board,rainbow_gems_4[i][1],rainbow_gems_4[i][0],'board 4')
-        print('-----------------------')
-        for row in board:
-                print(' '.join(row))
-        print('-----------------------')
         #print(original_board)
 
         #print(final_board)
+        '''for i in range(8):
+            for j in range(8):
+                if board[j][i] == '🌈':
+                    board[j][i] = '⬛'
+        print('orig board2')
+        for row in original_board:
+            print(' '.join(row))'''
+
+
+
+def przesun_czarne_do_gory(tablica):
+        wysokosc = len(tablica)
+        szerokosc = len(tablica[0])
+
+        # Iterujemy po kolumnach tablicy
+        for kolumna in range(szerokosc):
+            # Tworzymy listę zawierającą kolumnę
+            kolumna_tablicy = [tablica[wiersz][kolumna] for wiersz in range(wysokosc)]
+            # Usuwamy wszystkie czarne bloki z kolumny
+            kolumna_bez_czarnych = [blok for blok in kolumna_tablicy if blok != "⬛"]
+            # Wypełniamy początkową część kolumny czarnymi blokami
+            kolumna_tablicy = ["⬛"] * (wysokosc - len(kolumna_bez_czarnych)) + kolumna_bez_czarnych
+            # Aktualizujemy kolumnę tablicy wejściowej
+            for wiersz in range(wysokosc):
+                tablica[wiersz][kolumna] = kolumna_tablicy[wiersz]
+
+        return tablica
+
+
+def group_positions(positions):
+    # Initialize an empty list to store groups
+    groups = []
+
+    # Iterate through each position
+    for pos in positions:
+        # Check if the position can be added to an existing group
+        added_to_group = False
+        for group in groups:
+            for group_pos in group:
+                # Check if the position is adjacent to any position in the group
+                if abs(pos[0] - group_pos[0]) <= 1 and abs(pos[1] - group_pos[1]) <= 1:
+                    group.append(pos)
+                    added_to_group = True
+                    # print(f'{groups}')
+                    break
+            if added_to_group:
+                # print(f'{groups}')
+                break
+
+        # If not added to any existing group, create a new group
+        if not added_to_group:
+            groups.append([pos])
+    print(f' groups: {groups}')
+    return groups
+
+
+def explode_gem(board,y,x,strin,board_to_overwrite):
+    print(f'board state:')
+    score= 0
+    gem_exploded = 0
+    for row in board:
+        print(' '.join(row))
+    if board[y][x] == '⬛': return
+    board2 = copy.deepcopy(board)
+    print(f'{strin}, x:{x}, y:{y} ')
+    print('board to voerwrite')
+    for row in board_to_overwrite:
+        print(' '.join(row))
+
+    print('---------------------')
+    pos_of_powered = []
+    powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
+
+    for i in range(8):
+        for j in range(8):
+            if original_board[j][i] in powered_gems_array:
+                pos = (i,j)
+                pos_of_powered.append(pos)
+
+    print(f'powered gem pos {pos_of_powered}')
+
+
+    gem_groups =group_positions(pos_of_powered)
+    gem = (x,y)
+    group_of_gems = [] #chain
+    #print(f'orig board 2{original_board}')
+    for group in gem_groups:
+        if gem in group:
+            print(f'gem found in group {group}')
+            group_of_gems = group
+    print(f' remaining pos {pos}')
+    for pos in group_of_gems:
+        for i in range(pos[0] - 1, pos[0] + 2):
+            for j in range(pos[1] - 1, pos[1] + 2):
+                if i > -1 and i < 8 and j > -1 and j < 8:
+                    board2[j][i] = '⬛'
+        score+=300
+        gem_exploded +=1
+
+    print('test score')
+
+    print('state of board after explode')
+    for row in board2:
+        print(' '.join(row))
+
+    print('state of board after explode with other black places')
+
+    for i in range(8):
+        for j in range(8):
+            if board2[j][i] == '⬛' or board2[j][i] == '🌈':
+                board_to_overwrite[j][i] = '⬛'
+    for row in board_to_overwrite:
+        print(' '.join(row))
+    #explode_gem(board2, 4, 6, 'sdfg')
+    board2 = original_board
+    # Wywołanie funkcji i wydrukowanie wyniku
+    print('------------------------')
+    wynik = przesun_czarne_do_gory(board_to_overwrite)
+    for wiersz in wynik:
+        print(" ".join(wiersz))
+    for i in range(8):
+        for j in range(8):
+            if board_to_overwrite[j][i] == '⬛':
+                score += 100
+
+    print(score - gem_exploded*100)
 
 
 
@@ -999,12 +1217,31 @@ def calculate_moves(original_board,final_board):
 
 
 
-def explode_gem(board,y,x,strin):
+final_board =\
+[['🟧', '🟨', '🟦', '🟧', '🟨', '⬜', '🟦', '🟪'],
+['🟩', '⬜', '⬜', '🟪', '🟩', '🟨', '⬜', '🟩'],
+['🟨', '🟧', '🟥', '🟦', '⬜', '🟩', '⬜', '⬜'],
+['🟦', '🟥', '🟪', '🟪', '⬜', '🟪', '🟧', '🟥'],
+['🟧', '🌈', '⬜', '⚪', '🟦', '🟧', '🔵', '🟦'],
+['🟥', '🟪', '⬜', '🟠', '🟪', '🟥', '🟧', '🟥'],
+['🟥', '🟥', '🟨', '🔵', '🟨', '🟥', '🟪', '🟪'],
+['🟧', '🟨', '🟪', '🟥', '⬜', '🟩', '🟦', '🟪']]
+#check_for_moves(final_board)
+test()
+#explode_gem(final_board, 6, 3, 'sdfg')
+
+
+#cProfile.run('test()')
+
+
+
+
+'''def explode_gem_test(board,y,x,strin):
     pos_of_powered = []
     powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
     for i in range(8):
         for j in range(8):
-            if original_board[j][i] in powered_gems_array:
+            if board[j][i] in powered_gems_array:
                 pos = (i,j)
                 pos_of_powered.append(pos)
     print(f'powered gem pos {pos_of_powered}')
@@ -1045,10 +1282,13 @@ def explode_gem(board,y,x,strin):
             group_of_gems = group
 
     for pos in group_of_gems:
+
         for i in range(pos[0]-1, pos[0]+2):
             for j in range(pos[1]-1, pos[1]+2):
-                board[j][i] = '⬛'
-    '''gem_to_explode = []
+                if i > -1 and i < 8 and j > -1 and j < 8:
+                    board[j][i] = '⬛'
+    
+    gem_to_explode = []
     board = copy.deepcopy(original_board)
     powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
     print(f'pos of gem exploding gem {y} {x}')
@@ -1061,21 +1301,9 @@ def explode_gem(board,y,x,strin):
             for j in range(gems[1]-1,gems[1]+2):
 
                 board[j][i] = '⬛'
-                '''
+                
     print('state of board after explode')
     for row in board:
-        print(' '.join(row))
+        print(' '.join(row))'''
 
-
-final_board =\
-[['🟨', '🟦', '🟦', '⬜', '🟥', '🟨', '🟦', '🟪'],
-['🟥', '🟪', '⬜', '🟪', '🟩', '🟨', '🟥', '🟥'],
-['🟦', '🟨', '🟥', '🟥', '🟩', '🟥', '🟪', '🟦'],
-['🟧', '⬜', '🟪', '🟪', '🟨', '⬜', '🟥', '🟥'],
-['🟨', '🟦', '⬜', '⚪', '🟦', '⬜', '🟦', '🟪'],
-['🟥', '🟪', '🟧', '🟠', '🟪', '🟧', '🟧', '🟥'],
-['🟥', '⬜', '🟧', '🟠', '🟥', '🟪', '🟧', '🟦'],
-['🟨', '🟨', '🟥', '🟪', '🟨', '🟩', '🟦', '🟪']]
-#check_for_moves(final_board)
-test()
-#cProfile.run('test()')
+#explode_gem_test(final_board, 0, 0, 's')
