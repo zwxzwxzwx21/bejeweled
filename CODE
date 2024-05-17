@@ -31,7 +31,7 @@ win.moveTo(0, 0)
 
 
 #(82, 76, 24),
-wylosowane_kolory = [(199, 22, 199), (220, 220, 50), (230, 220, 220), (255,135,0), (49, 171, 253), (19, 202, 19), (255, 99, 99),(0,0,0),(82, 76, 24),(255,255,255)]
+wylosowane_kolory = [(199, 22, 199), (225, 225, 55), (230, 220, 220), (255,175,0), (49, 171, 253), (19, 202, 19), (255, 99, 99),(0,0,0),(82, 76, 24),(255,255,255)]
             # in order: pink,               yellow,         white,          orange,      blue,         green,           red
 kolory = ['pink','yellow','white','orange','blue','green','red','black','brown','rainbow']
 
@@ -1008,6 +1008,27 @@ def check_for_rows(board_with_powered,board_without_powered):
                 if board_without_powered[i][j] == "⬛":
                     score += 100
     return score
+
+def make_move(x1,y1,str):
+    print(x1)
+    print(str)
+    print(y1)
+    #width, height = 85 * 8, 84 * 8
+
+    #screenshot = ImageGrab.grab(bbox=(305, 62, 305 + width, 62 + height))
+
+    pyautogui.click(350+x1*85,85+y1*84)
+    time.sleep(0.1)
+    if str == 'left':
+        pyautogui.click(350 + (x1-1) * 85, 85 + y1 * 84)
+    if str == 'right':
+        pyautogui.click(350 + (x1+1) * 85, 85 + y1 * 84)
+    if str == 'up':
+        pyautogui.click(350 + x1 * 85, 85 + (y1-1) * 84)
+    if str == 'down':
+        pyautogui.click(350 + x1 * 85, 85 + (y1+1) * 84)
+
+
 def calculate_moves(original_board,final_board,all_moves):
 
     print(f' orig {original_board}')
@@ -1015,6 +1036,7 @@ def calculate_moves(original_board,final_board,all_moves):
     rainbow_gems = [] # gems next to rainbow to remove if using rainbow is a good move
     #niszceznie gemow na oryginalnym nboardzie
     no_rainbow = True
+    scores_array = []
     for i in range(8):
         if '🌈' in original_board[i]:
             no_rainbow = False
@@ -1035,16 +1057,16 @@ def calculate_moves(original_board,final_board,all_moves):
                             if j - 1 > -1:
                                 final_board[i][j - 1]
                         if i-1 > -1:
-                            if final_board[i-1][j] not in final_board:
+                            if final_board[i-1][j] not in rainbow_gems:
                                 rainbow_gems.append(final_board[i-1][j])
                         if i+1 < 8:
-                            if final_board[i + 1][j] not in final_board:
+                            if final_board[i + 1][j] not in rainbow_gems:
                                 rainbow_gems.append(final_board[i+1][j])
                         if j+1 < 8:
-                            if final_board[i][j+1] not in final_board:
+                            if final_board[i][j+1] not in rainbow_gems:
                                 rainbow_gems.append(final_board[i][j+1])
                         if j-1 > -1:
-                            if final_board[i][j-1] not in final_board:
+                            if final_board[i][j-1] not in rainbow_gems:
                                 rainbow_gems.append(final_board[i][j-1])
 
             rainbow_gems_1 = [] # position of gem 1 on board to remove
@@ -1052,6 +1074,7 @@ def calculate_moves(original_board,final_board,all_moves):
             rainbow_gems_3 = [] # position of gem 3 on board to remove
             rainbow_gems_4 = [] # position of gem 4 on board to remove
             loop = 0
+            print(f'rainbow gems {rainbow_gems}')
             for gem in rainbow_gems:
                 loop+=1
                 board = copy.deepcopy(final_board)
@@ -1119,8 +1142,12 @@ def calculate_moves(original_board,final_board,all_moves):
                 print(f' lenght of array 1 (rainbow_gems_3){len(rainbow_gems_3)}')
             if len(rainbow_gems) > 3:
                 print(f' lenght of array 1 (rainbow_gems_4){len(rainbow_gems_4)}')
+
             powered_gems_array = ['🟣', '⚪', '🟠', '🔴', '🟢', '🔵', '🟡']
             board2 = copy.deepcopy(original_board)
+
+
+
             for i in range(len(rainbow_gems_1)):
 
                     if original_board[rainbow_gems_1[i][1]][rainbow_gems_1[i][0]] in powered_gems_array:
@@ -1134,6 +1161,8 @@ def calculate_moves(original_board,final_board,all_moves):
                                     score += 100
             print(f'score 1 {score}')
             score1 = score
+            asdf = ( score,rainbow_gems[0])
+            scores_array.append(asdf)
             for i in range(len(rainbow_gems_2)):
                     if original_board[rainbow_gems_2[i][1]][rainbow_gems_2[i][0]] in powered_gems_array:
                         print(f'powered  gem found in array 2 after rainbow move at {rainbow_gems_2[i][0]} {rainbow_gems_2[i][1]}')
@@ -1146,6 +1175,8 @@ def calculate_moves(original_board,final_board,all_moves):
                                     score += 100
             print(f'score 2 {score}')
             score2 = score
+            asdf = ( score,rainbow_gems[1])
+            scores_array.append(asdf)
             if len(rainbow_gems) > 2:
                 for i in range(len(rainbow_gems_3)):
                         if original_board[rainbow_gems_3[i][1]][rainbow_gems_3[i][0]] in powered_gems_array:
@@ -1158,7 +1189,10 @@ def calculate_moves(original_board,final_board,all_moves):
                                     if board_gem_3[j][i] =='⬛':
                                         score+=100
                 print(f'score 3 {score}')
+                asdf = ( score,rainbow_gems[2])
+                scores_array.append(asdf)
             score3 = score
+
             if len(rainbow_gems) > 3:
                 score = 0
                 for i in range(len(rainbow_gems_4)):
@@ -1172,7 +1206,10 @@ def calculate_moves(original_board,final_board,all_moves):
                                     if board_gem_4[j][i] =='⬛':
                                         score+=100
                 print(f'score 4 {score}')
+                asdf = ( score,rainbow_gems[3])
+                scores_array.append(asdf)
             score4 = score
+            print(f'scores array {scores_array}  rianbow gems {rainbow_gems}')
             print('-----------------------')
             if len(rainbow_gems) > 3:
                 score_array = [(score1,1),(score2,2),(score3,3),(score4,4)]
@@ -1196,7 +1233,7 @@ def calculate_moves(original_board,final_board,all_moves):
     #boardformoves
 
 
-    if no_rainbow:
+    if True:
             moves_arr = []
             for moves in all_moves:
                 boardformoves = copy.deepcopy(original_board)
@@ -1260,7 +1297,50 @@ def calculate_moves(original_board,final_board,all_moves):
                     print(score)
                     asdf = (score, moves)
                     moves_arr.append(asdf)
+
             print(moves_arr)
+
+            print(scores_array)
+            #print(max_val)
+            for a in scores_array:
+                print(a)
+                moves_arr.append(a)
+            moves_arr = sorted(moves_arr, key=lambda x: x[0], reverse=True)
+            print(moves_arr)
+
+            #print(f'move will be made from x: {moves_arr[0][1][0]} y: {moves_arr[0][1][1]} to side: {moves_arr[0][1][2]}')
+            if isinstance(moves_arr[0][1], tuple):
+                print(f'move will be made from x: {moves_arr[0][1][0]} y: {moves_arr[0][1][1]} to side: {moves_arr[0][1][2]}')
+                make_move(moves_arr[0][1][0],moves_arr[0][1][1],moves_arr[0][1][2])
+            else:
+                print(moves_arr[0][1])
+                gems_and_moves = []
+                #print(type(moves_arr[0][1]))
+                for i in range(8):
+                    for j in range(8):
+                        if original_board[j][i] == '🌈':
+                            move1 = (original_board[j][i-1],'left')
+                            #if move1[1] not in gems_and_moves:
+                            gems_and_moves.append(move1)
+                            move1 = (original_board[j][i + 1], 'right')
+                            gems_and_moves.append(move1)
+                            move1 = (original_board[j+1][i], 'down')
+                            gems_and_moves.append(move1)
+                            move1 = (original_board[j-1][i ], 'up')
+                            gems_and_moves.append(move1)
+                            pos_on_board = (j,i)
+                print(gems_and_moves)
+                for move in gems_and_moves:
+                    if moves_arr[0][1] == move[0]:
+                        print(f' gem {move[1]} pos x:{pos_on_board[1]} pos y:{pos_on_board[0]}')
+                        #move function
+                        make_move(pos_on_board[1],pos_on_board[0],move[1])
+                        break
+
+    #print(scores_array)
+
+
+
 def przesun_czarne_do_gory(tablica):
         wysokosc = len(tablica)
         szerokosc = len(tablica[0])
@@ -1385,5 +1465,7 @@ final_board =\
 ['🟥', '🟥', '🟨', '🔵', '🟨', '🟥', '🟪', '🟪'],
 ['🟧', '🟨', '🟪', '🟥', '⬜', '🟩', '🟦', '🟪']]
 #check_for_moves(final_board)
-test()
+while True:
+    time.sleep(1)
+    test()
 #explode_gem(final_board, 6, 3, 'sdfg')
