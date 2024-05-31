@@ -286,7 +286,9 @@ def test():
     for row in converted_board:
         print(' '.join(row))
     array_with_moves = check_for_moves(converted_board)
-    print(array_with_moves)
+    print(f'{array_with_moves}')
+    sieved_moves = sieve_moves(array_with_moves)
+    print(f'sieved moves {sieved_moves}')
     #make_moves_function(final_moves)
     #print('check nums on bombs')
     check_nums_on_bombs(original_board)
@@ -353,6 +355,7 @@ def check_nums_on_bombs(board):
 
 
         screenshot.save(image_path, 'PNG')
+
 def compare_images(image1_path, image2_path):
     image1 = Image.open(image1_path)
     image2 = Image.open(image2_path)
@@ -383,34 +386,6 @@ def flag_rows(board_without_powered): # flag that checks if boards does have 3-r
                     board_without_powered[j][i + 2] != "⬛":
                 return True
     return False
-def convert_board(board):
-    board_to_conv = [['' for _ in range(8)] for _ in range(8)]
-    emoji_mapping = {
-        '🟨': '🟨',
-        '🟦': '🟦',
-        '🟩': '🟩',
-        '🟪': '🟪',
-        '⬜': '⬜',
-        '🟥': '🟥',
-        '🌈': '🌈',
-        '⚪': '⬜',
-        '🔵': '🟦',
-        '🔴': '🟥',
-        '🟣': '🟪',
-        '🟢': '🟩',
-        '🟠': '🟧',
-        '🟡': '🟨',
-        '⬛': '⬛'
-    }
-    for i in range(8):
-        for j in range(8):
-            gem = board[i][j]
-            if gem in emoji_mapping:
-                board_to_conv[i][j] = emoji_mapping[gem]
-            else:
-                board_to_conv[i][j] = gem
-    return board_to_conv
-
 
 def check_for_moves(final_board):
     horizontal_pair_of_gems = []
@@ -877,7 +852,10 @@ def check_for_moves(final_board):
                             if (final_board[i][j] == final_board[i - 1][j+2] and
                                     final_board[i][j] != '⬛' and
                                     final_board[i][j] != '🌫️' ):
-                                print('└d')
+                                #print('└d')
+                                move=(i,j,'up','└d')
+                                if move not in moves_to_up:
+                                    moves_to_up.append(move)
             #  0
             #  0
             #00
@@ -895,7 +873,11 @@ def check_for_moves(final_board):
                             if (final_board[i][j] == final_board[i - 1][j-2] and
                                     final_board[i][j] != '⬛' and
                                     final_board[i][j] != '🌫️'):
-                                print('┘d')
+                                #print('┘d')
+                                move=(i, j, 'up', '┘d')
+                                if move not in moves_to_up:
+
+                                    moves_to_up.append(move)
             #  0
             #  0
             #00 X
@@ -913,7 +895,10 @@ def check_for_moves(final_board):
                             if (final_board[i][j] == final_board[i][j-3] and
                                     final_board[i][j] != '⬛' and
                                     final_board[i][j] != '🌫️'):
-                                print('┘r')
+                                #print('┘r')
+                                move=(i, j, 'left', '┘r')
+                                if move not in moves_to_left:
+                                    moves_to_left.append(move)
             # 0
             # 0
             #X  00
@@ -931,7 +916,101 @@ def check_for_moves(final_board):
                             if (final_board[i][j] == final_board[i][j+3] and
                                     final_board[i][j] != '⬛' and
                                     final_board[i][j] != '🌫️' ):
-                                print('└l')
+                                #print('└l')
+                                move=(i, j, 'right', '└l')
+                                if move not in moves_to_right:
+
+                                    moves_to_right.append(move)
+
+            #X
+            # 00
+            #0
+            #0
+            if i+3< 8 and j+2 < 8:
+                if (final_board[i][j] == final_board[i+2][j]and
+                        final_board[i][j]!= '⬛'and
+                        final_board[i][j]!='🌫️'):
+                    if (final_board[i][j] == final_board[i + 3][j] and
+                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '🌫️' ):
+                        if (final_board[i][j] == final_board[i + 1][j+1] and
+                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '🌫️' ):
+                            if (final_board[i][j] == final_board[i + 1][j+2] and
+                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '🌫️' ):
+                                #print('┌u')
+                                move=(i, j, 'down', '┌u')
+                                if move not in moves_to_down:
+
+                                    moves_to_down.append(move)
+
+            #  X
+            #00
+            #  0
+            #  0
+            if i+3 <8 and j-2 >-1:
+                if (final_board[i][j] == final_board[i+2][j]and
+                        final_board[i][j]!= '⬛'and
+                        final_board[i][j]!='🌫️'):
+                    if (final_board[i][j] == final_board[i + 3][j] and
+                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '🌫️' ):
+                        if (final_board[i][j] == final_board[i + 1][j-1] and
+                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '🌫️' ):
+                            if (final_board[i][j] == final_board[i + 1][j-2] and
+                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '🌫️'):
+                                #print('┐u')
+                                move=(i, j, 'down', '┐u')
+                                if move not in moves_to_down:
+
+                                    moves_to_down.append(move)
+
+            #00 X
+            #  0
+            #  0
+            if i+2 < 8 and j-3 >-1:
+                if (final_board[i][j] == final_board[i+1][j-1]and
+                        final_board[i][j]!= '⬛'and
+                        final_board[i][j]!='🌫️'):
+                    if (final_board[i][j] == final_board[i + 2][j-1] and
+                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '🌫️'):
+                        if (final_board[i][j] == final_board[i][j-2] and
+                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '🌫️'):
+                            if (final_board[i][j] == final_board[i][j-3] and
+                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '🌫️'):
+                                #print('┐r')
+                                move=(i, j, 'left', '┐r')
+                                if move not in moves_to_left:
+
+                                    moves_to_left.append(move)
+
+            #X 00
+            # 0
+            # 0
+            if i+2 < 8 and j+3 < 8:
+                if (final_board[i][j] == final_board[i+2][j+1]and
+                        final_board[i][j]!= '⬛'and
+                        final_board[i][j]!='🌫️'):
+                    if (final_board[i][j] == final_board[i + 1][j+1] and
+                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '🌫️' ):
+                        if (final_board[i][j] == final_board[i][j+2] and
+                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '🌫️'):
+                            if (final_board[i][j] == final_board[i][j+3] and
+                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '🌫️' ):
+                                #print('┌l')
+                                move=(i, j, 'rigth', '┌l')
+                                if move not in moves_to_right:
+
+                                    moves_to_right.append(move)
 
 
     #print('$$$$$$$$$$$$$$ MOVES BY 5 $$$$$$$$$$$$$$$$$')
@@ -1069,8 +1148,36 @@ def check_for_moves(final_board):
 
     #SCORING AND WRITING BOARD
 
-
-
+def sieve_moves(array):
+    sieved = []
+    to_remove =[]
+    for moves in array:
+        for moves2 in array:
+            if moves[0] == moves2[0] and moves[1] == moves2[1] and moves[2] == moves2[2]:
+                print(moves,moves2)
+                if moves[3] == 4 and moves2[3] == 3:
+                    to_remove.append(moves2)
+                if moves[3] == 5 and moves2[3] == '4u':
+                    to_remove.append(moves2)
+                if moves[3] == 5 and moves2[3] == '4d':
+                    to_remove.append(moves2)
+                if moves[3] == 5 and moves2[3] == '4l':
+                    to_remove.append(moves2)
+                if moves[3] == 5 and moves2[3] == '4r':
+                    to_remove.append(moves2)
+                if moves[3] == 5 and moves2[3] == 3:
+                    to_remove.append(moves2)
+            if moves[1] == moves2[1] and moves[2] == 'left' and moves2[2] == 'right' and moves[3] == moves2[3]:
+                if moves[0]-1 == moves2[0]:
+                    to_remove.append(moves2)
+            if moves[0] == moves2[0] and moves[2] == 'up' and moves2[2] == 'down' and moves[3] == moves2[3]:
+                if moves[1]-1 == moves2[1]:
+                    to_remove.append(moves2)
+    for move in array:
+        if move not in to_remove:
+            sieved.append(move)
+    #print(to_remove)
+    return sieved
 
 '''def calculate_moves(original_board,final_board,all_moves):
 
@@ -1322,6 +1429,7 @@ def check_for_moves(final_board):
 
 
 '''
+
 def array_creation(board_with_powered,board_without_powered):  #creates an array that shows which gems are 3 or more in a row and should be replaced or exploded depending on the gem
     array_with_position_to_replace = []
     for i in range(8):
@@ -1354,23 +1462,31 @@ def check_for_rows(board_with_powered,board_without_powered):
         for j in range(8):
             if j <= 8 - 5 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
                     board_without_powered[j + 2][i] == board_without_powered[j + 3][i] == board_without_powered[j + 4][
-                i] != "⬛":
+                i] != "⬛" and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] == board_without_powered[j + 4][
+                i] !='🌫️':
                 array_with_position_to_replace.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i), (j + 4, i)])
             if i <= 8 - 5 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
                     board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
-                i + 4] != "⬛":
+                i + 4] != "⬛" and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
+                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
+                i + 4]!='🌫️':
                 array_with_position_to_replace.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3), (j, i + 4)])
             if j <= 8 - 4 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != "⬛":
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != "⬛" and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] !='🌫️':
                 array_with_position_to_replace.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i)])
             if i <= 8 - 4 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
-                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] != "⬛":
+                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] != "⬛" and  board_without_powered[j][i] == board_without_powered[j][i + 1] == \
+                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] !='🌫️':
                 array_with_position_to_replace.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3)])
             if j <= 8 - 3 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] != "⬛":
+                    board_without_powered[j + 2][i] != "⬛" and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i]!='🌫️':
                 array_with_position_to_replace.append([(j, i), (j + 1, i), (j + 2, i)])
             if i <= 8 - 3 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
-                    board_without_powered[j][i + 2] != "⬛":
+                    board_without_powered[j][i + 2] != "⬛" and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
+                    board_without_powered[j][i + 2] !='🌫️':
                 array_with_position_to_replace.append([(j, i), (j, i + 1), (j, i + 2)])
     #return array_with_position_to_replace
     powered = ['⚪', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣']
@@ -1406,11 +1522,11 @@ def check_for_rows(board_with_powered,board_without_powered):
 
 
 
-    #return score
 
     return board_with_powered,board_without_powered
-def make_moves_function(array):
-    '''for moves in array:
+
+'''def make_moves_function(array):
+    for moves in array:
         x1 = moves[0]
         y1 = moves[1]
         str = moves[2]
@@ -1443,24 +1559,6 @@ def przesun_czarne_do_gory(tablica):
                 tablica[wiersz][kolumna] = kolumna_tablicy[wiersz]
 
         return tablica
-'''
-
-
-
-def przesun_czarne_do_gory(tablica):
-        wysokosc = len(tablica)
-        szerokosc = len(tablica[0])
-
-        for kolumna in range(szerokosc):
-            kolumna_tablicy = [tablica[wiersz][kolumna] for wiersz in range(wysokosc)]
-            kolumna_bez_czarnych = [blok for blok in kolumna_tablicy if blok != "⬛"]
-            kolumna_tablicy = ["⬛"] * (wysokosc - len(kolumna_bez_czarnych)) + kolumna_bez_czarnych
-
-            for wiersz in range(wysokosc):
-                tablica[wiersz][kolumna] = kolumna_tablicy[wiersz]
-
-        return tablica
-
 
 def group_positions(positions):
     groups = []
@@ -1479,8 +1577,7 @@ def group_positions(positions):
         if not added_to_group:
             groups.append([pos])
     print(f' groups: {groups}')
-    return groups'''
-
+    return groups
 
 def explode_gem(board,y,x,strin,board_to_overwrite):
     print(f'board state:')
@@ -1551,17 +1648,93 @@ def explode_gem(board,y,x,strin,board_to_overwrite):
     print(score - gem_exploded*100)
     return board_to_overwrite
 
+def convert_board(board):
+    converted_board = board
+    emoji_mapping = {
+        '🟧': '🟧',
+        '🟨': '🟨',
+        '🟦': '🟦',
+        '🟩': '🟩',
+        '🟪': '🟪',
+        '⬜': '⬜',
+        '🟥': '🟥',
+        '🌈': '🌈',
+        '⚪': '⬜',
+        '🔵': '🟦',
+        '🔴': '🟥',
+        '🟣': '🟪',
+        '🟢': '🟩',
+        '🟠': '🟧',
+        '🟡': '🟨',
+        '⬛': '⬛',
+        '🌫️': '🌫️',
+        '🅿️': '⚫'
+    }
+    for i in range(8):
+        for j in range(8):
+            gem = board[i][j]
+            if gem in emoji_mapping:
+                converted_board[i][j] = emoji_mapping[gem]
+            else:
+                converted_board[i][j] = gem
+    for row in converted_board:
+        print(' '.join(row))
+    return converted_board
+
+def next_move(board_p,moves):
+    board_not_powered = convert_board(board_p)
+    for move in moves:
+        print(move)
+        copy_np = copy.deepcopy(board_not_powered)
+        copy_p = copy.deepcopy(board_p)
+        if move[2] == 'left':
+            copy_np[move[1]][move[0]], copy_np[move[1]][move[0] - 1] = copy_np[move[1]][
+                move[0] - 1], copy_np[move[1]][move[0]]
+            copy_p[move[1]][move[0]], copy_p[move[1]][move[0] - 1] = copy_p[move[1]][
+                move[0] - 1], copy_p[move[1]][move[0]]
+        if move[2] == 'right':
+            copy_np[move[1]][move[0]], copy_np[move[1]][move[0] + 1] = copy_np[move[1]][
+                move[0] + 1], copy_np[move[1]][move[0]]
+            copy_p[move[1]][move[0]], copy_p[move[1]][move[0] + 1] = copy_p[move[1]][
+                move[0] + 1], copy_p[move[1]][move[0]]
+        if move[2] == 'up':
+            copy_np[move[1]][move[0]], copy_np[move[1]-1][move[0]] = copy_np[move[1]-1][
+                move[0]], copy_np[move[1]][move[0]]
+            copy_p[move[1]][move[0]], copy_p[move[1] - 1][move[0]] = copy_p[move[1] - 1][
+                move[0]], copy_p[move[1]][move[0]]
+        if move[2] == 'down':
+            copy_np[move[1]][move[0]], copy_np[move[1]+1][move[0]] = copy_np[move[1]+1][
+                move[0]], copy_np[move[1]][move[0]]
+            copy_p[move[1]][move[0]], copy_p[move[1] + 1][move[0]] = copy_p[move[1] + 1][
+                move[0]], copy_p[move[1]][move[0]]
+        for row in copy_np:
+            print(' '.join(row))
+        print('----------------')
+        aftermove_p,aftermove_np = check_for_rows(copy_p,copy_np)
+        aftermove_p2 = przesun_czarne_do_gory(aftermove_p)
+        aftermove_np2 = przesun_czarne_do_gory(aftermove_np)
+        print('powered')
+        for row in aftermove_p2:
+            print(' '.join(row))
+        print('--------------')
+        print('not powered')
+        for row in aftermove_np2:
+            print(' '.join(row))
+        print('--------------')
+        
+
+
 
 #test()
 brd = \
-    [['⬛', '⬛', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['🟥', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛'],
+    [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']]
+     ['⬛', '⬛', '⬛', '⬜', '🟥', '⬜', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '🟥', '⬜', '🟥', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬜', '🟥', '⬜', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '🟥', '⬜', '🟥', '⬛', '⬛']]
 #🟥🟨🟦🟪⬜🟩🟧
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
@@ -1571,5 +1744,8 @@ brd = \
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']]
-check_for_moves(brd)
-
+array_with_moves =check_for_moves(brd)
+sieved_moves = sieve_moves(array_with_moves)
+print(f'not sieved   {array_with_moves}')
+print(f'sieved moves {sieved_moves}')
+next_move(brd,sieved_moves)
