@@ -93,7 +93,7 @@ def test():
             'brown': '?',
             'rainbow': 'R',
             'rock': '🌫️',
-            'bomb': '💣'
+            'bomb': '⚫'
         }
         color = [['' for _ in range(8)] for _ in range(8)]
         for i in range(8):
@@ -140,7 +140,7 @@ def test():
             'brown': '🅿️',
             'rainbow': 'R',
             'rock': '🌫️',
-            'bomb': '💣'
+            'bomb': '⚫'
         }
         color_power = [['' for _ in range(8)] for _ in range(8)]
         for i in range(8):
@@ -208,13 +208,13 @@ def test():
         elif first_color_array[i] == '🌫️' and second_color_array[i] == '⬛':
             pre_final_board.append('🌫️')
         elif first_color_array[i] == '🅿️' and second_color_array[i] == '⬛':
-            pre_final_board.append('💣')
-        elif first_color_array[i] == '🅿️' and second_color_array[i] == '💣':
-            pre_final_board.append('💣')
-        elif first_color_array[i] == '💣️' and second_color_array[i] == '🅿️':
-            pre_final_board.append('💣')
+            pre_final_board.append('⚫')
+        elif first_color_array[i] == '🅿️' and second_color_array[i] == '⚫':
+            pre_final_board.append('⚫')
+        elif first_color_array[i] == '⚫' and second_color_array[i] == '🅿️':
+            pre_final_board.append('⚫')
         else:
-            pre_final_board.append('💣')
+            pre_final_board.append('⚫')
     # 🔴🟠🟡🟢🔵🟣
     print(f'pre array{pre_final_board}')
     final_board = [['' for _ in range(8)] for _ in range(8)]
@@ -236,8 +236,8 @@ def test():
         '🟡': '🟡',
         '⬛': '⬛',
         '🌫️': '🌫️',
-        '💣': '💣',
-        '🅿️': '💣️'
+        '⚫': '⚫',
+        '🅿️': '⚫'
     }
 
     for i, emoji in enumerate(pre_final_board):
@@ -256,6 +256,7 @@ def test():
     #convert the board to cound powered gems as normal gems so you can make moves with normal and powered
     converted_board = [['' for _ in range(8)] for _ in range(8)]
     emoji_mapping = {
+        '🟧': '🟧',
         '🟨': '🟨',
         '🟦': '🟦',
         '🟩': '🟩',
@@ -272,8 +273,8 @@ def test():
         '🟡': '🟨',
         '⬛': '⬛',
         '🌫️': '🌫️',
-        #'💣': '💣',
-        '🅿️': '💣️'
+
+        '🅿️': '⚫'
     }
     for i in range(8):
         for j in range(8):
@@ -287,11 +288,11 @@ def test():
     array_with_moves = check_for_moves(converted_board)
     print(array_with_moves)
     #make_moves_function(final_moves)
-    print('check nums on bombs')
+    #print('check nums on bombs')
     check_nums_on_bombs(original_board)
     folder_bombs = 'bombs'
     folder_all_bombs = 'all_bombs'
-
+    bombs = []
     for bomb_image in os.listdir(folder_bombs):
         bomb_image_path = os.path.join(folder_bombs, bomb_image)
         best_match = None
@@ -303,13 +304,30 @@ def test():
             if mse < lowest_mse:
                 lowest_mse = mse
                 best_match = all_bomb_image
-
         print(f"Najbardziej podobny obraz dla {bomb_image}: {best_match}")
+        bombs.append(best_match)
+    print(f' bombs {bombs}')
+    bomb_board = [['' for _ in range(8)] for _ in range(8)]
+    bomb_number = 0
+    for i in range(8):
+        for j in range(8):
+            if original_board[j][i] != '⚫' :
+                bomb_board[j][i] = original_board[j][i]
+                print(bomb_board)
+            else:
+                if bomb_number == 0:
+                    bomb_number += 1
+                    bomb_board[j][i] = bombs[0][0]
+                else:
+                    bomb_board[j][i] = bombs[1][0]
+    for row in bomb_board:
+        print(' '.join(row))
+
 def check_nums_on_bombs(board):
     bombs_pos = []
     for i in range(8):
         for j in range(8):
-            if board[j][i] == '💣':
+            if board[j][i] == '⚫':
                 print(f' x {i} y {j}')
                 pos = (i, j)
                 bombs_pos.append(pos)
@@ -333,7 +351,7 @@ def check_nums_on_bombs(board):
         image_filename = f'bombs_{image_number}.png'
         image_path = os.path.join(folder_path, image_filename)
 
-        # Zapisz obraz
+
         screenshot.save(image_path, 'PNG')
 def compare_images(image1_path, image2_path):
     image1 = Image.open(image1_path)
@@ -839,6 +857,82 @@ def check_for_moves(final_board):
                                         # X
                                         #  0
                                         # 0
+    ##################### L MOVES ######################
+    for i in range(8):
+        for j in range(8):
+            #0
+            #0
+            # 00
+            #X
+            if i-3 > -1 and j+2 < 8:
+                if (final_board[i][j] == final_board[i-2][j]and
+                        final_board[i][j]!= '⬛'and
+                        final_board[i][j]!='🌫️'):
+                    if (final_board[i][j] == final_board[i - 3][j] and
+                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '🌫️' ):
+                        if (final_board[i][j] == final_board[i - 1][j+1] and
+                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '🌫️' ):
+                            if (final_board[i][j] == final_board[i - 1][j+2] and
+                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '🌫️' ):
+                                print('└d')
+            #  0
+            #  0
+            #00
+            #  X
+            if i-3 > -1 and j-2 >-1:
+                if (final_board[i][j] == final_board[i-2][j]and
+                        final_board[i][j]!= '⬛'and
+                        final_board[i][j]!='🌫️'):
+                    if (final_board[i][j] == final_board[i - 3][j] and
+                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '🌫️' ):
+                        if (final_board[i][j] == final_board[i - 1][j-1] and
+                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '🌫️' ):
+                            if (final_board[i][j] == final_board[i - 1][j-2] and
+                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '🌫️'):
+                                print('┘d')
+            #  0
+            #  0
+            #00 X
+
+            if i-2 > -1 and j-3 >-1:
+                if (final_board[i][j] == final_board[i-1][j-1]and
+                        final_board[i][j]!= '⬛'and
+                        final_board[i][j]!='🌫️'):
+                    if (final_board[i][j] == final_board[i - 2][j-1] and
+                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '🌫️'):
+                        if (final_board[i][j] == final_board[i][j-2] and
+                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '🌫️'):
+                            if (final_board[i][j] == final_board[i][j-3] and
+                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '🌫️'):
+                                print('┘r')
+            # 0
+            # 0
+            #X  00
+
+            if i-2 > -1 and j+3 < 8:
+                if (final_board[i][j] == final_board[i-2][j+1]and
+                        final_board[i][j]!= '⬛'and
+                        final_board[i][j]!='🌫️'):
+                    if (final_board[i][j] == final_board[i - 1][j+1] and
+                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '🌫️' ):
+                        if (final_board[i][j] == final_board[i][j+2] and
+                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '🌫️'):
+                            if (final_board[i][j] == final_board[i][j+3] and
+                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '🌫️' ):
+                                print('└l')
+
 
     #print('$$$$$$$$$$$$$$ MOVES BY 5 $$$$$$$$$$$$$$$$$')
     for i in range(8):
@@ -974,19 +1068,6 @@ def check_for_moves(final_board):
 
 
     #SCORING AND WRITING BOARD
-'''def recursion (powered_board, board, move, array_with_cur_moves):
-    should_return = False
-    print('-Srecursion-')
-    print('powered')
-    for row in powered_board:
-        print(' '.join(row))
-    print('board')
-    for row in board:
-        print(' '.join(row))
-    print(move)
-    print(f' array with cur moves{array_with_cur_moves}')
-    print(f'cheching for move: {move}')
-    '''
 
 
 
@@ -1471,6 +1552,24 @@ def explode_gem(board,y,x,strin,board_to_overwrite):
     return board_to_overwrite
 
 
-test()
-
+#test()
+brd = \
+    [['⬛', '⬛', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['🟥', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']]
+#🟥🟨🟦🟪⬜🟩🟧
+[['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']]
+check_for_moves(brd)
 
