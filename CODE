@@ -1593,6 +1593,7 @@ def array_creation(board_with_powered,board_without_powered):  #creates an array
 
 def check_for_rows(board_with_powered,board_without_powered,move):
     array_with_position_to_replace = []
+    print(f'in check for moves, for move {move}')
     for i in range(8):
         for j in range(8):
             if j <= 8 - 5 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
@@ -1623,16 +1624,39 @@ def check_for_rows(board_with_powered,board_without_powered,move):
                     board_without_powered[j][i + 2] != "⬛" and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
                     board_without_powered[j][i + 2] !='🌫️':
                 array_with_position_to_replace.append([(j, i), (j, i + 1), (j, i + 2)])
+
     #return array_with_position_to_replace
+    main_gem = (move[0],move[1])
+    print(f'inside checkfor rows main gem {main_gem}')
     powered = ['⚪', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣']
     power_gem_pos = []
+    powered_gem_gem = ''
+
+
     for group_pos in array_with_position_to_replace:
         for pos in group_pos:
             if board_with_powered[pos[0]][pos[1]] in powered:
                 move = (pos[0],pos[1])
+
                 if move not in power_gem_pos:
                     power_gem_pos.append(move)
+            print(f'current pos {pos}')
             board_without_powered[pos[0]][pos[1]] = "⬛"
+            board_with_powered[pos[0]][pos[1]] = "⬛"
+    for row in board_without_powered:
+        print(' '.join(row))
+    if move[3] == '4r' or move[3] == '4l':
+        if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟪': powered_gem_gem = '🟣'
+        if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟦': powered_gem_gem = '🔵'
+        if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟩': powered_gem_gem = '🟢'
+        if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟨': powered_gem_gem = '🟡'
+        if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟧': powered_gem_gem = '🟠'
+        if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟥': powered_gem_gem = '🔴'
+        if board_without_powered[main_gem[1]-1][main_gem[0]] == '⬜': powered_gem_gem = '⚪'
+        print(f'powered gem gem{powered_gem_gem}')
+
+        board_with_powered[move[1]+1][move[0]] = powered_gem_gem
+        board_without_powered[move[1]+1][move[0]] = powered_gem_gem
     if len(power_gem_pos) == 0:
         score = 0
 
@@ -1886,7 +1910,7 @@ def convert_board(board):
             already_done = []
     return []'''
 def next_move(board_p,moves,already_done_moves):
-
+    copy_of_p = copy.deepcopy(board_p)
     black_board = [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
@@ -1895,14 +1919,32 @@ def next_move(board_p,moves,already_done_moves):
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']]
-    board_not_powered = convert_board(board_p)
+    board_not_powered = convert_board(copy_of_p)
 
     for move in moves:
+
+        print('board_p')
+        for row in board_p:
+            print(' '.join(row))
+        bomb_placement = []
         gem = 'g'
-        already_done = already_done_moves
-        print(f' checking for {move}')
+        already_done = copy.deepcopy(already_done_moves) #aaaaaaaaaaaaaaaaaa
+
+        #print(f'alredy done moves {already_done_moves}')
+        #already_done.append('1')
+        print(f'already done {already_done_moves}')
+        print(f' checking for {move} already done {already_done} ')
         copy_np = copy.deepcopy(board_not_powered)
         copy_p = copy.deepcopy(board_p)
+        for i in range(8):
+            for j in range(8):
+                try:
+                    int(copy_np[i][j])
+                    bomb_pos = (i,j)
+                    bomb_placement.append(bomb_pos)
+
+                    #print(copy_np[i][j])
+                except ValueError:pass
         if move[2] == 'left' :
             if move[3] != 'R':
                 copy_np[move[1]][move[0]], copy_np[move[1]][move[0] - 1] = copy_np[move[1]][
@@ -1955,7 +1997,19 @@ def next_move(board_p,moves,already_done_moves):
                     for x in range(8):
                         if copy_np[x][y] == gem:
                             copy_np[x][y] = '⬛'
+        for bombs in bomb_placement:
+            value = copy_np[bombs[0]][bombs[1]]
+            val2 = int(value)
+            val2 -= 1
+            string = str(val2)
+            copy_np[bombs[0]][bombs[1]] = string
+            copy_p[bombs[0]][bombs[1]] = string
+
         for row in copy_np:
+            print(' '.join(row))
+        print('----------------')
+
+        for row in copy_p:
             print(' '.join(row))
         print('----------------')
 
@@ -1963,15 +2017,43 @@ def next_move(board_p,moves,already_done_moves):
         aftermove_p2 = przesun_czarne_do_gory(aftermove_p)
         aftermove_np2 = przesun_czarne_do_gory(aftermove_np)
 
-        print('powered')
+        '''print('powered')
         for row in aftermove_p2:
             print(' '.join(row))
-        print('--------------')
+        print('--------------')'''
         print('not powered')
         for row in aftermove_np2:
             print(' '.join(row))
         print('--------------')
+        new_moves = check_for_moves(aftermove_np2)
+        print(f'sieved moves{new_moves}')
+        #print(f'pre if  queue of moves {already_done} remaining moves = {new_moves}')
 
+        if aftermove_np2 == black_board:
+            print('this one good ')
+            already_done.append(move)
+            print(already_done)
+            return already_done # makes the loop not run indefinitely
+        print(f' queue of moves {already_done} remaining moves = {new_moves}')
+        print(f' remaining moves = {new_moves}')
+        if len(new_moves) == 0:
+            print('if runs')
+            print('reset moves')
+            already_done = []
+            print(already_done)
+
+        else:
+            print('else run')
+            #already_done = []
+            already_done.append(move)
+
+            result = next_move(aftermove_np2, new_moves, already_done)
+            print(f'result {result}')
+            if len(result) != 0:
+
+                return result # makes the loop not run indefinitely too fsr?
+
+    return []
 
 
 
@@ -1979,14 +2061,14 @@ def next_move(board_p,moves,already_done_moves):
 
 #test()
 brd = \
-    [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '🟪', '⬛', '🟨', '🟨', '⬜', '⬛'],
-     ['⬛', '🟪', '🌈', '🟩', '🟥', '🟨', '⬜', '🟨'],
-     ['⬛', '🟩', '🟩', '🟪', '⬜', '⬜', '🟨', '⬜']]
+    [['⬛', '🟩', '🟪', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '🟪', '🟩', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '🟪', '🟩', '🟥', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '🟥', '🟥', '🟦', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '🟧', '🟩', '🟦', '⬜', '⬛', '⬛', '⬛'],
+     ['⬛', '🟪', '🟪', '🟥', '🟪', '⬛', '⬛', '⬛'],
+     ['⬛', '🟧', '🟩', '🟦', '🟥', '⬛', '⬛', '⬛'],
+     ['⬛', '🟧', '🟩', '⬜', '🟥', '⬜', '⬛', '⬛']]
 #🟥🟨🟦🟪⬜🟩🟧
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
