@@ -1591,7 +1591,8 @@ def array_creation(board_with_powered,board_without_powered):  #creates an array
                 array_with_position_to_replace.append([(j, i), (j, i + 1), (j, i + 2)])
     return array_with_position_to_replace
 
-def check_for_rows(board_with_powered,board_without_powered,move):
+def check_for_rows(board_with_powered,board_without_powered,move,origin_board):
+    orig_board_copy = copy.deepcopy(origin_board)
     array_with_position_to_replace = []
     print(f'in check for moves, for move {move}')
     for i in range(8):
@@ -1636,15 +1637,16 @@ def check_for_rows(board_with_powered,board_without_powered,move):
     for group_pos in array_with_position_to_replace:
         for pos in group_pos:
             if board_with_powered[pos[0]][pos[1]] in powered:
-                move = (pos[0],pos[1])
+                gem_pos = (pos[0],pos[1])
 
-                if move not in power_gem_pos:
-                    power_gem_pos.append(move)
+                if gem_pos not in power_gem_pos:
+                    power_gem_pos.append(gem_pos)
             print(f'current pos {pos}')
             board_without_powered[pos[0]][pos[1]] = "⬛"
             board_with_powered[pos[0]][pos[1]] = "⬛"
     for row in board_without_powered:
         print(' '.join(row))
+    print(f'move {move}')
     if move[3] == '4r' or move[3] == '4l':
         if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟪': powered_gem_gem = '🟣'
         if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟦': powered_gem_gem = '🔵'
@@ -1654,9 +1656,9 @@ def check_for_rows(board_with_powered,board_without_powered,move):
         if board_without_powered[main_gem[1]-1][main_gem[0]] == '🟥': powered_gem_gem = '🔴'
         if board_without_powered[main_gem[1]-1][main_gem[0]] == '⬜': powered_gem_gem = '⚪'
         print(f'powered gem gem{powered_gem_gem}')
-
-        board_with_powered[move[1]+1][move[0]] = powered_gem_gem
-        board_without_powered[move[1]+1][move[0]] = powered_gem_gem
+        if move[1]+1  < 8:
+            board_with_powered[move[1]+1][move[0]] = powered_gem_gem
+            board_without_powered[move[1]+1][move[0]] = powered_gem_gem
     if len(power_gem_pos) == 0:
         score = 0
 
@@ -1666,9 +1668,9 @@ def check_for_rows(board_with_powered,board_without_powered,move):
         print(f'powered gem pos {power_gem_pos}')
         for gems in power_gem_pos:
 
-            throwaway_board = copy.deepcopy(original_board)
+            throwaway_board = copy.deepcopy(orig_board_copy)
             exploded_board = explode_gem(board_with_powered,gems[0],gems[1],'explode gem test',throwaway_board)
-            exploded_board_fin = przeskiej(exploded_board)
+            #exploded_board_fin = przeskiej(exploded_board)
         print('board with poewered')
         for row in board_with_powered:
                 print(' '.join(row))
@@ -1676,8 +1678,8 @@ def check_for_rows(board_with_powered,board_without_powered,move):
         for row in board_without_powered:
                 print(' '.join(row))
         print('board exploded')
-        for row in exploded_board_fin:
-            print(' '.join(row))
+        '''for row in exploded_board_fin:
+            print(' '.join(row))'''
 
 
 
@@ -1909,7 +1911,8 @@ def convert_board(board):
         else:
             already_done = []
     return []'''
-def next_move(board_p,moves,already_done_moves):
+def next_move(board_p,moves,already_done_moves,orig_board):
+
     copy_of_p = copy.deepcopy(board_p)
     black_board = [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
@@ -2013,23 +2016,29 @@ def next_move(board_p,moves,already_done_moves):
             print(' '.join(row))
         print('----------------')
 
-        aftermove_p,aftermove_np = check_for_rows(copy_p,copy_np,move)
+        aftermove_p,aftermove_np = check_for_rows(copy_p,copy_np,move,orig_board)
         aftermove_p2 = przesun_czarne_do_gory(aftermove_p)
         aftermove_np2 = przesun_czarne_do_gory(aftermove_np)
+        aftermove_p3, aftermove_np3 = check_for_rows(aftermove_p2, aftermove_np2, move,orig_board)
+        aftermove_p4 = przesun_czarne_do_gory(aftermove_p3)
+        aftermove_np4 = przesun_czarne_do_gory(aftermove_np3)
+        aftermove_p5, aftermove_np5 = check_for_rows(aftermove_p4, aftermove_np4, move,orig_board)
+        aftermove_p6 = przesun_czarne_do_gory(aftermove_p5)
+        aftermove_np6 = przesun_czarne_do_gory(aftermove_np5)
 
         '''print('powered')
         for row in aftermove_p2:
             print(' '.join(row))
         print('--------------')'''
         print('not powered')
-        for row in aftermove_np2:
+        for row in aftermove_np6:
             print(' '.join(row))
         print('--------------')
-        new_moves = check_for_moves(aftermove_np2)
+        new_moves = check_for_moves(aftermove_np6)
         print(f'sieved moves{new_moves}')
         #print(f'pre if  queue of moves {already_done} remaining moves = {new_moves}')
 
-        if aftermove_np2 == black_board:
+        if aftermove_np6 == black_board:
             print('this one good ')
             already_done.append(move)
             print(already_done)
@@ -2047,7 +2056,7 @@ def next_move(board_p,moves,already_done_moves):
             #already_done = []
             already_done.append(move)
 
-            result = next_move(aftermove_np2, new_moves, already_done)
+            result = next_move(aftermove_np6, new_moves, already_done,orig_board)
             print(f'result {result}')
             if len(result) != 0:
 
@@ -2061,14 +2070,14 @@ def next_move(board_p,moves,already_done_moves):
 
 #test()
 brd = \
-    [['⬛', '🟩', '🟪', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '🟪', '🟩', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '🟪', '🟩', '🟥', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '🟥', '🟥', '🟦', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '🟧', '🟩', '🟦', '⬜', '⬛', '⬛', '⬛'],
-     ['⬛', '🟪', '🟪', '🟥', '🟪', '⬛', '⬛', '⬛'],
-     ['⬛', '🟧', '🟩', '🟦', '🟥', '⬛', '⬛', '⬛'],
-     ['⬛', '🟧', '🟩', '⬜', '🟥', '⬜', '⬛', '⬛']]
+    [['⬛', '⬛', '⬛', '🟥', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '🟦', '🟪', '🟥', '⬛', '⬛', '⬛'],
+     ['⬛', '🟦', '🟩', '🟦', '🟪', '🟦', '⬛', '⬛'],
+     ['⬛', '🟩', '⬜', '🟩', '🟦', '🟩', '🟦', '⬛'],
+     ['⬛', '⬜', '🟨', '⬜', '🟩', '⬜', '🟩', '⬛'],
+     ['⬛', '🟨', '🟧', '🟨', '⬜', '🟨', '⬜', '⬛'],
+     ['⬛', '🟧', '🟥', '🟧', '🟨', '🟧', '🟨', '⬛'],
+     ['⬛', '🟥', '🟪', '🟥', '🟧', '🟥', '🟧', '⬛']]
 #🟥🟨🟦🟪⬜🟩🟧
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
@@ -2090,4 +2099,4 @@ array_with_moves =check_for_moves(brd)
 sieved_moves = sieve_moves(array_with_moves)
 print(f'not sieved   {array_with_moves}')
 print(f'sieved moves {sieved_moves}')
-next_move(brd,sieved_moves,[])
+next_move(brd,sieved_moves,[],brd)
