@@ -1244,7 +1244,7 @@ def check_for_moves(final_board):
         all_moves.append(move)
     # print(f'all the moves that will be checked: {all_moves} with lenght of {len(all_moves)}')
 
-    # BIG ISSUE NOW YOU NEED TO OVERWRITE LOWER COMBINATIONS SSINCE IF THE MOVE WILL BE 5GEM AND BOT WWILL TRY TO DO THE 3 MOVE WHICH WOULD GIVE WRONG OUTCOMES!!!!!
+
 
     # original = with powered | final = without powered
     return all_moves
@@ -1257,63 +1257,102 @@ def sieve_moves(array):
     to_remove = []
     for moves in array:
         for moves2 in array:
-            if moves[0] == moves2[0] and moves[1] == moves2[1] and moves[2] == moves2[2]:
-                print(moves, moves2)
-                if moves[3] == '┘r' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┘d' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '└l' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┐u' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┌u' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┐r' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┌l' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '└d' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┝l' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┥r' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┬u' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '┴d' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '4d' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '4l' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '4r' and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == '4u' and moves2[3] == 3:
-                    to_remove.append(moves2)
+            moves_4 = ['4l', '4u', '4d', '4r']
+            if moves != moves2:
+                if moves[0] == moves2[0] and moves[1] == moves2[1] and moves[2] == moves2[2]:
+                    print(moves, moves2)
 
-                if moves[3] == 4 and moves2[3] == 3:
-                    to_remove.append(moves2)
-                if moves[3] == 5 and moves2[3] == '4u':
-                    to_remove.append(moves2)
-                if moves[3] == 5 and moves2[3] == '4d':
-                    to_remove.append(moves2)
-                if moves[3] == 5 and moves2[3] == '4l':
-                    to_remove.append(moves2)
-                if moves[3] == 5 and moves2[3] == '4r':
-                    to_remove.append(moves2)
-                if moves[3] == 5 and moves2[3] == 3:
-                    to_remove.append(moves2)
-            if moves[1] == moves2[1] and moves[2] == 'left' and moves2[2] == 'right' and moves[3] == moves2[3]:
-                if moves[0] - 1 == moves2[0]:
-                    to_remove.append(moves2)
-            if moves[0] == moves2[0] and moves[2] == 'up' and moves2[2] == 'down' and moves[3] == moves2[3]:
-                if moves[1] - 1 == moves2[1]:
-                    to_remove.append(moves2)
-            '''if moves[0] == moves2[0] and moves[2] == 'down' and moves2[2] == 'up' and moves[3] == moves2[3]:
-                if moves[1]+1 == moves2[1]:
-                    to_remove.append(moves)'''
+                    if moves[3] == '┘r' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1265')
+                    if moves[3] == '┘d' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1268')
+                    if moves[3] == '└l' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1271')
+                    if moves[3] == '┐u' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1274')
+                    if moves[3] == '┌u' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1277')
+                    if moves[3] == '┐r' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1280')
+                    if moves[3] == '┌l' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1283')
+                    if moves[3] == '└d' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves} 1286')
+                    if moves[3] == '┝l' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1289')
+                    if moves[3] == '┥r' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1292')
+                    if moves[3] == '┬u' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1295')
+                    if moves[3] == '┴d' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1298')
+                    if moves[3] == '4d' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1301')
+                    if moves[3] == '4l' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1304')
+                    if moves[3] == '4r' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1307')
+                    if moves[3] == '4u' and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1310')
+                    if moves[3] == 4 and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves}1313')
+                    if moves[3] == 5 and moves2[3] == '4u':
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves} 1316')
+                    if moves[3] == 5 and moves2[3] == '4d':
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves} 1319')
+                    if moves[3] == 5 and moves2[3] == '4l':
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves} 1322')
+                    if moves[3] == 5 and moves2[3] == '4r':
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves} 1325')
+                    if moves[3] == 5 and moves2[3] == 3:
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves} 1328')
+                if moves[1] == moves2[1] and moves[2] == 'left' and moves2[2] == 'right' and moves[3] == moves2[3]and moves[3] not in moves_4 and moves2 not in moves_4:
+                    if moves[0] - 1 == moves2[0]:
 
+                        to_remove.append(moves2)
+                        print(f'remove {moves2} cuz {moves} 1332')
+                if moves[0] == moves2[0] and moves[2] == 'up' and moves2[2] == 'down' and moves[3] == moves2[3] and moves[3] not in moves_4 and moves2 not in moves_4:
+                    if moves[1] - 1 == moves2[1]:
+                        to_remove.append(moves2)
+
+                        print(f'remove {moves2} cuz {moves} 1336')
+                '''if moves[0] == moves2[0] and moves[2] == 'down' and moves2[2] == 'up' and moves[3] == moves2[3]:
+                    if moves[1]+1 == moves2[1]:
+                        to_remove.append(moves)'''
+
+                if moves[0] == moves2[0]:
+                    if moves[1]-1 == moves2[1] and moves2[3] in moves_4 and moves[3] not in moves_4:
+                        if moves[2] == 'up' and moves2[2] == 'down' or moves[2] == 'down' and moves2[2] == 'up':
+                            to_remove.append(moves)
+                        print(f'remove {moves} cuz {moves2} 1345')
+                if moves[1] == moves2[1]:
+                    if moves[0]-1 == moves2[0] and moves2[3] in moves_4 and moves[3] not in moves_4:
+                        if moves[2] == 'left' and moves2[2] == 'right' or moves[2] == 'right' and moves2[2] == 'left':
+                            print(moves,moves2,'huj2')
+                            to_remove.append(moves)
+                        print(f'remove {moves} cuz {moves2} 1351')
     for move in array:
         if move not in to_remove:
             sieved.append(move)
@@ -1572,6 +1611,49 @@ def sieve_moves(array):
 
 '''
 
+def group_four_gems(array):
+    powrd = ['4l','4d','4u','4r']
+    groups = []
+    for m1 in array:
+        for m2 in array:
+            if m1 != m2:
+                print(m1,m2,'tetts')
+                if m1[3] in powrd and m2[3] in powrd:
+                    print('11')
+                    if m1[0] == m2[0] and m1[3] == m2[3]:
+                        print('22')
+                        if m1[1]-1 == m2[1]:
+                            print('33')
+                            if m1[2] == 'up' and m2[2] == 'down' or m1[2] == 'down' and m2[2] == 'up':
+                                print('44')
+                                group = (m1,m2)
+                                print(group)
+                                print('^^^')
+                                group = tuple(sorted(group))
+                                if group not in groups:
+                                    groups.append(group)
+                    if m1[1] == m2[1] and m1[3] == m2[3]:
+                        print('22')
+                        if m1[0]-1 == m2[0]:
+                            print('33')
+                            if m1[2] == 'left' and m2[2] == 'right' or m1[2] == 'right' and m2[2] == 'left':
+                                print('44')
+                                group = (m1,m2)
+                                print(group)
+                                print('^^^')
+                                group = tuple(sorted(group))
+                                if group not in groups:
+                                    groups.append(group)
+    print(f'groups: {groups}')
+    return groups
+
+def filter_arrays(array,array_avoid):
+    filtered_array_with_position_to_replace_3 = []
+    for positions in array:
+        if not any(
+                len(set(positions) & set(four_positions)) == 3 for four_positions in array_avoid):
+            filtered_array_with_position_to_replace_3.append(positions)
+        return filtered_array_with_position_to_replace_3
 
 def array_creation(board_with_powered,board_without_powered):  # creates an array that shows which gems are 3 or more in a row and should be replaced or exploded depending on the gem
     array_with_position_to_replace = []
@@ -1602,8 +1684,10 @@ def array_creation(board_with_powered,board_without_powered):  # creates an arra
     return array_with_position_to_replace
 
 
-def check_for_rows(board_with_powered, board_without_powered, move, origin_board):
-    print('huj ')
+def check_for_rows(board_with_powered, board_without_powered, move, origin_board,all_moves, ):
+    print(f'wszystkie ruchy {all_moves}')
+    group_of_4moves = group_four_gems(all_moves) #tyhis array keeps the moves that would normally cancel each other nbut they are 4 moves so they dont and based on that we can create powered gem 2 times in one move
+
     powered_gem_gem = ''
     powered_gem_gem_np = ''
     print(board_with_powered)
@@ -1757,6 +1841,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
 
     print('kyd')
     print(filtered_array_with_position_to_replace_3)
+    print(array_with_position_to_replace_4)
 
     for group_pos in filtered_array_with_position_to_replace_3:
         print('test')
@@ -1770,9 +1855,10 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 print(f'current pos {pos}')
                 board_without_powered[pos[0]][pos[1]] = "⬛"
                 board_with_powered[pos[0]][pos[1]] = "⬛"
-    print('ku')
+
+    '''print('ku')
     for row in board_with_powered:
-        print(' '.join(row))
+        print(' '.join(row))'''
     for group_pos in array_with_position_to_replace_4:
         print('asd')
         print(f'move is {move} and move2 is {move[2]}')
@@ -1780,36 +1866,60 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             power = ''
             power_np = ''
             print(f'board power {board_with_powered[move[1] + 1][move[0]]} also moves {move[1] + 1} {move[0]}')
-            if board_with_powered[move[1] + 1][move[0]] == '🟪': power = '🟣';power_np = '🟪'
-            if board_with_powered[move[1] + 1][move[0]] == '🟦': power = '🔵';power_np ='🟦'
-            if board_with_powered[move[1] + 1][move[0]] == '🟩': power = '🟢';power_np ='🟩'
-            if board_with_powered[move[1] + 1][move[0]] == '🟨': power = '🟡';power_np ='🟨'
-            if board_with_powered[move[1] + 1][move[0]] == '🟧': power = '🟠';power_np ='🟧'
-            if board_with_powered[move[1] + 1][move[0]] == '🟥': power = '🔴';power_np ='🟥'
-            if board_with_powered[move[1] + 1][move[0]] == '⬜': power = '⚪';power_np ='⬜'
+            if move[3] == '4r':
+                if board_with_powered[move[1] + 1][move[0]] == '🟪': power = '🟣';power_np = '🟪'
+                if board_with_powered[move[1] + 1][move[0]] == '🟦': power = '🔵';power_np ='🟦'
+                if board_with_powered[move[1] + 1][move[0]] == '🟩': power = '🟢';power_np ='🟩'
+                if board_with_powered[move[1] + 1][move[0]] == '🟨': power = '🟡';power_np ='🟨'
+                if board_with_powered[move[1] + 1][move[0]] == '🟧': power = '🟠';power_np ='🟧'
+                if board_with_powered[move[1] + 1][move[0]] == '🟥': power = '🔴';power_np ='🟥'
+                if board_with_powered[move[1] + 1][move[0]] == '⬜': power = '⚪';power_np ='⬜'
+            if move[3] == '4l':
+                if board_with_powered[move[1] + 1][move[0]+1] == '🟪': power = '🟣';power_np = '🟪'
+                if board_with_powered[move[1] + 1][move[0]+1] == '🟦': power = '🔵';power_np ='🟦'
+                if board_with_powered[move[1] + 1][move[0]+1] == '🟩': power = '🟢';power_np ='🟩'
+                if board_with_powered[move[1] + 1][move[0]+1] == '🟨': power = '🟡';power_np ='🟨'
+                if board_with_powered[move[1] + 1][move[0]+1] == '🟧': power = '🟠';power_np ='🟧'
+                if board_with_powered[move[1] + 1][move[0]+1] == '🟥': power = '🔴';power_np ='🟥'
+                if board_with_powered[move[1] + 1][move[0]+1] == '⬜': power = '⚪';power_np ='⬜'
 
             print(f'power {power}')
             for pos in group_pos:
 
-                '''if board_with_powered[pos[0]][pos[1]] in powered:
-                gem_pos = (pos[0], pos[1])
-                if gem_pos not in power_gem_pos:
-                    power_gem_pos.append(gem_pos)
-                board_without_powered[pos[0]][pos[1]] = "⬛"
-                board_with_powered[pos[0]][pos[1]] = "⬛"'''
+                
                 board_without_powered[pos[0]][pos[1]]= "⬛"
                 board_with_powered[pos[0]][pos[1]]= "⬛"
 
-        board_with_powered[move[1] + 1][move[0]] = power
-        board_without_powered[move[1] + 1][move[0]] = power_np
 
-    '''if powered_gem_gem != '':
-        if move[2] == 'left':
-            board_without_powered[move[1]][move[0] - 1] = powered_gem_gem_np
-            board_with_powered[move[1]][move[0] - 1] = powered_gem_gem
-        elif move[2] == 'right':
-            board_without_powered[move[1]][move[0] + 1] = powered_gem_gem_np
-            board_with_powered[move[1]][move[0] + 1] = powered_gem_gem'''
+
+            board_with_powered[move[1] + 1][move[0]] = power
+            board_without_powered[move[1] + 1][move[0]] = power_np
+        if move[2] == 'up':
+            power = ''
+            power_np = ''
+            if move[3] == '4l':
+                if board_with_powered[move[1] ][move[0]] == '🟪': power = '🟣';power_np = '🟪'
+                if board_with_powered[move[1] ][move[0]] == '🟦': power = '🔵';power_np ='🟦'
+                if board_with_powered[move[1] ][move[0]] == '🟩': power = '🟢';power_np ='🟩'
+                if board_with_powered[move[1] ][move[0]] == '🟨': power = '🟡';power_np ='🟨'
+                if board_with_powered[move[1] ][move[0]] == '🟧': power = '🟠';power_np ='🟧'
+                if board_with_powered[move[1] ][move[0]] == '🟥': power = '🔴';power_np ='🟥'
+                if board_with_powered[move[1] ][move[0]] == '⬜': power = '⚪';power_np ='⬜'
+            if move[3] == '4r':
+                if board_with_powered[move[1] ][move[0]+1] == '🟪': power = '🟣';power_np = '🟪'
+                if board_with_powered[move[1] ][move[0]+1] == '🟦': power = '🔵';power_np ='🟦'
+                if board_with_powered[move[1] ][move[0]+1] == '🟩': power = '🟢';power_np ='🟩'
+                if board_with_powered[move[1] ][move[0]+1] == '🟨': power = '🟡';power_np ='🟨'
+                if board_with_powered[move[1] ][move[0]+1] == '🟧': power = '🟠';power_np ='🟧'
+                if board_with_powered[move[1] ][move[0]+1] == '🟥': power = '🔴';power_np ='🟥'
+                if board_with_powered[move[1] ][move[0]+1] == '⬜': power = '⚪';power_np ='⬜'
+            print(f'power {power}')
+            for pos in group_pos:
+                board_without_powered[pos[0]][pos[1]] = "⬛"
+                board_with_powered[pos[0]][pos[1]] = "⬛"
+            board_with_powered[move[1]  ][move[0]] = power
+            board_without_powered[move[1] ][move[0]] = power_np
+
 
     for row in board_without_powered:
         print(' '.join(row))
@@ -1817,31 +1927,6 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
         print(' '.join(row))
     print(f'move {move}')
 
-    '''if move[3] == '4r' or move[3] == '4l':
-        if board_without_powered[main_gem[1] - 1][main_gem[0]] == '🟪': powered_gem_gem = '🟣'
-        if board_without_powered[main_gem[1] - 1][main_gem[0]] == '🟦': powered_gem_gem = '🔵'
-        if board_without_powered[main_gem[1] - 1][main_gem[0]] == '🟩': powered_gem_gem = '🟢'
-        if board_without_powered[main_gem[1] - 1][main_gem[0]] == '🟨': powered_gem_gem = '🟡'
-        if board_without_powered[main_gem[1] - 1][main_gem[0]] == '🟧': powered_gem_gem = '🟠'
-        if board_without_powered[main_gem[1] - 1][main_gem[0]] == '🟥': powered_gem_gem = '🔴'
-        if board_without_powered[main_gem[1] - 1][main_gem[0]] == '⬜': powered_gem_gem = '⚪'
-        print(f'powered gem gem{powered_gem_gem}')
-        if move[1] + 1 < 8:
-            board_with_powered[move[1] + 1][move[0]] = powered_gem_gem
-            board_without_powered[move[1] + 1][move[0]] = powered_gem_gem
-    if move[3] == '4d' or move[3] == '4u':
-        print(f'main gem pos {main_gem}')
-        if board_without_powered[main_gem[1]][main_gem[0]] == '🟪': powered_gem_gem = '🟣'
-        if board_without_powered[main_gem[1]][main_gem[0]] == '🟦': powered_gem_gem = '🔵'
-        if board_without_powered[main_gem[1]][main_gem[0]] == '🟩': powered_gem_gem = '🟢'
-        if board_without_powered[main_gem[1]][main_gem[0]] == '🟨': powered_gem_gem = '🟡'
-        if board_without_powered[main_gem[1]][main_gem[0]] == '🟧': powered_gem_gem = '🟠'
-        if board_without_powered[main_gem[1]][main_gem[0]] == '🟥': powered_gem_gem = '🔴'
-        if board_without_powered[main_gem[1]][main_gem[0]] == '⬜': powered_gem_gem = '⚪'
-        print(f'powered gem gem{powered_gem_gem}')
-        if move[1]  < 8:
-            board_with_powered[move[1]][move[0]] = powered_gem_gem
-            board_without_powered[move[1]][move[0]] = powered_gem_gem'''
     if len(power_gem_pos) == 0:
         score = 0
 
@@ -2201,22 +2286,22 @@ def next_move(board_p, moves, already_done_moves, orig_board):
             print(' '.join(row))
         print('----------------')
 
-        aftermove_p, aftermove_np = check_for_rows(copy_p, copy_np, move, orig_board)
+        aftermove_p, aftermove_np = check_for_rows(copy_p, copy_np, move, orig_board,moves)
         aftermove_p2 = przesun_czarne_do_gory(aftermove_p)
         aftermove_np2 = przesun_czarne_do_gory(aftermove_np)
-        aftermove_p3, aftermove_np3 = check_for_rows(aftermove_p2, aftermove_np2, move, orig_board)
+        aftermove_p3, aftermove_np3 = check_for_rows(aftermove_p2, aftermove_np2, move, orig_board,moves)
         aftermove_p4 = przesun_czarne_do_gory(aftermove_p3)
         aftermove_np4 = przesun_czarne_do_gory(aftermove_np3)
-        aftermove_p5, aftermove_np5 = check_for_rows(aftermove_p4, aftermove_np4, move, orig_board)
+        aftermove_p5, aftermove_np5 = check_for_rows(aftermove_p4, aftermove_np4, move, orig_board,moves)
         aftermove_p6 = przesun_czarne_do_gory(aftermove_p5)
         aftermove_np6 = przesun_czarne_do_gory(aftermove_np5)
-        aftermove_p7, aftermove_np7 = check_for_rows(aftermove_p6, aftermove_np6, move, orig_board)
+        aftermove_p7, aftermove_np7 = check_for_rows(aftermove_p6, aftermove_np6, move, orig_board,moves)
         aftermove_p8 = przesun_czarne_do_gory(aftermove_p7)
         aftermove_np8 = przesun_czarne_do_gory(aftermove_np7)
-        aftermove_p9, aftermove_np9 = check_for_rows(aftermove_p8, aftermove_np8, move, orig_board)
+        aftermove_p9, aftermove_np9 = check_for_rows(aftermove_p8, aftermove_np8, move, orig_board,moves)
         aftermove_p10 = przesun_czarne_do_gory(aftermove_p9)
         aftermove_np10 = przesun_czarne_do_gory(aftermove_np9)
-        aftermove_p11, aftermove_np11 = check_for_rows(aftermove_p10, aftermove_np10, move, orig_board)
+        aftermove_p11, aftermove_np11 = check_for_rows(aftermove_p10, aftermove_np10, move, orig_board,moves)
         aftermove_p12 = przesun_czarne_do_gory(aftermove_p11)
         aftermove_np12 = przesun_czarne_do_gory(aftermove_np11)
 
@@ -2264,10 +2349,10 @@ brd = \
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']]
+     ['⬛', '⬛', '🟪', '🟨', '🟪', '🟪', '🟦', '🟩'],
+     ['⬛', '⬛', '🟨', '🟪', '🟨', '🟨', '🟦', '🟩'],
+     ['⬛', '⬛', '⬜', '🟥', '⬜', '⬜', '🟩', '🟦'],
+     ['⬛', '🟧', '🟥', '⬜', '🟥', '🟥', '🟦', '🟩']]
 # 🟥🟨🟦🟪⬜🟩🟧
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
  ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
@@ -2284,8 +2369,8 @@ brd = \
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
      ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '🟥', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '🟧', '🟥', '⬜', '🟥', '🟥', '⬛', '⬛']]
+     ['⬛', '⬛', '⬛', '⬜', '🟥', '⬛', '⬛', '⬛'],
+     ['⬛', '🟧', '🟥', '🟥', '⬜', '🟥', '⬛', '⬛']]
 
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
  ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
