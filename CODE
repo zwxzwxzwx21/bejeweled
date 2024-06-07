@@ -307,6 +307,17 @@ def test():
         print(f"Najbardziej podobny obraz dla {bomb_image}: {best_match}")
         bombs.append(best_match)
     print(f' bombs {bombs}')
+    bombs_arr = []
+    nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    for bob in bombs:
+        print(f'bob {bob}')
+        if bob[1] in nums:
+            string = bob[0]+bob[1]
+            bombs_arr.append(string)
+        else:
+            bombs_arr.append(bob[0])
+    print(bombs_arr)
+
     bomb_board = [['' for _ in range(8)] for _ in range(8)]
     bomb_number = 0
     for i in range(8):
@@ -317,9 +328,9 @@ def test():
             else:
                 if bomb_number == 0:
                     bomb_number += 1
-                    bomb_board[j][i] = bombs[0][0]
+                    bomb_board[j][i] = bombs_arr[0]
                 else:
-                    bomb_board[j][i] = bombs[1][0]
+                    bomb_board[j][i] = bombs_arr[1]
     for row in bomb_board:
         print(' '.join(row))
     copy_p = copy.deepcopy(bomb_board)
@@ -1808,7 +1819,24 @@ def array_creation(tablica):  # creates an array that shows which gems are 3 or 
                     tablica[j - 2][i] !='🌫️' and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j - 1][i] == \
                     tablica[j - 2][i]!='🌈':
                 array_with_position_to_replace_L.append([(j, i), (j, i - 1), (j, i - 2),(j - 1, i), (j - 2, i)])
-            #if i<=8-1
+
+            if (i+1<8 and i-1 > -1 and j+2 < 8 and tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j+1][i] == tablica[j+2][i]!= "⬛" and
+                tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j+1][i] == tablica[j+2][i] !='🌫️' and
+                tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j+1][i] == tablica[j+2][i]!='🌈'):
+                array_with_position_to_replace_T.append([(j, i), (j, i - 1),(j, i + 1),(j + 1, i), (j + 2, i)])
+            if (i+1<8 and i-1 > -1 and j-2 >-1 and tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j-1][i] == tablica[j-2][i]!= "⬛" and
+                tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j-1][i] == tablica[j-2][i] !='🌫️' and
+                tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j-1][i] == tablica[j-2][i]!='🌈'):
+                array_with_position_to_replace_T.append([(j, i), (j, i - 1),(j, i + 1),(j - 1, i), (j - 2, i)])
+            if (i+2<8 and j-1 > -1 and j+1 <8 and tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j-1][i] == tablica[j+1][i]!= "⬛" and
+                tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j-1][i] == tablica[j+1][i] !='🌫️' and
+                tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j-1][i] == tablica[j+1][i]!='🌈'):
+                array_with_position_to_replace_T.append([(j, i), (j, i +1),(j, i + 2),(j - 1, i), (j +1, i)])
+            if (i-2<8 and j-1 > -1 and j+1 <8 and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j-1][i] == tablica[j+1][i]!= "⬛" and
+                tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j-1][i] == tablica[j+1][i] !='🌫️' and
+                tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j-1][i] == tablica[j+1][i]!='🌈'):
+                array_with_position_to_replace_T.append([(j, i), (j, i +1),(j, i + 2),(j - 1, i), (j +1, i)])
+
 
     print(f'array to replace 5 {array_with_position_to_replace_5} array to replace 6 {array_with_position_to_replace_6}')
     # Tworzenie pustej listy na zestawy bloków, które nie spełniają warunków dla 4 bloków
@@ -1837,7 +1865,7 @@ def array_creation(tablica):  # creates an array that shows which gems are 3 or 
         if not any(
                 len(set(positions) & set(seven_positions)) == 6 for seven_positions in array_with_position_to_replace_7):
             filtered_array_with_position_to_replace_6.append(positions)
-    return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, filtered_array_with_position_to_replace_5,array_with_position_to_replace_4_V,filtered_array_with_position_to_replace_6,array_with_position_to_replace_7,array_with_position_to_replace_L
+    return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, filtered_array_with_position_to_replace_5,array_with_position_to_replace_4_V,filtered_array_with_position_to_replace_6,array_with_position_to_replace_7,array_with_position_to_replace_L,array_with_position_to_replace_T
 
 def check_for_rows(board_with_powered, board_without_powered, move, origin_board,all_moves,):
     board_p_copy = copy.deepcopy(board_with_powered)
@@ -1861,8 +1889,8 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     print('all moves', all_moves)
     huj2 = sieve_moves(all_moves)
     print(huj2,'asdf')
-    array_3,array_4,array_5,array_4_V,array_6,array_7,array_L = array_creation(board_np_copy)
-    print(f' array 3 {array_3} array 4 {array_4} array 5 {array_5}  array 4V {array_4_V} array 6 {array_6} array 7 {array_7} array L{array_L}')
+    array_3,array_4,array_5,array_4_V,array_6,array_7,array_L,array_T = array_creation(board_np_copy)
+    print(f' array 3 {array_3} array 4 {array_4} array 5 {array_5}  array 4V {array_4_V} array 6 {array_6} array 7 {array_7} array L{array_L} array_T {array_T}')
     powered_gem_pos = []
     if move not in group_of_4moves and move[3] == '4l' or move[3] == '4d' or move[3] == '4r' or move[3] == '4u':
         group_of_4moves.append(move)
@@ -2141,6 +2169,28 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     to_turn_black = []
     to_change_to_diff = []
     for rows in array_L:
+        for pos in rows:
+            if pos != rows[0]:
+                a = (pos[0],pos[1])
+                to_turn_black.append(a)
+                '''board_p_copy[pos[0]][pos[1]] = '⬛'
+                board_np_copy[pos[0]][pos[1]] = "⬛"'''
+            else:
+                power = ''
+                power_np = ''
+                if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                a = (pos[0],pos[1],power,power_np)
+                to_change_to_diff.append(a)
+                '''board_np_copy[pos[0]][pos[1]] = power_np
+                board_p_copy[pos[0]][pos[1]] = power'''
+                print(f' power and np {power} {power_np}')
+    for rows in array_T:
         for pos in rows:
             if pos != rows[0]:
                 a = (pos[0],pos[1])
@@ -2702,7 +2752,8 @@ def explode_gem(board, y, x, strin, board_to_overwrite,original_board):
             for j in range(pos[1] - 1, pos[1] + 2):
                 if i > -1 and i < 8 and j > -1 and j < 8:
                     board2[j][i] = '⬛'
-
+    if strin == 'bomb!':
+        gem = (x,y)
     if gem[1]<10:                     board2[gem[1]][gem[0]] = '⬛'
     if gem[1]+1 < 8:                  board2[gem[1]+1][gem[0]] = '⬛'
     if gem[1]+1 < 8 and gem[0] +1 < 8:board2[gem[1]+1][gem[0]+1] = '⬛'
@@ -2873,8 +2924,9 @@ def next_move(board_p, moves, already_done_moves, orig_board):
         print(' '.join(row))
     print('rty',moves)
     sieved_m = sieve_moves(moves)
+    bomb_placement = []
     for move in sieved_m:
-
+        flag_move = 0 # flag to not substract bomb move count twice
         print('board_p')
         for row in board_p:
             print(' '.join(row))
@@ -2887,19 +2939,24 @@ def next_move(board_p, moves, already_done_moves, orig_board):
         print(f' checking for {move} already done {already_done} ')
         copy_np = copy.deepcopy(board_not_powered)
         copy_p = copy.deepcopy(board_p)
-        for i in range(8):
-            for j in range(8):
-                try:
-                    int(copy_np[i][j])
-                    bomb_pos = (i, j)
-                    bomb_placement.append(bomb_pos)
 
-                    # print(copy_np[i][j])
-                except ValueError:
-                    pass
         powered = ['⚪','🔵','🔴','🟣','🟢','🟠','🟡']
         if move[2] == 'left':
             if move[3] != 'R':
+                print('Ć',copy_np[move[1]][move[0]],copy_np[move[1]][move[0]])
+                try:
+                    val = int(copy_np[move[1]][move[0]])-1
+                    copy_np[move[1]][move[0]] = str(val)
+                    copy_p[move[1]][move[0]] = str(val)
+                    flag_move = 1
+                except:print('no bomb movement')
+                print('ĆĆ',copy_np[move[1]][move[0] - 1])
+                try:
+                    val =int(copy_np[move[1]][move[0] - 1])-1
+                    copy_np[move[1]][move[0] - 1] = str(val)
+                    copy_p[move[1]][move[0] - 1] = str(val)
+                    flag_move = 1
+                except:print('no bomb movement')
                 copy_np[move[1]][move[0]], copy_np[move[1]][move[0] - 1] = copy_np[move[1]][
                     move[0] - 1], copy_np[move[1]][move[0]]
                 copy_p[move[1]][move[0]], copy_p[move[1]][move[0] - 1] = copy_p[move[1]][
@@ -2919,6 +2976,18 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                                 copy_p = explode_gem(copy_p,move[1] ,move[0]-1,'moveLr',throwaway,orig_board)
         if move[2] == 'right':
             if move[3] != 'R':
+                try:
+                    val = int(copy_np[move[1]][move[0]])-1
+                    copy_np[move[1]][move[0]] = str(val)
+                    copy_p[move[1]][move[0]] = str(val)
+                    flag_move = 1
+                except:pass
+                try:
+                    val =int(copy_np[move[1]][move[0] + 1])-1
+                    copy_np[move[1]][move[0] + 1] = str(val)
+                    copy_p[move[1]][move[0] + 1] = str(val)
+                    flag_move = 1
+                except:pass
                 copy_np[move[1]][move[0]], copy_np[move[1]][move[0] + 1] = copy_np[move[1]][
                     move[0] + 1], copy_np[move[1]][move[0]]
                 copy_p[move[1]][move[0]], copy_p[move[1]][move[0] + 1] = copy_p[move[1]][
@@ -2938,6 +3007,18 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                                 copy_p =explode_gem(copy_p,move[1] ,move[0]+1,'moveRr',throwaway,orig_board)
         if move[2] == 'up':
             if move[3] != 'R':
+                try:
+                    val = int(copy_np[move[1]][move[0]])-1
+                    copy_np[move[1]][move[0]] = str(val)
+                    copy_p[move[1]][move[0]] = str(val)
+                    flag_move = 1
+                except:pass
+                try:
+                    val =int(copy_np[move[1] - 1][move[0]])-1
+                    copy_np[move[1] - 1][move[0]] = str(val)
+                    copy_p[move[1] - 1][move[0]] = str(val)
+                    flag_move = 1
+                except:pass
                 copy_np[move[1]][move[0]], copy_np[move[1] - 1][move[0]] = copy_np[move[1] - 1][
                     move[0]], copy_np[move[1]][move[0]]
                 copy_p[move[1]][move[0]], copy_p[move[1] - 1][move[0]] = copy_p[move[1] - 1][
@@ -2957,6 +3038,18 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                                     copy_p =explode_gem(copy_p,move[1] - 1,move[0],'moveUr',throwaway,orig_board)
         if move[2] == 'down':
             if move[3] != 'R':
+                try:
+                    val = int(copy_np[move[1]][move[0]])-1
+                    copy_np[move[1]][move[0]] = str(val)
+                    copy_p[move[1]][move[0]] = str(val)
+                    flag_move = 1
+                except:pass
+                try:
+                    val =int(copy_np[move[1] + 1][move[0]])-1
+                    copy_np[move[1] + 1][move[0]] = str(val)
+                    copy_p[move[1] + 1][move[0]] = str(val)
+                    flag_move = 1
+                except:pass
                 copy_np[move[1]][move[0]], copy_np[move[1] + 1][move[0]] = copy_np[move[1] + 1][
                     move[0]], copy_np[move[1]][move[0]]
                 copy_p[move[1]][move[0]], copy_p[move[1] + 1][move[0]] = copy_p[move[1] + 1][
@@ -2974,18 +3067,7 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                             if gem_p in powered:
                                 throwaway = copy.deepcopy(copy_p)
                                 copy_p =explode_gem(copy_p,move[1] + 1,move[0],'moveDr',throwaway,orig_board)
-        for bombs in bomb_placement:
-            value = copy_np[bombs[0]][bombs[1]]
-            val2 = int(value)
-            val2 -= 1
-            if val2 > 0:
-                string = str(val2)
 
-                copy_np[bombs[0]][bombs[1]] = string
-                copy_p[bombs[0]][bombs[1]] = string
-            else:
-                throwaway = copy_p
-                explode_gem(copy_p,bombs[0],bombs[1],'a',throwaway,orig_board)
         print('copy_np')
         for row in copy_np:
             print(' '.join(row))
@@ -2994,7 +3076,7 @@ def next_move(board_p, moves, already_done_moves, orig_board):
         for row in copy_p:
             print(' '.join(row))
         print('----------------')
-
+        #region
         aftermove_p, aftermove_np = check_for_rows(copy_p, copy_np, move, orig_board,moves)
         aftermove_p2 = przesun_czarne_do_gory(aftermove_p)
         aftermove_np2 = przesun_czarne_do_gory(aftermove_np)
@@ -3013,6 +3095,46 @@ def next_move(board_p, moves, already_done_moves, orig_board):
         aftermove_p11, aftermove_np11 = check_for_rows(aftermove_p10, aftermove_np10, move, orig_board,moves)
         aftermove_p12 = przesun_czarne_do_gory(aftermove_p11)
         aftermove_np12 = przesun_czarne_do_gory(aftermove_np11)
+        #endregion
+        #bomb_placement = []
+        for i in range(8):
+            for j in range(8):
+                try:
+                    #print(' loop i bomb placements')
+                    for row in aftermove_np12:
+                        print(' '.join(row))
+                    int(aftermove_np12[i][j])
+                    bomb_pos = (i, j)
+                    bomb_placement.append(bomb_pos)
+
+                    # print(copy_np[i][j])
+                except ValueError:
+                    pass
+        for bombs in bomb_placement:
+            print(f' bomb placements {bomb_placement}')
+            value = aftermove_np12[bombs[0]][bombs[1]]
+            try:
+                val2 = int(value)
+                if flag_move == 0:
+                    val2 -= 1
+                for row in aftermove_p12:
+                    print(' '.join(row))
+                print('^^ aftermove_12 ')
+                if val2 > 0:
+                    string = str(val2)
+
+                    aftermove_np12[bombs[0]][bombs[1]] = string
+                    aftermove_p12[bombs[0]][bombs[1]] = string
+
+                else:
+                    throwaway = aftermove_p12
+                    aftermove_p12 =explode_gem(aftermove_p12,bombs[0],bombs[1],'bomb!',throwaway,orig_board)
+                    asdf =  copy.deepcopy(aftermove_p12)
+                    aftermove_np12 = convert_board(asdf)
+
+                    aftermove_p12 = przesun_czarne_do_gory(aftermove_p12)
+                    aftermove_np12 = przesun_czarne_do_gory(aftermove_np12)
+            except:pass
 
         print('powered')
         for row in aftermove_p12:
