@@ -905,7 +905,7 @@ def check_for_moves(final_board):
                                 final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i - 1][j - 2] and
-                                    final_board[i][j] != '⬛'and board[i][j]!='🌈' and
+                                    final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                                     final_board[i][j] != '🌫️'):
                                 # print('┘d')
                                 move = (j, i, 'up', '┘d')
@@ -1726,9 +1726,29 @@ def array_creation(tablica):  # creates an array that shows which gems are 3 or 
     array_with_position_to_replace_3 = []
     array_with_position_to_replace_4 = []
     array_with_position_to_replace_5 = []
+    array_with_position_to_replace_6 = []
+    array_with_position_to_replace_7 = []
     array_with_position_to_replace_4_V = []
+    array_with_position_to_replace_L = []
+    array_with_position_to_replace_T = []
     for i in range(8):
         for j in range(8):
+            if i <= 8 - 7 and tablica[j][i] == tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
+                i + 4]== tablica[j][i + 5]== tablica[j][i + 6] != "⬛"and tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
+                i + 4]== tablica[j][i + 5]== tablica[j][i + 6]!='🌫️'and tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
+                i + 4]== tablica[j][i + 5]== tablica[j][i + 6]!='🌈':
+                array_with_position_to_replace_7.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3), (j, i + 4),(j, i + 5),(j, i + 6)])
+            if i <= 8 - 6 and tablica[j][i] == tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
+                i + 4]== tablica[j][i + 5] != "⬛"and tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
+                i + 4]== tablica[j][i + 5]!='🌫️'and tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
+                i + 4]== tablica[j][i + 5]!='🌈':
+                array_with_position_to_replace_6.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3), (j, i + 4),(j, i + 5)])
             if j <= 8 - 5 and tablica[j][i] == tablica[j + 1][i] == \
                     tablica[j + 2][i] == tablica[j + 3][i] == tablica[j + 4][
                 i] != "⬛" and tablica[j][i] == tablica[j + 1][i] == \
@@ -1768,7 +1788,29 @@ def array_creation(tablica):  # creates an array that shows which gems are 3 or 
                 array_with_position_to_replace_3.append([(j, i), (j, i + 1), (j, i + 2)])
 
 
-    print(f'array to replace 3 {array_with_position_to_replace_3}')
+            if i+2<8 and j+2<8 and tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j + 1][i] == \
+                    tablica[j + 2][i] != "⬛" and tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j + 1][i] == \
+                    tablica[j + 2][i] !='🌫️' and tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j + 1][i] == \
+                    tablica[j + 2][i]!='🌈':
+                array_with_position_to_replace_L.append([(j, i), (j, i + 1), (j, i + 2),(j + 1, i), (j + 2, i)])
+            if i+2<8 and j-2>-1 and tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j - 1][i] == \
+                    tablica[j - 2][i] != "⬛" and tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j - 1][i] == \
+                    tablica[j - 2][i] !='🌫️' and tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j - 1][i] == \
+                    tablica[j - 2][i]!='🌈':
+                array_with_position_to_replace_L.append([(j, i), (j, i + 1), (j, i + 2),(j - 1, i), (j - 2, i)])
+            if i-2>-1 and j+2<8 and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j + 1][i] == \
+                    tablica[j + 2][i] != "⬛" and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j + 1][i] == \
+                    tablica[j + 2][i] !='🌫️' and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j + 1][i] == \
+                    tablica[j + 2][i]!='🌈':
+                array_with_position_to_replace_L.append([(j, i), (j, i - 1), (j, i - 2),(j - 1, i), (j - 2, i)])
+            if i-2>-1 and j-2>-1 and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j - 1][i] == \
+                    tablica[j - 2][i] != "⬛" and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j - 1][i] == \
+                    tablica[j - 2][i] !='🌫️' and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j - 1][i] == \
+                    tablica[j - 2][i]!='🌈':
+                array_with_position_to_replace_L.append([(j, i), (j, i - 1), (j, i - 2),(j - 1, i), (j - 2, i)])
+            #if i<=8-1
+
+    print(f'array to replace 5 {array_with_position_to_replace_5} array to replace 6 {array_with_position_to_replace_6}')
     # Tworzenie pustej listy na zestawy bloków, które nie spełniają warunków dla 4 bloków
     filtered_array_with_position_to_replace_3 = []
 
@@ -1783,7 +1825,19 @@ def array_creation(tablica):  # creates an array that shows which gems are 3 or 
         if not any(
                 len(set(positions) & set(five_positions)) == 4 for five_positions in array_with_position_to_replace_5):
             filtered_array_with_position_to_replace_4.append(positions)
-    return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, array_with_position_to_replace_5,array_with_position_to_replace_4_V
+    filtered_array_with_position_to_replace_5 = []
+    for positions in array_with_position_to_replace_5:
+        # Sprawdź, czy zestaw bloków nie spełnia warunków dla 4 bloków
+        if not any(
+                len(set(positions) & set(six_positions)) == 5 for six_positions in array_with_position_to_replace_6):
+            filtered_array_with_position_to_replace_5.append(positions)
+    filtered_array_with_position_to_replace_6 = []
+    for positions in array_with_position_to_replace_6:
+        # Sprawdź, czy zestaw bloków nie spełnia warunków dla 4 bloków
+        if not any(
+                len(set(positions) & set(seven_positions)) == 6 for seven_positions in array_with_position_to_replace_7):
+            filtered_array_with_position_to_replace_6.append(positions)
+    return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, filtered_array_with_position_to_replace_5,array_with_position_to_replace_4_V,filtered_array_with_position_to_replace_6,array_with_position_to_replace_7,array_with_position_to_replace_L
 
 def check_for_rows(board_with_powered, board_without_powered, move, origin_board,all_moves,):
     board_p_copy = copy.deepcopy(board_with_powered)
@@ -1807,13 +1861,13 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     print('all moves', all_moves)
     huj2 = sieve_moves(all_moves)
     print(huj2,'asdf')
-    array_3,array_4,array_5,array_4_V = array_creation(board_np_copy)
-    print(f' array 3 {array_3} array 4 {array_4} array 5 {array_5}')
+    array_3,array_4,array_5,array_4_V,array_6,array_7,array_L = array_creation(board_np_copy)
+    print(f' array 3 {array_3} array 4 {array_4} array 5 {array_5}  array 4V {array_4_V} array 6 {array_6} array 7 {array_7} array L{array_L}')
     powered_gem_pos = []
     if move not in group_of_4moves and move[3] == '4l' or move[3] == '4d' or move[3] == '4r' or move[3] == '4u':
         group_of_4moves.append(move)
     print(group_of_4moves,'group of 4 moves')
-
+    to_turn_black = []
     if move[3] == '4r':
         powered_gem_pos = [] # array that will replace cleared 4 lines with powered gems
         for group in group_of_4moves:
@@ -2084,6 +2138,42 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             print(powered_gem_pos)
     powered = ['⚪', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣']
     power_gem_pos = []
+    
+    for rows in array_L:
+        for pos in rows:
+            if pos != rows[0]:
+                board_p_copy[pos[0]][pos[1]] = '⬛'
+                board_np_copy[pos[0]][pos[1]] = '⬛'
+            else:
+                power = ''
+                power_np = ''
+                if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                board_np_copy[pos[0]][pos[1]] = power_np
+                board_p_copy[pos[0]][pos[1]] = power
+                print(f' power and np {power} {power_np}')
+    for rows in array_6:
+
+            for pos in rows:
+                if pos != rows[2]:
+                    board_p_copy[pos[0]][pos[1]] = '⬛'
+                    board_np_copy[pos[0]][pos[1]] = '⬛'
+                else:
+                    board_p_copy[pos[0]][pos[1]] = '🌈'
+                    board_np_copy[pos[0]][pos[1]] = '🌈'
+    for rows in array_7:
+        for pos in rows:
+            if pos != rows[3] :
+                board_p_copy[pos[0]][pos[1]] = '⬛'
+                board_np_copy[pos[0]][pos[1]] = '⬛'
+            else:
+                board_p_copy[pos[0]][pos[1]] = '🌈'
+                board_np_copy[pos[0]][pos[1]] = '🌈'
     for array in array_4_V:
         #print('loop1')
         for pos in array:
@@ -2111,8 +2201,21 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     for rows in array_4:
         for pos in rows:
             if board_p_copy[pos[0]][pos[1]] not in powered:
-                board_np_copy[pos[0]][pos[1]] = "⬛"
-                board_p_copy[pos[0]][pos[1]] = "⬛"
+                if pos == rows[1]:
+                    power = ''
+                    power_np = ''
+                    if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                    if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                    if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                    if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                    if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                    if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                    if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                    board_np_copy[pos[0]][pos[1]] = power_np
+                    board_p_copy[pos[0]][pos[1]] = power
+                else:
+                    board_np_copy[pos[0]][pos[1]] = "⬛"
+                    board_p_copy[pos[0]][pos[1]] = "⬛"
     for rows in array_3:
         for pos in rows:
             print(f' powered or no {board_p_copy[pos[0]][pos[1]]}')
@@ -2158,7 +2261,9 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             else:
                 board_p_copy[pos[0]][pos[1]] = '🌈'
                 board_np_copy[pos[0]][pos[1]] = '🌈'
-
+    
+    
+    
     pwrd = []
     npwrd = []
     for pos in powered_gem_pos:
