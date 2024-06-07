@@ -420,8 +420,10 @@ def check_for_moves(final_board):
                     final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) - 1] and
                     final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] != '⬛' and
                     final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] != '🌫️' and
+                    final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) - 1] !='🌈'and
                     final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) - 1] != '🌫️' and
-                    final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) - 1] != '⬛'):
+                    final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) - 1] != '⬛' and
+                    final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) - 1] !='🌈'):
 
                 move = ((vertical_pair_of_gems[i][0][0]) - 1, vertical_pair_of_gems[i][0][1] - 1, 'right', 3)
                 if move not in moves_to_right:
@@ -431,9 +433,11 @@ def check_for_moves(final_board):
             if (final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] ==
                     final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) + 1] and
                     final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] != '⬛' and
+                    final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] != '🌈' and
                     final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] != '🌫️' and
                     final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) + 1] != '⬛' and
-                    final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) + 1] != '🌫️'):
+                    final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) + 1] != '🌫️'and
+                    final_board[(vertical_pair_of_gems[i][0][1]) - 1][(vertical_pair_of_gems[i][0][0]) + 1] !='🌈'):
 
                 move = ((vertical_pair_of_gems[i][0][0]) + 1, (vertical_pair_of_gems[i][0][1]) - 1, 'left', 3)
                 if move not in moves_to_left:
@@ -443,9 +447,11 @@ def check_for_moves(final_board):
             if (final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] ==
                     final_board[(vertical_pair_of_gems[i][0][1]) - 2][(vertical_pair_of_gems[i][0][0])] and
                     final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] != '⬛' and
+                    final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] !='🌈'and
                     final_board[(vertical_pair_of_gems[i][0][1])][(vertical_pair_of_gems[i][0][0])] != '🌫️' and
                     final_board[(vertical_pair_of_gems[i][0][1]) - 2][(vertical_pair_of_gems[i][0][0])] != '⬛' and
-                    final_board[(vertical_pair_of_gems[i][0][1]) - 2][(vertical_pair_of_gems[i][0][0])] != '🌫️'):
+                    final_board[(vertical_pair_of_gems[i][0][1]) - 2][(vertical_pair_of_gems[i][0][0])] != '🌫️'and
+                    final_board[(vertical_pair_of_gems[i][0][1]) - 2][(vertical_pair_of_gems[i][0][0])]!='🌈'):
 
                 move = ((vertical_pair_of_gems[i][0][0]), (vertical_pair_of_gems[i][0][1]) - 2, 'down', 3)
                 if move not in moves_to_down:
@@ -457,9 +463,11 @@ def check_for_moves(final_board):
             if (final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] ==
                     final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) - 1] and
                     final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] != '⬛' and
+                    final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] !='🌈'and
                     final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] != '🌫️' and
                     final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) - 1] != '⬛' and
-                    final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) - 1] != '🌫️'):
+                    final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) - 1] != '🌫️'and
+                    final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) - 1]!='🌈'):
 
                 move = ((vertical_pair_of_gems[i][1][0]) - 1, (vertical_pair_of_gems[i][1][1]) + 1, 'right', 3)
                 if move not in moves_to_right:
@@ -469,9 +477,11 @@ def check_for_moves(final_board):
             if (final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] ==
                     final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) + 1] and
                     final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] != '⬛' and
+                    final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])]!='🌈'and
                     final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] != '🌫️' and
                     final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) + 1] != '⬛' and
-                    final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) + 1] != '🌫️'):
+                    final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) + 1] != '🌫️'and
+                    final_board[(vertical_pair_of_gems[i][1][1]) + 1][(vertical_pair_of_gems[i][1][0]) + 1] !='🌈'):
 
                 move = ((vertical_pair_of_gems[i][1][0]) + 1, (vertical_pair_of_gems[i][1][1]) + 1, 'left', 3)
                 if move not in moves_to_left:
@@ -482,8 +492,10 @@ def check_for_moves(final_board):
                     final_board[(vertical_pair_of_gems[i][1][1]) + 2][(vertical_pair_of_gems[i][0][0])] and
                     final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] != '⬛' and
                     final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])] != '🌫️' and
+                    final_board[(vertical_pair_of_gems[i][1][1])][(vertical_pair_of_gems[i][1][0])]!='🌈' and
                     final_board[(vertical_pair_of_gems[i][1][1]) + 2][(vertical_pair_of_gems[i][0][0])] != '⬛' and
-                    final_board[(vertical_pair_of_gems[i][1][1]) + 2][(vertical_pair_of_gems[i][0][0])] != '🌫️'):
+                    final_board[(vertical_pair_of_gems[i][1][1]) + 2][(vertical_pair_of_gems[i][0][0])] != '🌫️'and
+                    final_board[(vertical_pair_of_gems[i][1][1]) + 2][(vertical_pair_of_gems[i][0][0])]!='🌈'):
 
                 move = ((vertical_pair_of_gems[i][1][0]), (vertical_pair_of_gems[i][1][1]) + 2, 'up', 3)
                 if move not in moves_to_up:
@@ -500,8 +512,11 @@ def check_for_moves(final_board):
                     final_board[(horizontal_pair_of_gems[i][0][1]) - 1][(horizontal_pair_of_gems[i][0][0]) - 1] and
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] != '⬛' and
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] != '🌫️' and
+                    final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] !='🌈'and
                     final_board[(horizontal_pair_of_gems[i][0][1]) - 1][
                         (horizontal_pair_of_gems[i][0][0]) - 1] != '⬛' and
+                    final_board[(horizontal_pair_of_gems[i][0][1]) - 1][
+                        (horizontal_pair_of_gems[i][0][0]) - 1]!='🌈'and
                     final_board[(horizontal_pair_of_gems[i][0][1]) - 1][
                         (horizontal_pair_of_gems[i][0][0]) - 1] != '🌫️'):
 
@@ -514,8 +529,11 @@ def check_for_moves(final_board):
                     final_board[(horizontal_pair_of_gems[i][0][1]) + 1][(horizontal_pair_of_gems[i][0][0]) - 1] and
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] != '⬛' and
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] != '🌫️' and
+                final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] !='🌈' and
                     final_board[(horizontal_pair_of_gems[i][0][1]) + 1][
                         (horizontal_pair_of_gems[i][0][0]) - 1] != '⬛' and
+                     final_board[(horizontal_pair_of_gems[i][0][1]) + 1][
+                        (horizontal_pair_of_gems[i][0][0]) - 1] !='🌈' and
                     final_board[(horizontal_pair_of_gems[i][0][1]) + 1][
                         (horizontal_pair_of_gems[i][0][0]) - 1] != '🌫️'):
 
@@ -527,8 +545,10 @@ def check_for_moves(final_board):
             if (final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0]) - 2] ==
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] and
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0]) - 2] != '⬛' and
+                    final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0]) - 2] !='🌈'and
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0]) - 2] != '🌫️' and
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] != '⬛' and
+                    final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])]!='🌈'and
                     final_board[(horizontal_pair_of_gems[i][0][1])][(horizontal_pair_of_gems[i][0][0])] != '🌫️'):
 
                 move = ((horizontal_pair_of_gems[i][0][0]) - 2, (horizontal_pair_of_gems[i][0][1]), 'right', 3)
@@ -540,10 +560,13 @@ def check_for_moves(final_board):
         if (horizontal_pair_of_gems[i][1][1]) - 1 > -1 and (horizontal_pair_of_gems[i][1][0]) + 1 < 8:
             if (final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] ==
                     final_board[(horizontal_pair_of_gems[i][1][1]) - 1][(horizontal_pair_of_gems[i][1][0]) + 1] and
-                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '⬛' and
+                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '⬛'and
+                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])]!='🌈'and
                     final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '🌫️' and
                     final_board[(horizontal_pair_of_gems[i][1][1]) - 1][
-                        (horizontal_pair_of_gems[i][1][0]) + 1] != '⬛' and
+                        (horizontal_pair_of_gems[i][1][0]) + 1] != '⬛'and
+                    final_board[(horizontal_pair_of_gems[i][1][1]) - 1][
+                        (horizontal_pair_of_gems[i][1][0]) + 1]!='🌈'and
                     final_board[(horizontal_pair_of_gems[i][1][1]) - 1][
                         (horizontal_pair_of_gems[i][1][0]) + 1] != '🌫️'):
 
@@ -554,10 +577,11 @@ def check_for_moves(final_board):
         if (horizontal_pair_of_gems[i][1][1]) + 1 < 8 and (horizontal_pair_of_gems[i][1][0]) + 1 < 8:
             if (final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] ==
                     final_board[(horizontal_pair_of_gems[i][1][1]) + 1][(horizontal_pair_of_gems[i][1][0]) + 1] and
-                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '⬛' and
+                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '⬛'and final_board[(horizontal_pair_of_gems[i][1][1]) + 1][(horizontal_pair_of_gems[i][1][0]) + 1] !='🌈'and
                     final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '🌫️' and
                     final_board[(horizontal_pair_of_gems[i][1][1]) + 1][
-                        (horizontal_pair_of_gems[i][1][0]) + 1] != '⬛' and
+                        (horizontal_pair_of_gems[i][1][0]) + 1] != '⬛'and final_board[(horizontal_pair_of_gems[i][1][1]) + 1][
+                        (horizontal_pair_of_gems[i][1][0]) + 1] !='🌈'and
                     final_board[(horizontal_pair_of_gems[i][1][1]) + 1][
                         (horizontal_pair_of_gems[i][1][0]) + 1] != '🌫️'):
 
@@ -568,9 +592,9 @@ def check_for_moves(final_board):
         if (horizontal_pair_of_gems[i][1][0]) + 2 < 8:
             if (final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0]) + 2] ==
                     final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] and
-                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0]) + 2] != '⬛' and
+                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0]) + 2] != '⬛'and final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] !='🌈'and
                     final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0]) + 2] != '🌫️' and
-                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '⬛' and
+                    final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '⬛'and final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] !='🌈'and
                     final_board[(horizontal_pair_of_gems[i][1][1])][(horizontal_pair_of_gems[i][1][0])] != '🌫️'):
 
                 move = ((horizontal_pair_of_gems[i][1][0]) + 2, (horizontal_pair_of_gems[i][1][1]), 'left', 3)
@@ -590,15 +614,15 @@ def check_for_moves(final_board):
                     pass
 
                 if (final_board[i][j] == final_board[i][j + 2] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                         final_board[i][j] != '🌫️' and
-                        final_board[i][j + 2] != '⬛' and
+                        final_board[i][j + 2] != '⬛'and final_board[i][j + 2] !='🌈'and
                         final_board[i][j + 2] != '🌫️'):
                     if i + 1 < 8 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j + 1] != '⬛' and
+                                final_board[i + 1][j + 1] != '⬛'and final_board[i + 1][j + 1] !='🌈'and
                                 final_board[i + 1][j + 1] != '🌫️'):
                             # print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i][j + 2]} x2: {j + 2}, y2: {i}')
                             # print(f'move found with gem at x: {j+1} y: {i+1}')
@@ -608,9 +632,9 @@ def check_for_moves(final_board):
 
                     if i - 1 > -1 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i - 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i - 1][j + 1] != '⬛' and
+                                final_board[i - 1][j + 1] != '⬛'and final_board[i - 1][j + 1]!='🌈' and
                                 final_board[i - 1][j + 1] != '🌫️'):
                             # print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i][j + 2]} x2: {j + 2}, y2: {i}')
                             # print(f'move found with gem at x: {j+1} y: {i-1}')
@@ -630,15 +654,15 @@ def check_for_moves(final_board):
                 else:
                     pass
                 if (final_board[i][j] == final_board[i + 2][j] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛' and final_board[i][j]!='🌈'and
                         final_board[i][j] != '🌫️' and
-                        final_board[i + 2][j] != '⬛' and
+                        final_board[i + 2][j] != '⬛'and final_board[i + 2][j] !='🌈'and
                         final_board[i + 2][j] != '🌫️'):
                     if i + 1 < 8 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j + 1] != '⬛' and
+                                final_board[i + 1][j + 1] != '⬛'and final_board[i + 1][j + 1] !='🌈'and
                                 final_board[i + 1][j + 1] != '🌫️'):
                             # print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i + 2][j]} x2: {j}, y2: {i + 2}')
 
@@ -648,9 +672,9 @@ def check_for_moves(final_board):
                                 moves_to_left.append(move)
                     if i + 1 < 8 and j - 1 > -1:
                         if (final_board[i][j] == final_board[i + 1][j - 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j - 1] != '⬛' and
+                                final_board[i + 1][j - 1] != '⬛'and final_board[i + 1][j - 1] !='🌈'and
                                 final_board[i + 1][j - 1] != '🌫️'):
                             # print(f'{final_board[i][j]} x: {j}, y: {i}, {final_board[i + 2][j]} x2: {j}, y2: {i + 2}')
 
@@ -669,22 +693,22 @@ def check_for_moves(final_board):
 
             if j + 2 < 8:
                 if (final_board[i][j] == final_board[i][j + 2] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                         final_board[i][j] != '🌫️' and
-                        final_board[i][j + 2] != '⬛' and
+                        final_board[i][j + 2] != '⬛'and final_board[i][j + 2] !='🌈'and
                         final_board[i][j + 2] != '🌫️'):  # sprawdzianie czy gem o 2 jest taki sam
 
                     if i + 1 < 8 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j + 1] != '⬛' and
+                                final_board[i + 1][j + 1] != '⬛' and  final_board[i + 1][j + 1]!='🌈'and
                                 final_board[i + 1][j + 1] != '🌫️'):
                             if j + 3 < 8:
                                 if (final_board[i][j] == final_board[i][j + 3] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i][j + 3] != '⬛' and
+                                        final_board[i][j + 3] != '⬛'and final_board[i][j + 3] !='🌈'and
                                         final_board[i][j + 3] != '🌫️'):
                                     move = (j + 1, i + 1, 'up', '4l')
                                     if move not in moves_to_up:
@@ -695,15 +719,15 @@ def check_for_moves(final_board):
                                     # print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j+2} {i} fourth gem at x: {j+3} {i}')
                     if i - 1 > -1 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i - 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i - 1][j + 1] != '⬛' and
+                                final_board[i - 1][j + 1] != '⬛'and  final_board[i - 1][j + 1] !='🌈'and
                                 final_board[i - 1][j + 1] != '🌫️'):
                             if j + 3 < 8:
                                 if (final_board[i][j] == final_board[i][j + 3] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i][j + 3] != '⬛' and
+                                        final_board[i][j + 3] != '⬛'and  final_board[i][j + 3]!='🌈'and
                                         final_board[i][j + 3] != '🌫️'):
                                     # print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i - 1} third {j + 2} {i} fourth gem at x: {j + 3} {i}')
                                     move = (j + 1, i - 1, 'down', '4l')
@@ -714,15 +738,15 @@ def check_for_moves(final_board):
                                     #
                     if i - 1 > -1 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i - 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i - 1][j + 1] != '⬛' and
+                                final_board[i - 1][j + 1] != '⬛'and  final_board[i - 1][j + 1] !='🌈'and
                                 final_board[i - 1][j + 1] != '🌫️'):
                             if j - 1 > -1:
                                 if (final_board[i][j] == final_board[i][j - 1] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i][j - 1] != '⬛' and
+                                        final_board[i][j - 1] != '⬛'and  final_board[i][j - 1]!='🌈'and
                                         final_board[i][j - 1] != '🌫️'):
                                     # print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i - 1} third {j+2} {i} fourth gem at x: {j-1} {i}')
                                     move = (j + 1, i - 1, 'down', '4r')
@@ -733,15 +757,15 @@ def check_for_moves(final_board):
                                     #
                     if i + 1 < 8 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j + 1] != '⬛' and
+                                final_board[i + 1][j + 1] != '⬛'and  final_board[i + 1][j + 1] !='🌈' and
                                 final_board[i + 1][j + 1] != '🌫️'):
                             if j - 1 > -1:
                                 if (final_board[i][j] == final_board[i][j - 1] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈'and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i][j - 1] != '⬛' and
+                                        final_board[i][j - 1] != '⬛'and  final_board[i][j - 1] !='🌈'and
                                         final_board[i][j - 1] != '🌫️'):
                                     # print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j + 2} {i} fourth gem at x: {j-1} {i}')
                                     move = (j + 1, i + 1, 'up', '4r')
@@ -758,21 +782,21 @@ def check_for_moves(final_board):
 
             if i + 2 < 8:
                 if (final_board[i][j] == final_board[i + 2][j] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and   final_board[i][j]!='🌈' and
                         final_board[i][j] != '🌫️' and
-                        final_board[i + 2][j] != '⬛' and
+                        final_board[i + 2][j] != '⬛'and  final_board[i + 2][j]!='🌈' and
                         final_board[i + 2][j] != '🌫️'):
                     if i + 1 < 8 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j + 1] != '⬛' and
+                                final_board[i + 1][j + 1] != '⬛' and final_board[i + 1][j + 1]!='🌈'and
                                 final_board[i + 1][j + 1] != '🌫️'):
                             if i + 3 < 8:
                                 if (final_board[i][j] == final_board[i + 3][j] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i + 3][j] != '⬛' and
+                                        final_board[i + 3][j] != '⬛'and final_board[i + 3][j]!='🌈'and
                                         final_board[i + 3][j] != '🌫️'):
                                     # print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i+3}')
                                     move = (j + 1, i + 1, 'left', '4u')
@@ -784,15 +808,15 @@ def check_for_moves(final_board):
                                     # 0
                     if i + 1 < 8 and j - 1 > -1:
                         if (final_board[i][j] == final_board[i + 1][j - 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛' and final_board[i][j]!='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j - 1] != '⬛' and
+                                final_board[i + 1][j - 1] != '⬛'and  final_board[i + 1][j - 1] !='🌈'and
                                 final_board[i + 1][j - 1] != '🌫️'):
                             if i + 3 < 8:
                                 if (final_board[i][j] == final_board[i + 3][j] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i + 3][j] != '⬛' and
+                                        final_board[i + 3][j] != '⬛'and final_board[i + 3][j] !='🌈' and
                                         final_board[i + 3][j] != '🌫️'):
                                     # print(f' four move found with gem at x: {j} y: {i}, second gem at {j-1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i+3}')
                                     move = (j - 1, i + 1, 'right', '4u')
@@ -804,15 +828,15 @@ def check_for_moves(final_board):
                                     # 0
                     if j - 1 > -1 and i + 1 < 8 and i - 1 > -1:
                         if (final_board[i][j] == final_board[i + 1][j - 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and final_board[i][j]  !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j - 1] != '⬛' and
+                                final_board[i + 1][j - 1] != '⬛' and final_board[i + 1][j - 1]!='🌈'and
                                 final_board[i + 1][j - 1] != '🌫️'):
                             if i + 2 < 8:
                                 if (final_board[i][j] == final_board[i - 1][j] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i - 1][j] != '⬛' and
+                                        final_board[i - 1][j] != '⬛'and final_board[i - 1][j]!='🌈' and
                                         final_board[i - 1][j] != '🌫️'):
                                     # print(f' four move found with gem at x: {j} y: {i}, second gem at {j - 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i-1}')
                                     move = (j - 1, i + 1, 'right', '4d')
@@ -824,15 +848,15 @@ def check_for_moves(final_board):
                                     # 0
                     if i + 1 < 8 and j + 1 < 8 and i - 1 > -1:
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j + 1] != '⬛' and
+                                final_board[i + 1][j + 1] != '⬛'and  final_board[i + 1][j + 1]  !='🌈'and
                                 final_board[i + 1][j + 1] != '🌫️'):
                             if i + 2 < 8:
                                 if (final_board[i][j] == final_board[i - 1][j] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i - 1][j] != '⬛' and
+                                        final_board[i - 1][j] != '⬛'and final_board[i - 1][j] !='🌈'and
                                         final_board[i - 1][j] != '🌫️'):
                                     # print(f' four move found with gem at x: {j} y: {i}, second gem at {j + 1} {i + 1} third {j} {i+2} fourth gem at x: {j} {i-1}')
                                     move = (j + 1, i + 1, 'left', '4d')
@@ -851,16 +875,16 @@ def check_for_moves(final_board):
             # X
             if i - 3 > -1 and j + 2 < 8:
                 if (final_board[i][j] == final_board[i - 2][j] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i - 3][j] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛' and final_board[i][j]!='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i - 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i - 1][j + 2] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛' and final_board[i][j]!='🌈'and
                                     final_board[i][j] != '🌫️'):
                                 # print('└d')
                                 move = (j, i, 'up', '└d')
@@ -872,16 +896,16 @@ def check_for_moves(final_board):
             #  X
             if i - 3 > -1 and j - 2 > -1:
                 if (final_board[i][j] == final_board[i - 2][j] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i - 3][j] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i - 1][j - 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i - 1][j - 2] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and board[i][j]!='🌈' and
                                     final_board[i][j] != '🌫️'):
                                 # print('┘d')
                                 move = (j, i, 'up', '┘d')
@@ -893,16 +917,16 @@ def check_for_moves(final_board):
 
             if i - 2 > -1 and j - 3 > -1:
                 if (final_board[i][j] == final_board[i - 1][j - 1] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i - 2][j - 1] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i][j - 2] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i][j - 3] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                                     final_board[i][j] != '🌫️'):
                                 # print('┘r')
                                 move = (j, i, 'left', '┘r')
@@ -914,16 +938,16 @@ def check_for_moves(final_board):
 
             if i - 2 > -1 and j + 3 < 8:
                 if (final_board[i][j] == final_board[i - 2][j + 1] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i - 1][j + 1] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i][j + 2] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i][j + 3] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                     final_board[i][j] != '🌫️'):
                                 # print('└l')
                                 move = (j, i, 'right', '└l')
@@ -936,16 +960,16 @@ def check_for_moves(final_board):
             # 0
             if i + 3 < 8 and j + 2 < 8:
                 if (final_board[i][j] == final_board[i + 2][j] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i + 3][j] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i + 1][j + 2] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                     final_board[i][j] != '🌫️'):
                                 # print('┌u')
                                 move = (j, i, 'down', '┌u')
@@ -958,16 +982,16 @@ def check_for_moves(final_board):
             #  0
             if i + 3 < 8 and j - 2 > -1:
                 if (final_board[i][j] == final_board[i + 2][j] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i + 3][j] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i + 1][j - 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i + 1][j - 2] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and final_board[i][j]!='🌈' and
                                     final_board[i][j] != '🌫️'):
                                 # print('┐u')
                                 move = (j, i, 'down', '┐u')
@@ -979,16 +1003,16 @@ def check_for_moves(final_board):
             #  0
             if i + 2 < 8 and j - 3 > -1:
                 if (final_board[i][j] == final_board[i + 1][j - 1] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i + 2][j - 1] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i][j - 2] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i][j - 3] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                     final_board[i][j] != '🌫️'):
                                 # print('┐r')
                                 move = (j, i, 'left', '┐r')
@@ -1000,16 +1024,16 @@ def check_for_moves(final_board):
             # 0
             if i + 2 < 8 and j + 3 < 8:
                 if (final_board[i][j] == final_board[i + 2][j + 1] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i + 1][j + 1] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i][j + 2] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i][j + 3] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                     final_board[i][j] != '🌫️'):
                                 # print('┌l')
                                 move = (j, i, 'right', '┌l')
@@ -1024,16 +1048,16 @@ def check_for_moves(final_board):
             # 0
             if i - 1 > -1 and j + 3 < 8 and i + 1 < 8:
                 if (final_board[i][j] == final_board[i - 1][j + 1] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i + 1][j + 1] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i][j + 2] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i][j + 3] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                     final_board[i][j] != '🌫️'):
                                 # print('└d')
                                 move = (j, i, 'right', '┝l')
@@ -1044,16 +1068,16 @@ def check_for_moves(final_board):
             #  0
             if i - 1 > -1 and j - 3 > -1 and i + 1 < 8:
                 if (final_board[i][j] == final_board[i - 1][j - 1] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i + 1][j - 1] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i][j - 2] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i][j - 3] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and  final_board[i][j]!='🌈' and
                                     final_board[i][j] != '🌫️'):
                                 # print('└d')
                                 move = (j, i, 'left', '┥r')
@@ -1065,16 +1089,16 @@ def check_for_moves(final_board):
             # 0
             if i + 3 < 8 and j - 1 > -1 and j + 1 < 8:
                 if (final_board[i][j] == final_board[i + 1][j - 1] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i + 1][j - 1] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i + 2][j] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i + 3][j] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                                     final_board[i][j] != '🌫️'):
                                 # print('└d')
                                 move = (j, i, 'down', '┬u')
@@ -1086,16 +1110,16 @@ def check_for_moves(final_board):
             # X
             if i - 3 < 8 and j - 1 > -1 and j + 1 < 8:
                 if (final_board[i][j] == final_board[i - 1][j - 1] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                         final_board[i][j] != '🌫️'):
                     if (final_board[i][j] == final_board[i - 1][j + 1] and
-                            final_board[i][j] != '⬛' and
+                            final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                             final_board[i][j] != '🌫️'):
                         if (final_board[i][j] == final_board[i - 2][j] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛' and  final_board[i][j]!='🌈'and
                                 final_board[i][j] != '🌫️'):
                             if (final_board[i][j] == final_board[i - 3][j] and
-                                    final_board[i][j] != '⬛' and
+                                    final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                     final_board[i][j] != '🌫️'):
                                 # print('└d')
                                 move = (j, i, 'up', '┴d')
@@ -1107,26 +1131,26 @@ def check_for_moves(final_board):
 
             if j + 2 < 8:
                 if (final_board[i][j] == final_board[i][j + 2] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                         final_board[i][j] != '🌫️' and
-                        final_board[i][j + 2] != '⬛' and
+                        final_board[i][j + 2] != '⬛' !='🌈'and
                         final_board[i][j + 2] != '🌫️'):  # sprawdzianie czy gem o 2 jest taki sam
                     if i + 1 < 8 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j + 1] != '⬛' and
+                                final_board[i + 1][j + 1] != '⬛'and  final_board[i][j]!='🌈' and
                                 final_board[i + 1][j + 1] != '🌫️'):
                             if j + 3 < 8 and j - 1 > -1:
                                 if (final_board[i][j] == final_board[i][j + 3] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and  final_board[i][j] !='🌈'and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i][j + 3] != '⬛' and
+                                        final_board[i][j + 3] != '⬛'and final_board[i][j + 3] !='🌈'and
                                         final_board[i][j + 3] != '🌫️' and
                                         final_board[i][j] == final_board[i][j - 1] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i][j - 1] != '⬛' and
+                                        final_board[i][j - 1] != '⬛'and final_board[i][j - 1] !='🌈'and
                                         final_board[i][j - 1] != '🌫️'):
                                     # print(f' five move found with gem at x: {j+1} y: {i+1}, second gem at {j-1} {i}  third gem at {j} {i} fourth {j+2} {i} fifth gem at x: {j+3} {i}')
                                     move = (j + 1, i + 1, 'up', 5)
@@ -1134,21 +1158,23 @@ def check_for_moves(final_board):
                                         moves_to_up.append(move)
                     if i - 1 > -1 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i - 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛' and final_board[i][j]!='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i - 1][j + 1] != '⬛' and
+                                final_board[i - 1][j + 1] != '⬛'and final_board[i - 1][j + 1]!='🌈'and
                                 final_board[i - 1][j + 1] != '🌫️'):
                             if j + 3 < 8 and j - 1 > -1:
                                 if (final_board[i][j] == final_board[i][j + 3] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'and final_board[i][j] !='🌈'and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i][j + 3] != '⬛' and
+                                        final_board[i][j + 3] != '⬛' and  final_board[i][j + 3]!='🌈'and
                                         final_board[i][j + 3] != '🌫️' and
                                         final_board[i][j] == final_board[i][j - 1] and
                                         final_board[i][j] != '⬛' and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i][j - 1] != '⬛' and
-                                        final_board[i][j - 1] != '🌫️'):
+                                        final_board[i][j]!='🌈' and
+                                        final_board[i][j - 1] != '⬛' !='🌈'and
+                                        final_board[i][j - 1] != '🌫️'and
+                                        final_board[i][j - 1]!='🌈'):
                                     # print(f' five move found with gem at x: {j+1} y: {i-1}, second gem at {j-1} {i} third gem at {j} {i} fourth {j + 2} {i} fifth gem at x: {j + 3} {i}')
                                     move = (j + 1, i - 1, 'down', 5)
                                     if move not in moves_to_down:
@@ -1160,27 +1186,34 @@ def check_for_moves(final_board):
 
             if i + 2 < 8:
                 if (final_board[i][j] == final_board[i + 2][j] and
-                        final_board[i][j] != '⬛' and
+                        final_board[i][j] != '⬛' !='🌈'and
                         final_board[i][j] != '🌫️' and
-                        final_board[i + 2][j] != '⬛' and
-                        final_board[i + 2][j] != '🌫️'):
+                        final_board[i][j]!='🌈'and
+                        final_board[i + 2][j] != '⬛' !='🌈'and
+                        final_board[i + 2][j] != '🌫️'and
+                        final_board[i + 2][j]!='🌈'):
                     if i + 1 < 8 and j + 1 < 8:
                         if (final_board[i][j] == final_board[i + 1][j + 1] and
-                                final_board[i][j] != '⬛' and
+                                final_board[i][j] != '⬛' !='🌈'and
                                 final_board[i][j] != '🌫️' and
-                                final_board[i + 1][j + 1] != '⬛' and
-                                final_board[i + 1][j + 1] != '🌫️'):
+                                final_board[i][j]!='🌈' and
+                                final_board[i + 1][j + 1] != '⬛' !='🌈'and
+                                final_board[i + 1][j + 1] != '🌫️'and
+                                final_board[i + 1][j + 1]!='🌈'):
                             if i + 3 < 8 and i - 1 > -1:
                                 if (final_board[i][j] == final_board[i + 3][j] and
                                         final_board[i][j] != '⬛' and
                                         final_board[i][j] != '🌫️' and
-                                        final_board[i + 3][j] != '⬛' and
+                                        final_board[i][j] !='🌈'and
+                                        final_board[i + 3][j] != '⬛' !='🌈'and
                                         final_board[i + 3][j] != '🌫️' and
+                                        final_board[i + 3][j]!='🌈' and
                                         final_board[i][j] == final_board[i - 1][j] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛' !='🌈'and
                                         final_board[i][j] != '🌫️' and
                                         final_board[i - 1][j] != '⬛' and
-                                        final_board[i - 1][j] != '🌫️'):
+                                        final_board[i - 1][j] != '🌫️'and
+                                        final_board[i - 1][j]!='🌈'):
                                     # print(f' five move found with gem at x: {j+1} y: {i+1}, second gem at {j} {i - 1} third {j} {i} fourth gem at x: {j} {i + 2} fifth gem at x: {j} {i+3}')
                                     move = (j + 1, i + 1, 'left', 5)
                                     if move not in moves_to_left:
@@ -1188,20 +1221,24 @@ def check_for_moves(final_board):
                     if i + 1 < 8 and j - 1 > -1:
                         if (final_board[i][j] == final_board[i + 1][j - 1] and
                                 final_board[i][j] != '⬛' and
+                                final_board[i][j] !='🌈'and
                                 final_board[i][j] != '🌫️' and
                                 final_board[i + 1][j - 1] != '⬛' and
-                                final_board[i + 1][j - 1] != '🌫️'):
+                                final_board[i + 1][j - 1] != '🌫️'and
+                                final_board[i + 1][j - 1]!='🌈'):
                             if i + 3 < 8 and i - 1 > -1:
                                 if (final_board[i][j] == final_board[i + 3][j] and
                                         final_board[i][j] != '⬛' and
                                         final_board[i][j] != '🌫️' and
+                                        final_board[i][j] !='🌈' and
                                         final_board[i + 3][j] != '⬛' and
                                         final_board[i + 3][j] != '🌫️' and
+                                        final_board[i + 3][j] !='🌈'and
                                         final_board[i][j] == final_board[i - 1][j] and
-                                        final_board[i][j] != '⬛' and
+                                        final_board[i][j] != '⬛'!='🌈' and
                                         final_board[i][j] != '🌫️' and
                                         final_board[i - 1][j] != '⬛' and
-                                        final_board[i - 1][j] != '🌫️'):
+                                        final_board[i - 1][j] != '🌫️' and final_board[i - 1][j]!='🌈'):
                                     # print(f' five move found with gem at x: {j-1} y: {i+1}, second gem at {j} {i - 1} third {j} {i} fourth gem at x: {j} {i + 2} fifth gem at x {j} {i+3}')
                                     move = (j - 1, i + 1, 'right', 5)
                                     if move not in moves_to_right:
@@ -1362,10 +1399,31 @@ def sieve_moves(array):
                             print(moves,moves2,'huj2')
                             to_remove.append(moves)
                         print(f'remove {moves} cuz {moves2} 1351')
+                if moves[0] == moves2[0]:
+                    #print('1')
+                    if moves[1]-1 == moves2[1]:
+                        #print('2')
+                        if moves[3] == 'R' and moves2[3] == 3:
+                            #print('3')
+                            if moves[2] == 'up' and moves2[2] == 'down' or moves[2] == 'down' and moves2[2] == 'up':
+                                #print('4')
+                                print('moves n shit', moves, moves2)
+                                to_remove.append(moves2)
+                if moves[1] == moves2[1]:
+                    #print('1')
+                    if moves[0]+1 == moves2[0]:
+                        #print('2')
+                        if moves[3] == 'R' and moves2[3] == 3:
+                            #print('3')
+                            if moves[2] == 'left' and moves2[2] == 'right' or moves[2] == 'right' and moves2[2] == 'left':
+                                #print('4')
+                                to_remove.append(moves2)
+                #print('moves n shit',moves,moves2)
     for move in array:
         if move not in to_remove:
             sieved.append(move)
     # print(to_remove)
+    print(f'sieved returning {sieved}')
     return sieved
 
 
@@ -1628,11 +1686,11 @@ def group_four_gems(array):
             if m1 != m2:
                 #print(m1,m2,'tetts')
                 if m1[3] in powrd and m2[3] in powrd:
-                    print('11')
+                    #print('11')
                     if m1[0] == m2[0] and m1[3] == m2[3]:
-                        print('22')
+                        #print('22')
                         if m1[1]-1 == m2[1]:
-                            print('33')
+                            #print('33')
                             if m1[2] == 'up' and m2[2] == 'down' or m1[2] == 'down' and m2[2] == 'up':
                                 print('44')
                                 group = (m1,m2)
@@ -1642,9 +1700,9 @@ def group_four_gems(array):
                                 if group not in groups:
                                     groups.append(group)
                     if m1[1] == m2[1] and m1[3] == m2[3]:
-                        print('22')
+                        #print('22')
                         if m1[0]-1 == m2[0]:
-                            print('33')
+                            #print('33')
                             if m1[2] == 'left' and m2[2] == 'right' or m1[2] == 'right' and m2[2] == 'left':
                                 print('44')
                                 group = (m1,m2)
@@ -1668,27 +1726,45 @@ def array_creation(tablica):  # creates an array that shows which gems are 3 or 
     array_with_position_to_replace_3 = []
     array_with_position_to_replace_4 = []
     array_with_position_to_replace_5 = []
+    array_with_position_to_replace_4_V = []
     for i in range(8):
         for j in range(8):
             if j <= 8 - 5 and tablica[j][i] == tablica[j + 1][i] == \
                     tablica[j + 2][i] == tablica[j + 3][i] == tablica[j + 4][
-                i] != "⬛"!='🌫️':
+                i] != "⬛" and tablica[j][i] == tablica[j + 1][i] == \
+                    tablica[j + 2][i] == tablica[j + 3][i] == tablica[j + 4][
+                i]!='🌫️' and tablica[j][i] == tablica[j + 1][i] == \
+                    tablica[j + 2][i] == tablica[j + 3][i] == tablica[j + 4][
+                i]!='🌈':
                 array_with_position_to_replace_5.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i), (j + 4, i)])
             if i <= 8 - 5 and tablica[j][i] == tablica[j][i + 1] == \
                     tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
-                i + 4] != "⬛"!='🌫️':
+                i + 4] != "⬛"and tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
+                i + 4]!='🌫️'and tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] == tablica[j][
+                i + 4]!='🌈':
                 array_with_position_to_replace_5.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3), (j, i + 4)])
             if j <= 8 - 4 and tablica[j][i] == tablica[j + 1][i] == \
-                    tablica[j + 2][i] == tablica[j + 3][i] != "⬛"!='🌫️':
+                    tablica[j + 2][i] == tablica[j + 3][i] != "⬛"and tablica[j][i] == tablica[j + 1][i] == \
+                    tablica[j + 2][i] == tablica[j + 3][i]!='🌫️'and tablica[j][i] == tablica[j + 1][i] == \
+                    tablica[j + 2][i] == tablica[j + 3][i]!='🌈':
                 array_with_position_to_replace_4.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i)])
+                array_with_position_to_replace_4_V.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i)])
             if i <= 8 - 4 and tablica[j][i] == tablica[j][i + 1] == \
-                    tablica[j][i + 2] == tablica[j][i + 3] != "⬛"!='🌫️':
+                    tablica[j][i + 2] == tablica[j][i + 3] != "⬛"and tablica[j][i] == tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] !='🌫️'and tablica[j][i] == tablica[j][i + 1] == \
+                    tablica[j][i + 2] == tablica[j][i + 3] !='🌈':
                 array_with_position_to_replace_4.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3)])
             if j <= 8 - 3 and tablica[j][i] == tablica[j + 1][i] == \
-                    tablica[j + 2][i] != "⬛"!='🌫️':
+                    tablica[j + 2][i] != "⬛"and tablica[j][i] == tablica[j + 1][i] == \
+                    tablica[j + 2][i]!='🌫️'and tablica[j][i] == tablica[j + 1][i] == \
+                    tablica[j + 2][i]!='🌈':
                 array_with_position_to_replace_3.append([(j, i), (j + 1, i), (j + 2, i)])
             if i <= 8 - 3 and tablica[j][i] == tablica[j][i + 1] == \
-                    tablica[j][i + 2] != "⬛"!='🌫️':
+                    tablica[j][i + 2] != "⬛"and tablica[j][i] == tablica[j][i + 1] == \
+                    tablica[j][i + 2]!='🌫️'and tablica[j][i] == tablica[j][i + 1] == \
+                    tablica[j][i + 2]!='🌈':
                 array_with_position_to_replace_3.append([(j, i), (j, i + 1), (j, i + 2)])
 
 
@@ -1707,10 +1783,13 @@ def array_creation(tablica):  # creates an array that shows which gems are 3 or 
         if not any(
                 len(set(positions) & set(five_positions)) == 4 for five_positions in array_with_position_to_replace_5):
             filtered_array_with_position_to_replace_4.append(positions)
-    return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, array_with_position_to_replace_5
+    return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, array_with_position_to_replace_5,array_with_position_to_replace_4_V
 
 def check_for_rows(board_with_powered, board_without_powered, move, origin_board,all_moves,):
     board_p_copy = copy.deepcopy(board_with_powered)
+    print(f' {bcolors.OKGREEN}board with powered2 cfr')
+    for row in board_p_copy:
+        print(' '.join(row))
     board_np_copy_s = copy.deepcopy(board_without_powered)
     board_np_copy = convert_board(board_np_copy_s)
     group_of_4moves = group_four_gems(all_moves)
@@ -1726,7 +1805,9 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     for row in origin_board:
         print(' '.join(row))'''
     print('all moves', all_moves)
-    array_3,array_4,array_5 = array_creation(board_np_copy)
+    huj2 = sieve_moves(all_moves)
+    print(huj2,'asdf')
+    array_3,array_4,array_5,array_4_V = array_creation(board_np_copy)
     print(f' array 3 {array_3} array 4 {array_4} array 5 {array_5}')
     powered_gem_pos = []
     if move not in group_of_4moves and move[3] == '4l' or move[3] == '4d' or move[3] == '4r' or move[3] == '4u':
@@ -2003,7 +2084,11 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             print(powered_gem_pos)
     powered = ['⚪', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣']
     power_gem_pos = []
-
+    for rows in array_4:
+        for pos in rows:
+            if board_p_copy[pos[0]][pos[1]] not in powered:
+                board_np_copy[pos[0]][pos[1]] = "⬛"
+                board_p_copy[pos[0]][pos[1]] = "⬛"
     for rows in array_3:
         for pos in rows:
             print(f' powered or no {board_p_copy[pos[0]][pos[1]]}')
@@ -2012,15 +2097,25 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 if gem_pos not in power_gem_pos:
                     power_gem_pos.append(gem_pos)
             print(f'current pos {pos}')
-            board_np_copy[pos[0]][pos[1]] = "⬛"
-            board_p_copy[pos[0]][pos[1]] = "⬛"
+            if board_np_copy[pos[0]][pos[1]] not in powered:
+                board_np_copy[pos[0]][pos[1]] = "⬛"
+            if board_p_copy[pos[0]][pos[1]] not in powered:
+                board_p_copy[pos[0]][pos[1]] = "⬛"
     if len(power_gem_pos) != 0:
 
         print(f'powered gem pos {power_gem_pos}')
         for gems in power_gem_pos:
             throwaway_board = copy.deepcopy(origin_board)
-            exploded_board = explode_gem(board_p_copy, gems[0], gems[1], 'explode gem test', throwaway_board)
-            # exploded_board_fin = przeskiej(exploded_board)
+            exploded_board = explode_gem(board_p_copy, gems[0], gems[1], 'explode gem test', throwaway_board,origin_board)
+        board_p_copy = copy.deepcopy(exploded_board)
+        throwaway_copy = copy.deepcopy(board_p_copy)
+        print(f'throwaway {throwaway_copy}')
+        board_np_copy = throwaway_copy
+        board_np_copy = convert_board(throwaway_copy)
+        print('called fun explode')
+        for row in exploded_board:
+            print(' '.join(row))
+        # exploded_board_fin = przeskiej(exploded_board)
         print('board with poewered')
         for row in board_p_copy:
             print(' '.join(row))
@@ -2028,15 +2123,35 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
         for row in board_np_copy:
             print(' '.join(row))
         print('board exploded')
-    for rows in array_4:
-        for pos in rows:
-            print(pos)
-            board_p_copy[pos[0]][pos[1]] = '⬛'
-            board_np_copy[pos[0]][pos[1]] = '⬛'
+    for array in array_4_V:
+        #print('loop1')
+        for pos in array:
+
+            print(f'123 {pos} {array}')
+            if pos == array[0]:
+                print('test43')
+                for row in board_np_copy:
+                    print(' '.join(row))
+                power = ''
+                power_np = ''
+                if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                board_np_copy[pos[0]][pos[1]] = power_np
+                board_p_copy[pos[0]][pos[1]] = power
+                print(f' power and np {power} {power_np}')
+            elif pos != array[0]:
+                board_np_copy[pos[0]][pos[1]] = "⬛"
+                board_p_copy[pos[0]][pos[1]] = "⬛"
+
 
     for rows in array_5:
         for pos in rows:
-            if pos != rows[2]:
+            if pos != rows[2] :
                 board_p_copy[pos[0]][pos[1]] = '⬛'
                 board_np_copy[pos[0]][pos[1]] = '⬛'
             else:
@@ -2060,7 +2175,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     for row2 in npwrd:
 
         board_np_copy[row2[0]][row2[1]] = row2[2]
-
+    print(f'board before return {bcolors.ENDC}')
     for row2 in board_p_copy:
         print(' '.join(row2))
     for row2 in board_np_copy:
@@ -2403,15 +2518,17 @@ def group_positions(positions):
     return groups
 
 
-def explode_gem(board, y, x, strin, board_to_overwrite):
+def explode_gem(board, y, x, strin, board_to_overwrite,original_board):
     print(f'board state:')
     score = 0
-    gem_exploded = 0
+
     for row in board:
         print(' '.join(row))
-    if board[y][x] == '⬛': return
+
     board2 = copy.deepcopy(board)
+    board2[y][x] == '🟣'
     print(f'{strin}, x:{x}, y:{y} ')
+
     print('board to voerwrite')
     for row in board_to_overwrite:
         print(' '.join(row))
@@ -2422,7 +2539,7 @@ def explode_gem(board, y, x, strin, board_to_overwrite):
 
     for i in range(8):
         for j in range(8):
-            if original_board[j][i] in powered_gems_array:
+            if board2[j][i] in powered_gems_array:
                 pos = (i, j)
                 pos_of_powered.append(pos)
 
@@ -2432,19 +2549,29 @@ def explode_gem(board, y, x, strin, board_to_overwrite):
     gem = (x, y)
     group_of_gems = []  # chain
     for group in gem_groups:
+        print(gem,group,'zwx')
         if gem in group:
             print(f'gem found in group {group}')
             group_of_gems = group
-    print(f' remaining pos {pos}')
+    #print(f' remaining pos {pos}')
+    print(f'group_of_gems: {group_of_gems}')
     for pos in group_of_gems:
+        print(pos,'abc')
         for i in range(pos[0] - 1, pos[0] + 2):
             for j in range(pos[1] - 1, pos[1] + 2):
                 if i > -1 and i < 8 and j > -1 and j < 8:
                     board2[j][i] = '⬛'
-        score += 300
-        gem_exploded += 1
 
-    print('test score')
+    if gem[1]<10:                     board2[gem[1]][gem[0]] = '⬛'
+    if gem[1]+1 < 8:                  board2[gem[1]+1][gem[0]] = '⬛'
+    if gem[1]+1 < 8 and gem[0] +1 < 8:board2[gem[1]+1][gem[0]+1] = '⬛'
+    if gem[1]+1 < 8 and gem[0]-1 >-1: board2[gem[1]+1][gem[0]-1] = '⬛'
+    if gem[0]+1 < 8:                  board2[gem[1]][gem[0]+1] = '⬛'
+    if gem[0]-1 >-1:                  board2[gem[1]][gem[0]-1] = '⬛'
+    if gem[1]-1 >-1 and gem[0]+1 < 8: board2[gem[1]-1][gem[0]+1] = '⬛'
+    if gem[1]-1 >-1:                  board2[gem[1]-1][gem[0]] = '⬛'
+    if gem[1]-1 >-1 and gem[0]-1 >-1: board2[gem[1]-1][gem[0]-1] = '⬛'
+
 
     print('state of board after explode')
     for row in board2:
@@ -2468,11 +2595,15 @@ def explode_gem(board, y, x, strin, board_to_overwrite):
             if board_to_overwrite[j][i] == '⬛':
                 score += 100
 
-    print(score - gem_exploded * 100)
+
     return board_to_overwrite
 
 
 def convert_board(board):
+    print(f'{bcolors.OKBLUE}=== convert board function:')
+    for row in board:
+        print(' '.join(row))
+    print('^^^^ convert board')
     converted_board = board
     emoji_mapping = {
         '🟧': '🟧',
@@ -2501,7 +2632,9 @@ def convert_board(board):
                 converted_board[i][j] = emoji_mapping[gem]
             else:
                 converted_board[i][j] = gem
-
+    print(f'copnvert board return functionb {bcolors.ENDC}')
+    for row in converted_board:
+        print(' '.join(row))
     return converted_board
 
 
@@ -2577,7 +2710,7 @@ def convert_board(board):
 
 
 def next_move(board_p, moves, already_done_moves, orig_board):
-    print('start of next move  fu nction')
+    print(f'{bcolors.WARNING}start of next move  fu nction')
 
     print('-----------------')
     copy_of_p = copy.deepcopy(board_p)
@@ -2597,7 +2730,9 @@ def next_move(board_p, moves, already_done_moves, orig_board):
     print('board not powered')
     for row in board_not_powered:
         print(' '.join(row))
-    for move in moves:
+    print('rty',moves)
+    sieved_m = sieve_moves(moves)
+    for move in sieved_m:
 
         print('board_p')
         for row in board_p:
@@ -2622,6 +2757,7 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                     # print(copy_np[i][j])
                 except ValueError:
                     pass
+        powered = ['⚪','🔵','🔴','🟣','🟢','🟠','🟡']
         if move[2] == 'left':
             if move[3] != 'R':
                 copy_np[move[1]][move[0]], copy_np[move[1]][move[0] - 1] = copy_np[move[1]][
@@ -2630,11 +2766,17 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                     move[0] - 1], copy_p[move[1]][move[0]]
             elif move[3] == 'R':
                 gem = copy_np[move[1]][move[0] - 1]
+                gem_p = copy_p[move[1]][move[0] - 1]
                 copy_np[move[1]][move[0]] = '⬛'
+                copy_p[move[1]][move[0]] = '⬛'
                 for y in range(8):
                     for x in range(8):
                         if copy_np[x][y] == gem:
                             copy_np[x][y] = '⬛'
+                            copy_p[x][y] = '⬛'
+                            if gem_p in powered:
+                                throwaway = copy.deepcopy(copy_p)
+                                copy_p = explode_gem(copy_p,move[1] ,move[0]-1,'moveLr',throwaway,orig_board)
         if move[2] == 'right':
             if move[3] != 'R':
                 copy_np[move[1]][move[0]], copy_np[move[1]][move[0] + 1] = copy_np[move[1]][
@@ -2643,11 +2785,17 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                     move[0] + 1], copy_p[move[1]][move[0]]
             elif move[3] == 'R':
                 gem = copy_np[move[1]][move[0] + 1]
+                gem_p = copy_p[move[1]][move[0] + 1]
                 copy_np[move[1]][move[0]] = '⬛'
+                copy_p[move[1]][move[0]] = '⬛'
                 for y in range(8):
                     for x in range(8):
                         if copy_np[x][y] == gem:
                             copy_np[x][y] = '⬛'
+                            copy_p[x][y] = '⬛'
+                            if gem_p in powered:
+                                throwaway = copy.deepcopy(copy_p)
+                                copy_p =explode_gem(copy_p,move[1] ,move[0]+1,'moveRr',throwaway,orig_board)
         if move[2] == 'up':
             if move[3] != 'R':
                 copy_np[move[1]][move[0]], copy_np[move[1] - 1][move[0]] = copy_np[move[1] - 1][
@@ -2656,11 +2804,17 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                     move[0]], copy_p[move[1]][move[0]]
             elif move[3] == 'R':
                 gem = copy_np[move[1] - 1][move[0]]
+                gem_p = copy_p[move[1] - 1][move[0]]
                 copy_np[move[1]][move[0]] = '⬛'
+                copy_p[move[1]][move[0]] = '⬛'
                 for y in range(8):
                     for x in range(8):
                         if copy_np[x][y] == gem:
                             copy_np[x][y] = '⬛'
+                            copy_p[x][y] = '⬛'
+                            if gem_p in powered:
+                                    throwaway = copy.deepcopy(copy_p)
+                                    copy_p =explode_gem(copy_p,move[1] - 1,move[0],'moveUr',throwaway,orig_board)
         if move[2] == 'down':
             if move[3] != 'R':
                 copy_np[move[1]][move[0]], copy_np[move[1] + 1][move[0]] = copy_np[move[1] + 1][
@@ -2669,11 +2823,17 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                     move[0]], copy_p[move[1]][move[0]]
             elif move[3] == 'R':
                 gem = copy_np[move[1] + 1][move[0]]
+                gem_p = copy_p[move[1] + 1][move[0]]
                 copy_np[move[1]][move[0]] = '⬛'
+                copy_p[move[1]][move[0]] = '⬛'
                 for y in range(8):
                     for x in range(8):
                         if copy_np[x][y] == gem:
                             copy_np[x][y] = '⬛'
+                            copy_p[x][y] = '⬛'
+                            if gem_p in powered:
+                                throwaway = copy.deepcopy(copy_p)
+                                copy_p =explode_gem(copy_p,move[1] + 1,move[0],'moveDr',throwaway,orig_board)
         for bombs in bomb_placement:
             value = copy_np[bombs[0]][bombs[1]]
             val2 = int(value)
@@ -2718,7 +2878,8 @@ def next_move(board_p, moves, already_done_moves, orig_board):
             print(' '.join(row))
         print('--------------')
         new_moves = check_for_moves(aftermove_np12)
-        print(f'sieved moves{new_moves}')
+        new_moves_sieved = sieve_moves(new_moves)
+        print(f'sieved moves{new_moves_sieved}')
         # print(f'pre if  queue of moves {already_done} remaining moves = {new_moves}')
 
         if aftermove_np12 == black_board:
@@ -2726,9 +2887,9 @@ def next_move(board_p, moves, already_done_moves, orig_board):
             already_done.append(move)
             print(already_done)
             return already_done  # makes the loop not run indefinitely
-        print(f' queue of moves {already_done} remaining moves = {new_moves}')
-        print(f' remaining moves = {new_moves}')
-        if len(new_moves) == 0:
+        print(f' queue of moves {already_done} remaining moves = {new_moves_sieved}')
+        print(f' remaining moves = {new_moves_sieved}')
+        if len(new_moves_sieved) == 0:
             print('if runs')
             print('reset moves')
             already_done = []
@@ -2739,8 +2900,8 @@ def next_move(board_p, moves, already_done_moves, orig_board):
             # already_done = []
             already_done.append(move)
 
-            result = next_move(aftermove_p12, new_moves, already_done, orig_board)
-            print(f'result {result}')
+            result = next_move(aftermove_p12, new_moves_sieved, already_done, orig_board)
+            print(f'result {result} {bcolors.ENDC}')
             if len(result) != 0:
                 return result  # makes the loop not run indefinitely too fsr?
 
@@ -2836,4 +2997,14 @@ brd_p = \
 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
 ⬛ 🟪 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
-🌈 🟪 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛'''
+🌈 🟪 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
+
+HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'''
