@@ -2084,6 +2084,30 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             print(powered_gem_pos)
     powered = ['⚪', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣']
     power_gem_pos = []
+    for array in array_4_V:
+        #print('loop1')
+        for pos in array:
+
+            print(f'123 {pos} {array}')
+            if pos == array[0]:
+                print('test43')
+                for row in board_np_copy:
+                    print(' '.join(row))
+                power = ''
+                power_np = ''
+                if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                board_np_copy[pos[0]][pos[1]] = power_np
+                board_p_copy[pos[0]][pos[1]] = power
+                print(f' power and np {power} {power_np}')
+            elif pos != array[0]:
+                board_np_copy[pos[0]][pos[1]] = "⬛"
+                board_p_copy[pos[0]][pos[1]] = "⬛"
     for rows in array_4:
         for pos in rows:
             if board_p_copy[pos[0]][pos[1]] not in powered:
@@ -2123,30 +2147,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
         for row in board_np_copy:
             print(' '.join(row))
         print('board exploded')
-    for array in array_4_V:
-        #print('loop1')
-        for pos in array:
 
-            print(f'123 {pos} {array}')
-            if pos == array[0]:
-                print('test43')
-                for row in board_np_copy:
-                    print(' '.join(row))
-                power = ''
-                power_np = ''
-                if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
-                if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
-                if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
-                if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
-                if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
-                if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
-                if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
-                board_np_copy[pos[0]][pos[1]] = power_np
-                board_p_copy[pos[0]][pos[1]] = power
-                print(f' power and np {power} {power_np}')
-            elif pos != array[0]:
-                board_np_copy[pos[0]][pos[1]] = "⬛"
-                board_p_copy[pos[0]][pos[1]] = "⬛"
 
 
     for rows in array_5:
