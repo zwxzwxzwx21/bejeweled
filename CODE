@@ -2328,6 +2328,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                     board_np_copy[pos[0]][pos[1]] = "⬛"'''
                     a = (pos[0], pos[1],'2328')
                     to_turn_black.append(a)
+    pos_with_gems = []
     for rows in array_3:
         for pos in rows:
             print(f' powered or no {board_p_copy[pos[0]][pos[1]]}')
@@ -2336,6 +2337,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 if gem_pos not in power_gem_pos:
                     power_gem_pos.append(gem_pos)
             print(f'current pos {pos[0]}, {pos[1]}')
+            pos_with_gems.append(pos)
             if board_np_copy[pos[0]][pos[1]] not in powered:
                 board_np_copy[pos[0]][pos[1]] = "⬛"
             if board_p_copy[pos[0]][pos[1]] not in powered:
