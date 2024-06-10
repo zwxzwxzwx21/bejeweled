@@ -1906,10 +1906,14 @@ def array_creation(
 def check_for_rows(board_with_powered, board_without_powered, move, origin_board, all_moves, ):
     board_p_copy = copy.deepcopy(board_with_powered)
     print(f' {bcolors.OKGREEN}board with powered2 cfr')
+    print(' 1909')
     for row in board_p_copy:
         print(' '.join(row))
+    print('1912')
     board_np_copy_s = copy.deepcopy(board_without_powered)
+    print('1914')
     board_np_copy = convert_board(board_np_copy_s)
+    print('1916')
     group_of_4moves = group_four_gems(all_moves)
     print(f'{bcolors.BOLD}{bcolors.OKCYAN}##### check for rows #####{bcolors.ENDC}')
     print('board with powered')
@@ -2206,7 +2210,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     for rows in array_L:
         for pos in rows:
             if pos != rows[0]:
-                a = (pos[0], pos[1])
+                a = (pos[0], pos[1],'2213')
                 to_turn_black.append(a)
                 '''board_p_copy[pos[0]][pos[1]] = '⬛'
                 board_np_copy[pos[0]][pos[1]] = "⬛"'''
@@ -2228,10 +2232,11 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     for rows in array_T:
         for pos in rows:
             if pos != rows[0]:
-                a = (pos[0], pos[1])
-                to_turn_black.append(a)
-                '''board_p_copy[pos[0]][pos[1]] = '⬛'
-                board_np_copy[pos[0]][pos[1]] = "⬛"'''
+                if pos[0] < 8 and pos[1] < 8:
+                    a = (pos[0], pos[1],'2235')
+                    to_turn_black.append(a)
+                    '''board_p_copy[pos[0]][pos[1]] = '⬛'
+                    board_np_copy[pos[0]][pos[1]] = "⬛"'''
             else:
                 power = ''
                 power_np = ''
@@ -2242,18 +2247,18 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
                 if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
                 if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
-                a = (pos[0], pos[1], power, power_np)
-                to_change_to_diff.append(a)
-                '''board_np_copy[pos[0]][pos[1]] = power_np
-                board_p_copy[pos[0]][pos[1]] = power'''
-                print(f' power and np {power} {power_np}')
+                '''a = (pos[0], pos[1], power, power_np)
+                to_change_to_diff.append(a)'''
+                board_np_copy[pos[0]][pos[1]] = power_np
+                board_p_copy[pos[0]][pos[1]] = power
+                print(f' power and np PA {power} {power_np}')
     for rows in array_6:
 
         for pos in rows:
             if pos != rows[2]:
                 '''board_p_copy[pos[0]][pos[1]] = '⬛'
                 board_np_copy[pos[0]][pos[1]] = "⬛"'''
-                a = (pos[0], pos[1])
+                a = (pos[0], pos[1],'2260')
                 to_turn_black.append(a)
             else:
                 '''board_p_copy[pos[0]][pos[1]] = '🌈'
@@ -2265,7 +2270,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             if pos != rows[3]:
                 '''board_p_copy[pos[0]][pos[1]] = '⬛'
                 board_np_copy[pos[0]][pos[1]] = "⬛"'''
-                a = (pos[0], pos[1])
+                a = (pos[0], pos[1],'2272')
                 to_turn_black.append(a)
             else:
                 '''board_p_copy[pos[0]][pos[1]] = '🌈'
@@ -2298,30 +2303,31 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             elif pos != array[0]:
                 '''board_p_copy[pos[0]][pos[1]] = '⬛'
                 board_np_copy[pos[0]][pos[1]] = "⬛"'''
-                a = (pos[0], pos[1])
+                a = (pos[0], pos[1],'2305')
                 to_turn_black.append(a)
     for rows in array_4:
-        for pos in rows:
-            if board_p_copy[pos[0]][pos[1]] not in powered:
-                if pos == rows[1]:
-                    power = ''
-                    power_np = ''
-                    if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
-                    if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
-                    if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
-                    if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
-                    if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
-                    if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
-                    if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
-                    '''board_np_copy[pos[0]][pos[1]] = power_np
-                    board_p_copy[pos[0]][pos[1]] = power'''
-                    a = (pos[0], pos[1], power, power_np)
-                    to_change_to_diff.append(a)
-                else:
-                    '''board_p_copy[pos[0]][pos[1]] = '⬛'
-                board_np_copy[pos[0]][pos[1]] = "⬛"'''
-                a = (pos[0], pos[1])
-                to_turn_black.append(a)
+        if rows not in array_4_V:
+            for pos in rows:
+                if board_p_copy[pos[0]][pos[1]] not in powered:
+                    if pos == rows[1]:
+                        power = ''
+                        power_np = ''
+                        if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                        if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                        if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                        if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                        if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                        if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                        if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                        board_np_copy[pos[0]][pos[1]] = power_np
+                        board_p_copy[pos[0]][pos[1]] = power
+                        '''a = (pos[0], pos[1], power, power_np)
+                        to_change_to_diff.append(a)'''
+                    else:
+                        '''board_p_copy[pos[0]][pos[1]] = '⬛'
+                    board_np_copy[pos[0]][pos[1]] = "⬛"'''
+                    a = (pos[0], pos[1],'2328')
+                    to_turn_black.append(a)
     for rows in array_3:
         for pos in rows:
             print(f' powered or no {board_p_copy[pos[0]][pos[1]]}')
@@ -2329,11 +2335,13 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 gem_pos = (pos[0], pos[1])
                 if gem_pos not in power_gem_pos:
                     power_gem_pos.append(gem_pos)
-            print(f'current pos {pos}')
+            print(f'current pos {pos[0]}, {pos[1]}')
             if board_np_copy[pos[0]][pos[1]] not in powered:
                 board_np_copy[pos[0]][pos[1]] = "⬛"
             if board_p_copy[pos[0]][pos[1]] not in powered:
                 board_p_copy[pos[0]][pos[1]] = "⬛"
+        #board_p_copy = przesun_czarne_do_gory(board_p_copy)
+        #board_np_copy = przesun_czarne_do_gory(board_np_copy)
     if len(power_gem_pos) != 0:
 
         print(f'powered gem pos {power_gem_pos}')
@@ -2344,7 +2352,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
         board_p_copy = copy.deepcopy(exploded_board)
         throwaway_copy = copy.deepcopy(board_p_copy)
         print(f'throwaway {throwaway_copy}')
-        board_np_copy = throwaway_copy
+        board_np_copy = copy.deepcopy(throwaway_copy)
         board_np_copy = convert_board(throwaway_copy)
         print('called fun explode')
         for row in exploded_board:
@@ -2363,7 +2371,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             if pos != rows[2]:
                 '''board_p_copy[pos[0]][pos[1]] = '⬛'
                 board_np_copy[pos[0]][pos[1]] = "⬛"'''
-                a = (pos[0], pos[1])
+                a = (pos[0], pos[1],'2373')
                 to_turn_black.append(a)
             else:
                 '''board_p_copy[pos[0]][pos[1]] = '🌈'
@@ -2388,317 +2396,29 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
         board_np_copy[row2[0]][row2[1]] = row2[2]
     print(f'board before return {bcolors.ENDC}')
     print(f'to turnblack {to_turn_black}')
-    for pos in to_turn_black:
-        board_np_copy[pos[0]][pos[1]] = '⬛'
-        board_p_copy[pos[0]][pos[1]] = '⬛'
-    print(f'to change {to_change_to_diff}')
-    for pos in to_change_to_diff:
-        board_np_copy[pos[0]][pos[1]] = pos[2]
-        board_p_copy[pos[0]][pos[1]] = pos[3]
+    if len(to_turn_black)>0:
+        for pos in to_turn_black:
+            print(pos)
+            print(pos[2])
+            board_np_copy[pos[0]][pos[1]] = '⬛'
+            board_p_copy[pos[0]][pos[1]] = '⬛'
+        print(f'to change {to_change_to_diff}')
+    if len(to_change_to_diff)>0:
+        for pos in to_change_to_diff:
+            board_np_copy[pos[0]][pos[1]] = pos[3]
+            board_p_copy[pos[0]][pos[1]] = pos[2]
+        board_p_copy = przesun_czarne_do_gory(board_p_copy)
+        board_np_copy = przesun_czarne_do_gory(board_np_copy)
     for row2 in board_p_copy:
         print(' '.join(row2))
-    print(board_np_copy)
+    print('2403',board_np_copy)
     for row2 in board_np_copy:
         print(' '.join(row2))
 
     return board_p_copy, board_np_copy
 
 
-'''def check_for_rows(board_with_powered, board_without_powered, move, origin_board,all_moves, ):
-    print(f'wszystkie ruchy {all_moves}')
-    group_of_4moves = group_four_gems(all_moves) #tyhis array keeps the moves that would normally cancel each other nbut they are 4 moves so they dont and based on that we can create powered gem 2 times in one move
 
-    powered_gem_gem = ''
-    powered_gem_gem_np = ''
-    print(board_with_powered)
-    temp_gem = ''
-    print(f'move right after fun {move}')
-    if move[3] == '4d' or move[3] == '4u':
-        print('pienis')
-        print(board_without_powered[move[1]])
-        print(move[1])
-        print(move[0]-1)
-        if move[2] == 'left':
-            temp_gem = board_without_powered[move[1]][move[0]-1]
-            if board_with_powered[move[1]][move[0] - 1] == '🟪': powered_gem_gem = '🟣'
-            if board_with_powered[move[1]][move[0] - 1] == '🟦': powered_gem_gem = '🔵'
-            if board_with_powered[move[1]][move[0] - 1] == '🟩': powered_gem_gem = '🟢'
-            if board_with_powered[move[1]][move[0] - 1] == '🟨': powered_gem_gem = '🟡'
-            if board_with_powered[move[1]][move[0] - 1] == '🟧': powered_gem_gem = '🟠'
-            if board_with_powered[move[1]][move[0] - 1] == '🟥': powered_gem_gem = '🔴'
-            if board_with_powered[move[1]][move[0] - 1] == '⬜': powered_gem_gem = '⚪'
-            if board_with_powered[move[1]][move[0] - 1] == '🟣': powered_gem_gem = '🟣'
-            if board_with_powered[move[1]][move[0] - 1] == '🔵': powered_gem_gem = '🔵'
-            if board_with_powered[move[1]][move[0] - 1] == '🟢': powered_gem_gem = '🟢'
-            if board_with_powered[move[1]][move[0] - 1] == '🟡': powered_gem_gem = '🟡'
-            if board_with_powered[move[1]][move[0] - 1] == '🟠': powered_gem_gem = '🟠'
-            if board_with_powered[move[1]][move[0] - 1] == '🔴': powered_gem_gem = '🔴'
-            if board_with_powered[move[1]][move[0] - 1] == '⚪': powered_gem_gem = '⚪'
-            if board_with_powered[move[1]][move[0] - 1] == '⬛': powered_gem_gem = '⬛'
-            if board_with_powered[move[1]][move[0] - 1] == '': powered_gem_gem = '⬛'
-            if board_without_powered[move[1]][move[0] - 1] == '🟪': powered_gem_gem_np = '🟪'
-            if board_without_powered[move[1]][move[0] - 1] == '🟦': powered_gem_gem_np = '🟦'
-            if board_without_powered[move[1]][move[0] - 1] == '🟩': powered_gem_gem_np = '🟩'
-            if board_without_powered[move[1]][move[0] - 1] == '🟨': powered_gem_gem_np = '🟨'
-            if board_without_powered[move[1]][move[0] - 1] == '🟧': powered_gem_gem_np = '🟧'
-            if board_without_powered[move[1]][move[0] - 1] == '🟥': powered_gem_gem_np = '🟥'
-            if board_without_powered[move[1]][move[0] - 1] == '⬜': powered_gem_gem_np = '⬜'
-            if board_without_powered[move[1]][move[0] - 1] == '🟣': powered_gem_gem_np = '🟪'
-            if board_without_powered[move[1]][move[0] - 1] == '🔵': powered_gem_gem_np = '🟦'
-            if board_without_powered[move[1]][move[0] - 1] == '🟢': powered_gem_gem_np = '🟩'
-            if board_without_powered[move[1]][move[0] - 1] == '🟡': powered_gem_gem_np = '🟨'
-            if board_without_powered[move[1]][move[0] - 1] == '🟠': powered_gem_gem_np = '🟧'
-            if board_without_powered[move[1]][move[0] - 1] == '🔴': powered_gem_gem_np = '🟥'
-            if board_without_powered[move[1]][move[0] - 1] == '⚪': powered_gem_gem_np = '⬜'
-            if board_without_powered[move[1]][move[0] - 1] == '⬛': powered_gem_gem_np = '⬛'
-            if board_without_powered[move[1]][move[0] - 1] == '': powered_gem_gem_np = '⬛'
-        elif move[2] == 'right':
-            temp_gem = board_without_powered[move[1]][move[0]+1]
-            if board_with_powered[move[1]][move[0] + 1] == '🟪': powered_gem_gem = '🟣'
-            if board_with_powered[move[1]][move[0] + 1] == '🟦': powered_gem_gem = '🔵'
-            if board_with_powered[move[1]][move[0] + 1] == '🟩': powered_gem_gem = '🟢'
-            if board_with_powered[move[1]][move[0] + 1] == '🟨': powered_gem_gem = '🟡'
-            if board_with_powered[move[1]][move[0] + 1] == '🟧': powered_gem_gem = '🟠'
-            if board_with_powered[move[1]][move[0] + 1] == '🟥': powered_gem_gem = '🔴'
-            if board_with_powered[move[1]][move[0] + 1] == '⬜': powered_gem_gem = '⚪'
-            if board_with_powered[move[1]][move[0] + 1] == '🟣': powered_gem_gem = '🟣'
-            if board_with_powered[move[1]][move[0] + 1] == '🔵': powered_gem_gem = '🔵'
-            if board_with_powered[move[1]][move[0] + 1] == '🟢': powered_gem_gem = '🟢'
-            if board_with_powered[move[1]][move[0] + 1] == '🟡': powered_gem_gem = '🟡'
-            if board_with_powered[move[1]][move[0] + 1] == '🟠': powered_gem_gem = '🟠'
-            if board_with_powered[move[1]][move[0] + 1] == '🔴': powered_gem_gem = '🔴'
-            if board_with_powered[move[1]][move[0] + 1] == '⚪': powered_gem_gem = '⚪'
-            if board_with_powered[move[1]][move[0] + 1] == '⬛': powered_gem_gem = '⬛'
-            if board_with_powered[move[1]][move[0] + 1] == '': powered_gem_gem = '⬛'
-            if board_without_powered[move[1]][move[0] + 1] == '🟪': powered_gem_gem_np = '🟪'
-            if board_without_powered[move[1]][move[0] + 1] == '🟦': powered_gem_gem_np = '🟦'
-            if board_without_powered[move[1]][move[0] + 1] == '🟩': powered_gem_gem_np = '🟩'
-            if board_without_powered[move[1]][move[0] + 1] == '🟨': powered_gem_gem_np = '🟨'
-            if board_without_powered[move[1]][move[0] + 1] == '🟧': powered_gem_gem_np = '🟧'
-            if board_without_powered[move[1]][move[0] + 1] == '🟥': powered_gem_gem_np = '🟥'
-            if board_without_powered[move[1]][move[0] + 1] == '⬜': powered_gem_gem_np = '⬜'
-            if board_without_powered[move[1]][move[0] + 1] == '🟣': powered_gem_gem_np = '🟪'
-            if board_without_powered[move[1]][move[0] + 1] == '🔵': powered_gem_gem_np = '🟦'
-            if board_without_powered[move[1]][move[0] + 1] == '🟢': powered_gem_gem_np = '🟩'
-            if board_without_powered[move[1]][move[0] + 1] == '🟡': powered_gem_gem_np = '🟨'
-            if board_without_powered[move[1]][move[0] + 1] == '🟠': powered_gem_gem_np = '🟧'
-            if board_without_powered[move[1]][move[0] + 1] == '🔴': powered_gem_gem_np = '🟥'
-            if board_without_powered[move[1]][move[0] + 1] == '⚪': powered_gem_gem_np = '⬜'
-            if board_without_powered[move[1]][move[0] + 1] == '⬛': powered_gem_gem_np = '⬛'
-            if board_without_powered[move[1]][move[0] + 1] == '': powered_gem_gem_np = '⬛'
-        print(f'temp gem {temp_gem}')
-
-        print(f'powered gem gem {powered_gem_gem}')
-
-    print(temp_gem)
-    print(move[0], move[1])
-    for row in board_with_powered:
-        print(' '.join(row))
-    orig_board_copy = copy.deepcopy(origin_board)
-    array_with_position_to_replace_5 = []
-    array_with_position_to_replace_6 = []
-    array_with_position_to_replace_7 = []
-    array_with_position_to_replace_4_V = []
-    array_with_position_to_replace_3 = []
-    print(f'in check for moves, for move {move}')
-    for i in range(8):
-        for j in range(8):
-            if i <= 8 - 6 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
-                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
-                i + 4] == board_without_powered[j][i + 5]!= "⬛" and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
-                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
-                i + 4] == board_without_powered[j][i + 5]!= '🌫️':
-                array_with_position_to_replace_6.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3), (j, i + 4),(j, i + 5)])
-            if j <= 8 - 5 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] == board_without_powered[j + 4][
-                i] != "⬛" and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] == board_without_powered[j + 4][
-                i] != '🌫️':
-                array_with_position_to_replace_5.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i), (j + 4, i)])
-            if i <= 8 - 5 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
-                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
-                i + 4] != "⬛" and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
-                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
-                i + 4] != '🌫️':
-                array_with_position_to_replace_5.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3), (j, i + 4)])
-
-            if j <= 8 - 3 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] != "⬛" and board_without_powered[j][i] == \
-                    board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] != '🌫️':
-                if not (j <= 8 - 4 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != "⬛" and \
-                    board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != '🌫️'):
-                        array_with_position_to_replace_3.append([(j, i), (j + 1, i), (j + 2, i)])
-            if i <= 8 - 3 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
-                    board_without_powered[j][i + 2] != "⬛" and board_without_powered[j][i] == board_without_powered[j][
-                i + 1] == \
-                    board_without_powered[j][i + 2] != '🌫️':
-                if not (j <= 8 - 3 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] != "⬛" and board_without_powered[j][i] == \
-                    board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] != '🌫️'):
-                        array_with_position_to_replace_3.append([(j, i), (j, i + 1), (j, i + 2)])
-
-            #this one creates vertical gems easy no sweat
-            if j <= 8 - 4 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != "⬛" and \
-                    board_without_powered[j][i] == board_without_powered[j + 1][i] == \
-                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != '🌫️':
-                array_with_position_to_replace_4_V.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i)])
-                print('432')
-    # return array_with_position_to_replace
-    print(f'array 6 {array_with_position_to_replace_6}')
-
-    powered = ['⚪', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣']
-    power_gem_pos = []
-    for group_pos in array_with_position_to_replace_3:
-        print('test')
-        # if len(group_pos) == 3:
-        for pos in group_pos:
-            if board_with_powered[pos[0]][pos[1]] in powered:
-                gem_pos = (pos[0], pos[1])
-                if gem_pos not in power_gem_pos:
-                    power_gem_pos.append(gem_pos)
-            print(f'current pos {pos}')
-            board_without_powered[pos[0]][pos[1]] = "⬛"
-            board_with_powered[pos[0]][pos[1]] = "⬛"
-    for array in array_with_position_to_replace_4_V:
-        print('loop1')
-        for pos in array:
-            print(f'123 {pos} {array}')
-            if pos != array[0]:
-                board_without_powered[pos[0]][pos[1]] = "⬛"
-                board_with_powered[pos[0]][pos[1]] = "⬛"
-            elif pos == array[0]:
-                print('test43')
-                for row in board_without_powered:
-                    print(' '.join(row))
-                power = ''
-                power_np = ''
-                if board_with_powered[pos[0] ][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
-                if board_with_powered[pos[0] ][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
-                if board_with_powered[pos[0] ][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
-                if board_with_powered[pos[0] ][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
-                if board_with_powered[pos[0] ][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
-                if board_with_powered[pos[0] ][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
-                if board_with_powered[pos[0] ][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
-                board_without_powered[pos[0]][pos[1]] = power
-                board_with_powered[pos[0]][pos[1]] = power_np
-                print(f' power and np {power} {power_np}')
-    for row in board_with_powered:
-        print(' '.join(row))
-
-        for group_pos in array_with_position_to_replace_4:
-            print('asd')
-            print(f'move is {move} and move2 is {move[2]}')
-            if move[2] == 'down':
-                power = ''
-                power_np = ''
-                print(f'board power {board_with_powered[move[1] + 1][move[0]]} also moves {move[1] + 1} {move[0]}')
-                if move[3] == '4r':
-                    if board_with_powered[move[1] + 1][move[0]] == '🟪': power = '🟣';power_np = '🟪'
-                    if board_with_powered[move[1] + 1][move[0]] == '🟦': power = '🔵';power_np ='🟦'
-                    if board_with_powered[move[1] + 1][move[0]] == '🟩': power = '🟢';power_np ='🟩'
-                    if board_with_powered[move[1] + 1][move[0]] == '🟨': power = '🟡';power_np ='🟨'
-                    if board_with_powered[move[1] + 1][move[0]] == '🟧': power = '🟠';power_np ='🟧'
-                    if board_with_powered[move[1] + 1][move[0]] == '🟥': power = '🔴';power_np ='🟥'
-                    if board_with_powered[move[1] + 1][move[0]] == '⬜': power = '⚪';power_np ='⬜'
-                if move[3] == '4l':
-                    if board_with_powered[move[1] + 1][move[0]+1] == '🟪': power = '🟣';power_np = '🟪'
-                    if board_with_powered[move[1] + 1][move[0]+1] == '🟦': power = '🔵';power_np ='🟦'
-                    if board_with_powered[move[1] + 1][move[0]+1] == '🟩': power = '🟢';power_np ='🟩'
-                    if board_with_powered[move[1] + 1][move[0]+1] == '🟨': power = '🟡';power_np ='🟨'
-                    if board_with_powered[move[1] + 1][move[0]+1] == '🟧': power = '🟠';power_np ='🟧'
-                    if board_with_powered[move[1] + 1][move[0]+1] == '🟥': power = '🔴';power_np ='🟥'
-                    if board_with_powered[move[1] + 1][move[0]+1] == '⬜': power = '⚪';power_np ='⬜'
-
-                print(f'power {power}')
-                for pos in group_pos:
-
-
-                    board_without_powered[pos[0]][pos[1]]= "⬛"
-                    board_with_powered[pos[0]][pos[1]]= "⬛"
-
-
-
-                board_with_powered[move[1] + 1][move[0]] = power
-                board_without_powered[move[1] + 1][move[0]] = power_np
-            if move[2] == 'up':
-                power = ''
-                power_np = ''
-                if move[3] == '4l':
-                    if board_with_powered[move[1] ][move[0]] == '🟪': power = '🟣';power_np = '🟪'
-                    if board_with_powered[move[1] ][move[0]] == '🟦': power = '🔵';power_np ='🟦'
-                    if board_with_powered[move[1] ][move[0]] == '🟩': power = '🟢';power_np ='🟩'
-                    if board_with_powered[move[1] ][move[0]] == '🟨': power = '🟡';power_np ='🟨'
-                    if board_with_powered[move[1] ][move[0]] == '🟧': power = '🟠';power_np ='🟧'
-                    if board_with_powered[move[1] ][move[0]] == '🟥': power = '🔴';power_np ='🟥'
-                    if board_with_powered[move[1] ][move[0]] == '⬜': power = '⚪';power_np ='⬜'
-                if move[3] == '4r':
-                    if board_with_powered[move[1] ][move[0]+1] == '🟪': power = '🟣';power_np = '🟪'
-                    if board_with_powered[move[1] ][move[0]+1] == '🟦': power = '🔵';power_np ='🟦'
-                    if board_with_powered[move[1] ][move[0]+1] == '🟩': power = '🟢';power_np ='🟩'
-                    if board_with_powered[move[1] ][move[0]+1] == '🟨': power = '🟡';power_np ='🟨'
-                    if board_with_powered[move[1] ][move[0]+1] == '🟧': power = '🟠';power_np ='🟧'
-                    if board_with_powered[move[1] ][move[0]+1] == '🟥': power = '🔴';power_np ='🟥'
-                    if board_with_powered[move[1] ][move[0]+1] == '⬜': power = '⚪';power_np ='⬜'
-                print(f'power {power}')
-
-    for group in  array_with_position_to_replace_5:
-        for pos in group:
-            if pos != group[0]:
-                board_without_powered[pos[0]][pos[1]] = "⬛"
-                board_with_powered[pos[0]][pos[1]] = "⬛"
-            elif pos == group[0]:
-                board_without_powered[pos[0]][pos[1]] = "🌈"
-                board_with_powered[pos[0]][pos[1]] = "🌈"
-
-    for row in board_without_powered:
-        print(' '.join(row))
-    for row in board_with_powered:
-        print(' '.join(row))
-    print(f'move {move}')
-
-    if len(power_gem_pos) != 0:
-
-        print(f'powered gem pos {power_gem_pos}')
-        for gems in power_gem_pos:
-            throwaway_board = copy.deepcopy(orig_board_copy)
-            exploded_board = explode_gem(board_with_powered, gems[0], gems[1], 'explode gem test', throwaway_board)
-            # exploded_board_fin = przeskiej(exploded_board)
-        print('board with poewered')
-        for row in board_with_powered:
-            print(' '.join(row))
-        print('board without powerred')
-        for row in board_without_powered:
-            print(' '.join(row))
-        print('board exploded')
-
-
-    return board_with_powered, board_without_powered'''
-
-'''def make_moves_function(array):
-    for moves in array:
-        x1 = moves[0]
-        y1 = moves[1]
-        str = moves[2]
-        width, height = 85 * 8, 84 * 8
-
-        screenshot = ImageGrab.grab(bbox=(318, 66, 318 + width, 68 + height))
-
-        pyautogui.click(350 + x1 * 85, 85 + y1 * 84)
-        time.sleep(0.2)
-        if str == 'left':
-            pyautogui.click(350 + (x1 - 1) * 85, 85 + y1 * 84)
-        if str == 'right':
-            pyautogui.click(350 + (x1 + 1) * 85, 85 + y1 * 84)
-        if str == 'up':
-            pyautogui.click(350 + x1 * 85, 85 + (y1 - 1) * 84)
-        if str == 'down':
-            pyautogui.click(350 + x1 * 85, 85 + (y1 + 1) * 84)
-        time.sleep(1)'''
 
 
 def przesun_czarne_do_gory(tablica):
@@ -2855,75 +2575,7 @@ def convert_board(board):
     return converted_board
 
 
-'''def next_move(board_p,moves,already_done_moves): DONT REMOVE THIS ONE KINDA WORKS AS A RECURCION, COMMENTED OUT BECAUSE IM WORKING JUST ON NEXT MOVE AND GAME STUFF
 
-    black_board = [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']]
-    board_not_powered = convert_board(board_p)
-    for move in moves:
-        already_done = already_done_moves
-        print(f' checking for {move}')
-        copy_np = copy.deepcopy(board_not_powered)
-        copy_p = copy.deepcopy(board_p)
-        if move[2] == 'left':
-            copy_np[move[1]][move[0]], copy_np[move[1]][move[0] - 1] = copy_np[move[1]][
-                move[0] - 1], copy_np[move[1]][move[0]]
-            copy_p[move[1]][move[0]], copy_p[move[1]][move[0] - 1] = copy_p[move[1]][
-                move[0] - 1], copy_p[move[1]][move[0]]
-        if move[2] == 'right' :
-            copy_np[move[1]][move[0]], copy_np[move[1]][move[0] + 1] = copy_np[move[1]][
-                move[0] + 1], copy_np[move[1]][move[0]]
-            copy_p[move[1]][move[0]], copy_p[move[1]][move[0] + 1] = copy_p[move[1]][
-                move[0] + 1], copy_p[move[1]][move[0]]
-        if move[2] == 'up' :
-            copy_np[move[1]][move[0]], copy_np[move[1]-1][move[0]] = copy_np[move[1]-1][
-                move[0]], copy_np[move[1]][move[0]]
-            copy_p[move[1]][move[0]], copy_p[move[1] -1][move[0]] = copy_p[move[1] - 1][
-                move[0]], copy_p[move[1]][move[0]]
-        if move[2] == 'down':
-            copy_np[move[1]][move[0]], copy_np[move[1]+1][move[0]] = copy_np[move[1]+1][
-                move[0]], copy_np[move[1]][move[0]]
-            copy_p[move[1]][move[0]], copy_p[move[1] +1][move[0]] = copy_p[move[1] +1][
-                move[0]], copy_p[move[1]][move[0]]
-
-        for row in copy_np:
-            print(' '.join(row))
-        print('----------------')
-
-        aftermove_p,aftermove_np = check_for_rows(copy_p,copy_np)
-        aftermove_p2 = przesun_czarne_do_gory(aftermove_p)
-        aftermove_np2 = przesun_czarne_do_gory(aftermove_np)
-
-        print('powered')
-        for row in aftermove_p2:
-            print(' '.join(row))
-        print('--------------')
-        print('not powered')
-        for row in aftermove_np2:
-            print(' '.join(row))
-        print('--------------')
-        new_moves = check_for_moves(aftermove_np2)
-        print(f'sieved moves{new_moves}')
-        if aftermove_np2 == black_board:
-            print('this one good ')
-            already_done.append(move)
-            print(already_done)
-            return already_done
-        print(f' queue of moves {already_done} remaining moves = {new_moves}')
-        if len(new_moves) != 0:
-            already_done.append(move)
-            result = next_move(aftermove_np2,new_moves,already_done)
-            if len(result) !=0:
-                return result
-        else:
-            already_done = []
-    return []'''
 
 
 def next_move(board_p, moves, already_done_moves, orig_board):
@@ -3251,21 +2903,31 @@ def next_move(board_p, moves, already_done_moves, orig_board):
 test()
 brd = \
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-    ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-    ['⬛', '⬛', '⬜', '⬛', '⬛', '🟪', '⬛', '⬛'],
-    ['⬛', '⬛', '⬜', '1', '⬛', '🟪', '⬛', '⬛'],
-    ['⬛', '⬛', '🌫️', '🟪', '🟪', '🟦', '⬛', '⬛'],
-    ['⬛', '⬛', '🌫️', '🟦', '🟦', '🟧', '⬛', '⬛'],
-    ['⬛', '⬛', '🌫️', '🟧', '🟧', '🟥', '⬛', '⬛'],
-    ['⬛', '⬛', '⬜', '🟥', '🟥', '🟪', '⬛', '⬛']]
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '🟧', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['1', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['🟧', '🟥', '⬛', '⬛', '⬛', '🟧', '🟧', '⬛'],
+ ['🟥', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '0'],
+ ['🟧', '🟥', '🟧', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['🌫️', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🌫️']]
 brd_p = [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-    ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
-    ['⬛', '⬛', '⬜', '⬛', '⬛', '🟪', '⬛', '⬛'],
-    ['⬛', '⬛', '⬜', '1', '⬛', '🟪', '⬛', '⬛'],
-    ['⬛', '⬛', '🌫️', '🟪', '🟪', '🟦', '⬛', '⬛'],
-    ['⬛', '⬛', '🌫️', '🟦', '🟦', '🟧', '⬛', '⬛'],
-    ['⬛', '⬛', '🌫️', '🟧', '🟧', '🟥', '⬛', '⬛'],
-    ['⬛', '⬛', '⬜', '🟥', '🟥', '🟪', '⬛', '⬛']]
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '🟧', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['1', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['🟧', '🟥', '⬛', '⬛', '⬛', '🟧', '🟧', '⬛'],
+ ['🟥', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '0'],
+ ['🟧', '🟥', '🟧', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['🌫️', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🌫️']]
+
+[['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '🟧', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['1', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['🟧', '🟥', '⬛', '⬛', '⬛', '🟧', '🟧', '⬛'],
+ ['🟥', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '0'],
+ ['🟧', '🟥', '🟧', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['🌫️', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🌫️']]
+
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
     ['⬛', '⬛', '⬜', '⬛', '⬛', '🟪', '⬛', '⬛'],
@@ -3324,6 +2986,7 @@ brd_p = [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
 #sieved_moves = sieve_moves(array_with_moves)
 # print(f'not sieved   {array_with_moves}')
 # print(f'sieved moves {sieved_moves}')
+#sieved_moves = [(6, 7, 'up', '┴d')]
 #next_move(brd_p, sieved_moves, [], brd_p)
 #check_for_rows(brd,brd,(1, 6, 'down', '4l'),brd,[(1, 7, 'up', '4l'), (1, 6, 'down', '4l')])
 
@@ -3355,3 +3018,368 @@ HEADER = '\033[95m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'''
+
+'''def next_move(board_p,moves,already_done_moves): DONT REMOVE THIS ONE KINDA WORKS AS A RECURCION, COMMENTED OUT BECAUSE IM WORKING JUST ON NEXT MOVE AND GAME STUFF
+
+    black_board = [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+     ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛']]
+    board_not_powered = convert_board(board_p)
+    for move in moves:
+        already_done = already_done_moves
+        print(f' checking for {move}')
+        copy_np = copy.deepcopy(board_not_powered)
+        copy_p = copy.deepcopy(board_p)
+        if move[2] == 'left':
+            copy_np[move[1]][move[0]], copy_np[move[1]][move[0] - 1] = copy_np[move[1]][
+                move[0] - 1], copy_np[move[1]][move[0]]
+            copy_p[move[1]][move[0]], copy_p[move[1]][move[0] - 1] = copy_p[move[1]][
+                move[0] - 1], copy_p[move[1]][move[0]]
+        if move[2] == 'right' :
+            copy_np[move[1]][move[0]], copy_np[move[1]][move[0] + 1] = copy_np[move[1]][
+                move[0] + 1], copy_np[move[1]][move[0]]
+            copy_p[move[1]][move[0]], copy_p[move[1]][move[0] + 1] = copy_p[move[1]][
+                move[0] + 1], copy_p[move[1]][move[0]]
+        if move[2] == 'up' :
+            copy_np[move[1]][move[0]], copy_np[move[1]-1][move[0]] = copy_np[move[1]-1][
+                move[0]], copy_np[move[1]][move[0]]
+            copy_p[move[1]][move[0]], copy_p[move[1] -1][move[0]] = copy_p[move[1] - 1][
+                move[0]], copy_p[move[1]][move[0]]
+        if move[2] == 'down':
+            copy_np[move[1]][move[0]], copy_np[move[1]+1][move[0]] = copy_np[move[1]+1][
+                move[0]], copy_np[move[1]][move[0]]
+            copy_p[move[1]][move[0]], copy_p[move[1] +1][move[0]] = copy_p[move[1] +1][
+                move[0]], copy_p[move[1]][move[0]]
+
+        for row in copy_np:
+            print(' '.join(row))
+        print('----------------')
+
+        aftermove_p,aftermove_np = check_for_rows(copy_p,copy_np)
+        aftermove_p2 = przesun_czarne_do_gory(aftermove_p)
+        aftermove_np2 = przesun_czarne_do_gory(aftermove_np)
+
+        print('powered')
+        for row in aftermove_p2:
+            print(' '.join(row))
+        print('--------------')
+        print('not powered')
+        for row in aftermove_np2:
+            print(' '.join(row))
+        print('--------------')
+        new_moves = check_for_moves(aftermove_np2)
+        print(f'sieved moves{new_moves}')
+        if aftermove_np2 == black_board:
+            print('this one good ')
+            already_done.append(move)
+            print(already_done)
+            return already_done
+        print(f' queue of moves {already_done} remaining moves = {new_moves}')
+        if len(new_moves) != 0:
+            already_done.append(move)
+            result = next_move(aftermove_np2,new_moves,already_done)
+            if len(result) !=0:
+                return result
+        else:
+            already_done = []
+    return []'''
+'''def check_for_rows(board_with_powered, board_without_powered, move, origin_board,all_moves, ):
+    print(f'wszystkie ruchy {all_moves}')
+    group_of_4moves = group_four_gems(all_moves) #tyhis array keeps the moves that would normally cancel each other nbut they are 4 moves so they dont and based on that we can create powered gem 2 times in one move
+
+    powered_gem_gem = ''
+    powered_gem_gem_np = ''
+    print(board_with_powered)
+    temp_gem = ''
+    print(f'move right after fun {move}')
+    if move[3] == '4d' or move[3] == '4u':
+        print('pienis')
+        print(board_without_powered[move[1]])
+        print(move[1])
+        print(move[0]-1)
+        if move[2] == 'left':
+            temp_gem = board_without_powered[move[1]][move[0]-1]
+            if board_with_powered[move[1]][move[0] - 1] == '🟪': powered_gem_gem = '🟣'
+            if board_with_powered[move[1]][move[0] - 1] == '🟦': powered_gem_gem = '🔵'
+            if board_with_powered[move[1]][move[0] - 1] == '🟩': powered_gem_gem = '🟢'
+            if board_with_powered[move[1]][move[0] - 1] == '🟨': powered_gem_gem = '🟡'
+            if board_with_powered[move[1]][move[0] - 1] == '🟧': powered_gem_gem = '🟠'
+            if board_with_powered[move[1]][move[0] - 1] == '🟥': powered_gem_gem = '🔴'
+            if board_with_powered[move[1]][move[0] - 1] == '⬜': powered_gem_gem = '⚪'
+            if board_with_powered[move[1]][move[0] - 1] == '🟣': powered_gem_gem = '🟣'
+            if board_with_powered[move[1]][move[0] - 1] == '🔵': powered_gem_gem = '🔵'
+            if board_with_powered[move[1]][move[0] - 1] == '🟢': powered_gem_gem = '🟢'
+            if board_with_powered[move[1]][move[0] - 1] == '🟡': powered_gem_gem = '🟡'
+            if board_with_powered[move[1]][move[0] - 1] == '🟠': powered_gem_gem = '🟠'
+            if board_with_powered[move[1]][move[0] - 1] == '🔴': powered_gem_gem = '🔴'
+            if board_with_powered[move[1]][move[0] - 1] == '⚪': powered_gem_gem = '⚪'
+            if board_with_powered[move[1]][move[0] - 1] == '⬛': powered_gem_gem = '⬛'
+            if board_with_powered[move[1]][move[0] - 1] == '': powered_gem_gem = '⬛'
+            if board_without_powered[move[1]][move[0] - 1] == '🟪': powered_gem_gem_np = '🟪'
+            if board_without_powered[move[1]][move[0] - 1] == '🟦': powered_gem_gem_np = '🟦'
+            if board_without_powered[move[1]][move[0] - 1] == '🟩': powered_gem_gem_np = '🟩'
+            if board_without_powered[move[1]][move[0] - 1] == '🟨': powered_gem_gem_np = '🟨'
+            if board_without_powered[move[1]][move[0] - 1] == '🟧': powered_gem_gem_np = '🟧'
+            if board_without_powered[move[1]][move[0] - 1] == '🟥': powered_gem_gem_np = '🟥'
+            if board_without_powered[move[1]][move[0] - 1] == '⬜': powered_gem_gem_np = '⬜'
+            if board_without_powered[move[1]][move[0] - 1] == '🟣': powered_gem_gem_np = '🟪'
+            if board_without_powered[move[1]][move[0] - 1] == '🔵': powered_gem_gem_np = '🟦'
+            if board_without_powered[move[1]][move[0] - 1] == '🟢': powered_gem_gem_np = '🟩'
+            if board_without_powered[move[1]][move[0] - 1] == '🟡': powered_gem_gem_np = '🟨'
+            if board_without_powered[move[1]][move[0] - 1] == '🟠': powered_gem_gem_np = '🟧'
+            if board_without_powered[move[1]][move[0] - 1] == '🔴': powered_gem_gem_np = '🟥'
+            if board_without_powered[move[1]][move[0] - 1] == '⚪': powered_gem_gem_np = '⬜'
+            if board_without_powered[move[1]][move[0] - 1] == '⬛': powered_gem_gem_np = '⬛'
+            if board_without_powered[move[1]][move[0] - 1] == '': powered_gem_gem_np = '⬛'
+        elif move[2] == 'right':
+            temp_gem = board_without_powered[move[1]][move[0]+1]
+            if board_with_powered[move[1]][move[0] + 1] == '🟪': powered_gem_gem = '🟣'
+            if board_with_powered[move[1]][move[0] + 1] == '🟦': powered_gem_gem = '🔵'
+            if board_with_powered[move[1]][move[0] + 1] == '🟩': powered_gem_gem = '🟢'
+            if board_with_powered[move[1]][move[0] + 1] == '🟨': powered_gem_gem = '🟡'
+            if board_with_powered[move[1]][move[0] + 1] == '🟧': powered_gem_gem = '🟠'
+            if board_with_powered[move[1]][move[0] + 1] == '🟥': powered_gem_gem = '🔴'
+            if board_with_powered[move[1]][move[0] + 1] == '⬜': powered_gem_gem = '⚪'
+            if board_with_powered[move[1]][move[0] + 1] == '🟣': powered_gem_gem = '🟣'
+            if board_with_powered[move[1]][move[0] + 1] == '🔵': powered_gem_gem = '🔵'
+            if board_with_powered[move[1]][move[0] + 1] == '🟢': powered_gem_gem = '🟢'
+            if board_with_powered[move[1]][move[0] + 1] == '🟡': powered_gem_gem = '🟡'
+            if board_with_powered[move[1]][move[0] + 1] == '🟠': powered_gem_gem = '🟠'
+            if board_with_powered[move[1]][move[0] + 1] == '🔴': powered_gem_gem = '🔴'
+            if board_with_powered[move[1]][move[0] + 1] == '⚪': powered_gem_gem = '⚪'
+            if board_with_powered[move[1]][move[0] + 1] == '⬛': powered_gem_gem = '⬛'
+            if board_with_powered[move[1]][move[0] + 1] == '': powered_gem_gem = '⬛'
+            if board_without_powered[move[1]][move[0] + 1] == '🟪': powered_gem_gem_np = '🟪'
+            if board_without_powered[move[1]][move[0] + 1] == '🟦': powered_gem_gem_np = '🟦'
+            if board_without_powered[move[1]][move[0] + 1] == '🟩': powered_gem_gem_np = '🟩'
+            if board_without_powered[move[1]][move[0] + 1] == '🟨': powered_gem_gem_np = '🟨'
+            if board_without_powered[move[1]][move[0] + 1] == '🟧': powered_gem_gem_np = '🟧'
+            if board_without_powered[move[1]][move[0] + 1] == '🟥': powered_gem_gem_np = '🟥'
+            if board_without_powered[move[1]][move[0] + 1] == '⬜': powered_gem_gem_np = '⬜'
+            if board_without_powered[move[1]][move[0] + 1] == '🟣': powered_gem_gem_np = '🟪'
+            if board_without_powered[move[1]][move[0] + 1] == '🔵': powered_gem_gem_np = '🟦'
+            if board_without_powered[move[1]][move[0] + 1] == '🟢': powered_gem_gem_np = '🟩'
+            if board_without_powered[move[1]][move[0] + 1] == '🟡': powered_gem_gem_np = '🟨'
+            if board_without_powered[move[1]][move[0] + 1] == '🟠': powered_gem_gem_np = '🟧'
+            if board_without_powered[move[1]][move[0] + 1] == '🔴': powered_gem_gem_np = '🟥'
+            if board_without_powered[move[1]][move[0] + 1] == '⚪': powered_gem_gem_np = '⬜'
+            if board_without_powered[move[1]][move[0] + 1] == '⬛': powered_gem_gem_np = '⬛'
+            if board_without_powered[move[1]][move[0] + 1] == '': powered_gem_gem_np = '⬛'
+        print(f'temp gem {temp_gem}')
+
+        print(f'powered gem gem {powered_gem_gem}')
+
+    print(temp_gem)
+    print(move[0], move[1])
+    for row in board_with_powered:
+        print(' '.join(row))
+    orig_board_copy = copy.deepcopy(origin_board)
+    array_with_position_to_replace_5 = []
+    array_with_position_to_replace_6 = []
+    array_with_position_to_replace_7 = []
+    array_with_position_to_replace_4_V = []
+    array_with_position_to_replace_3 = []
+    print(f'in check for moves, for move {move}')
+    for i in range(8):
+        for j in range(8):
+            if i <= 8 - 6 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
+                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
+                i + 4] == board_without_powered[j][i + 5]!= "⬛" and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
+                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
+                i + 4] == board_without_powered[j][i + 5]!= '🌫️':
+                array_with_position_to_replace_6.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3), (j, i + 4),(j, i + 5)])
+            if j <= 8 - 5 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] == board_without_powered[j + 4][
+                i] != "⬛" and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] == board_without_powered[j + 4][
+                i] != '🌫️':
+                array_with_position_to_replace_5.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i), (j + 4, i)])
+            if i <= 8 - 5 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
+                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
+                i + 4] != "⬛" and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
+                    board_without_powered[j][i + 2] == board_without_powered[j][i + 3] == board_without_powered[j][
+                i + 4] != '🌫️':
+                array_with_position_to_replace_5.append([(j, i), (j, i + 1), (j, i + 2), (j, i + 3), (j, i + 4)])
+
+            if j <= 8 - 3 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] != "⬛" and board_without_powered[j][i] == \
+                    board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] != '🌫️':
+                if not (j <= 8 - 4 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != "⬛" and \
+                    board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != '🌫️'):
+                        array_with_position_to_replace_3.append([(j, i), (j + 1, i), (j + 2, i)])
+            if i <= 8 - 3 and board_without_powered[j][i] == board_without_powered[j][i + 1] == \
+                    board_without_powered[j][i + 2] != "⬛" and board_without_powered[j][i] == board_without_powered[j][
+                i + 1] == \
+                    board_without_powered[j][i + 2] != '🌫️':
+                if not (j <= 8 - 3 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] != "⬛" and board_without_powered[j][i] == \
+                    board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] != '🌫️'):
+                        array_with_position_to_replace_3.append([(j, i), (j, i + 1), (j, i + 2)])
+
+            #this one creates vertical gems easy no sweat
+            if j <= 8 - 4 and board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != "⬛" and \
+                    board_without_powered[j][i] == board_without_powered[j + 1][i] == \
+                    board_without_powered[j + 2][i] == board_without_powered[j + 3][i] != '🌫️':
+                array_with_position_to_replace_4_V.append([(j, i), (j + 1, i), (j + 2, i), (j + 3, i)])
+                print('432')
+    # return array_with_position_to_replace
+    print(f'array 6 {array_with_position_to_replace_6}')
+
+    powered = ['⚪', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣']
+    power_gem_pos = []
+    for group_pos in array_with_position_to_replace_3:
+        print('test')
+        # if len(group_pos) == 3:
+        for pos in group_pos:
+            if board_with_powered[pos[0]][pos[1]] in powered:
+                gem_pos = (pos[0], pos[1])
+                if gem_pos not in power_gem_pos:
+                    power_gem_pos.append(gem_pos)
+            print(f'current pos {pos}')
+            board_without_powered[pos[0]][pos[1]] = "⬛"
+            board_with_powered[pos[0]][pos[1]] = "⬛"
+    for array in array_with_position_to_replace_4_V:
+        print('loop1')
+        for pos in array:
+            print(f'123 {pos} {array}')
+            if pos != array[0]:
+                board_without_powered[pos[0]][pos[1]] = "⬛"
+                board_with_powered[pos[0]][pos[1]] = "⬛"
+            elif pos == array[0]:
+                print('test43')
+                for row in board_without_powered:
+                    print(' '.join(row))
+                power = ''
+                power_np = ''
+                if board_with_powered[pos[0] ][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                if board_with_powered[pos[0] ][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                if board_with_powered[pos[0] ][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                if board_with_powered[pos[0] ][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                if board_with_powered[pos[0] ][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                if board_with_powered[pos[0] ][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                if board_with_powered[pos[0] ][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                board_without_powered[pos[0]][pos[1]] = power
+                board_with_powered[pos[0]][pos[1]] = power_np
+                print(f' power and np {power} {power_np}')
+    for row in board_with_powered:
+        print(' '.join(row))
+
+        for group_pos in array_with_position_to_replace_4:
+            print('asd')
+            print(f'move is {move} and move2 is {move[2]}')
+            if move[2] == 'down':
+                power = ''
+                power_np = ''
+                print(f'board power {board_with_powered[move[1] + 1][move[0]]} also moves {move[1] + 1} {move[0]}')
+                if move[3] == '4r':
+                    if board_with_powered[move[1] + 1][move[0]] == '🟪': power = '🟣';power_np = '🟪'
+                    if board_with_powered[move[1] + 1][move[0]] == '🟦': power = '🔵';power_np ='🟦'
+                    if board_with_powered[move[1] + 1][move[0]] == '🟩': power = '🟢';power_np ='🟩'
+                    if board_with_powered[move[1] + 1][move[0]] == '🟨': power = '🟡';power_np ='🟨'
+                    if board_with_powered[move[1] + 1][move[0]] == '🟧': power = '🟠';power_np ='🟧'
+                    if board_with_powered[move[1] + 1][move[0]] == '🟥': power = '🔴';power_np ='🟥'
+                    if board_with_powered[move[1] + 1][move[0]] == '⬜': power = '⚪';power_np ='⬜'
+                if move[3] == '4l':
+                    if board_with_powered[move[1] + 1][move[0]+1] == '🟪': power = '🟣';power_np = '🟪'
+                    if board_with_powered[move[1] + 1][move[0]+1] == '🟦': power = '🔵';power_np ='🟦'
+                    if board_with_powered[move[1] + 1][move[0]+1] == '🟩': power = '🟢';power_np ='🟩'
+                    if board_with_powered[move[1] + 1][move[0]+1] == '🟨': power = '🟡';power_np ='🟨'
+                    if board_with_powered[move[1] + 1][move[0]+1] == '🟧': power = '🟠';power_np ='🟧'
+                    if board_with_powered[move[1] + 1][move[0]+1] == '🟥': power = '🔴';power_np ='🟥'
+                    if board_with_powered[move[1] + 1][move[0]+1] == '⬜': power = '⚪';power_np ='⬜'
+
+                print(f'power {power}')
+                for pos in group_pos:
+
+
+                    board_without_powered[pos[0]][pos[1]]= "⬛"
+                    board_with_powered[pos[0]][pos[1]]= "⬛"
+
+
+
+                board_with_powered[move[1] + 1][move[0]] = power
+                board_without_powered[move[1] + 1][move[0]] = power_np
+            if move[2] == 'up':
+                power = ''
+                power_np = ''
+                if move[3] == '4l':
+                    if board_with_powered[move[1] ][move[0]] == '🟪': power = '🟣';power_np = '🟪'
+                    if board_with_powered[move[1] ][move[0]] == '🟦': power = '🔵';power_np ='🟦'
+                    if board_with_powered[move[1] ][move[0]] == '🟩': power = '🟢';power_np ='🟩'
+                    if board_with_powered[move[1] ][move[0]] == '🟨': power = '🟡';power_np ='🟨'
+                    if board_with_powered[move[1] ][move[0]] == '🟧': power = '🟠';power_np ='🟧'
+                    if board_with_powered[move[1] ][move[0]] == '🟥': power = '🔴';power_np ='🟥'
+                    if board_with_powered[move[1] ][move[0]] == '⬜': power = '⚪';power_np ='⬜'
+                if move[3] == '4r':
+                    if board_with_powered[move[1] ][move[0]+1] == '🟪': power = '🟣';power_np = '🟪'
+                    if board_with_powered[move[1] ][move[0]+1] == '🟦': power = '🔵';power_np ='🟦'
+                    if board_with_powered[move[1] ][move[0]+1] == '🟩': power = '🟢';power_np ='🟩'
+                    if board_with_powered[move[1] ][move[0]+1] == '🟨': power = '🟡';power_np ='🟨'
+                    if board_with_powered[move[1] ][move[0]+1] == '🟧': power = '🟠';power_np ='🟧'
+                    if board_with_powered[move[1] ][move[0]+1] == '🟥': power = '🔴';power_np ='🟥'
+                    if board_with_powered[move[1] ][move[0]+1] == '⬜': power = '⚪';power_np ='⬜'
+                print(f'power {power}')
+
+    for group in  array_with_position_to_replace_5:
+        for pos in group:
+            if pos != group[0]:
+                board_without_powered[pos[0]][pos[1]] = "⬛"
+                board_with_powered[pos[0]][pos[1]] = "⬛"
+            elif pos == group[0]:
+                board_without_powered[pos[0]][pos[1]] = "🌈"
+                board_with_powered[pos[0]][pos[1]] = "🌈"
+
+    for row in board_without_powered:
+        print(' '.join(row))
+    for row in board_with_powered:
+        print(' '.join(row))
+    print(f'move {move}')
+
+    if len(power_gem_pos) != 0:
+
+        print(f'powered gem pos {power_gem_pos}')
+        for gems in power_gem_pos:
+            throwaway_board = copy.deepcopy(orig_board_copy)
+            exploded_board = explode_gem(board_with_powered, gems[0], gems[1], 'explode gem test', throwaway_board)
+            # exploded_board_fin = przeskiej(exploded_board)
+        print('board with poewered')
+        for row in board_with_powered:
+            print(' '.join(row))
+        print('board without powerred')
+        for row in board_without_powered:
+            print(' '.join(row))
+        print('board exploded')
+
+
+    return board_with_powered, board_without_powered'''
+
+'''def make_moves_function(array):
+    for moves in array:
+        x1 = moves[0]
+        y1 = moves[1]
+        str = moves[2]
+        width, height = 85 * 8, 84 * 8
+
+        screenshot = ImageGrab.grab(bbox=(318, 66, 318 + width, 68 + height))
+
+        pyautogui.click(350 + x1 * 85, 85 + y1 * 84)
+        time.sleep(0.2)
+        if str == 'left':
+            pyautogui.click(350 + (x1 - 1) * 85, 85 + y1 * 84)
+        if str == 'right':
+            pyautogui.click(350 + (x1 + 1) * 85, 85 + y1 * 84)
+        if str == 'up':
+            pyautogui.click(350 + x1 * 85, 85 + (y1 - 1) * 84)
+        if str == 'down':
+            pyautogui.click(350 + x1 * 85, 85 + (y1 + 1) * 84)
+        time.sleep(1)'''
