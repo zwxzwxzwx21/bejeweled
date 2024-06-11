@@ -1900,7 +1900,14 @@ def array_creation(
                 len(set(positions) & set(seven_positions)) == 6 for seven_positions in
                 array_with_position_to_replace_7):
             filtered_array_with_position_to_replace_6.append(positions)
-    return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, filtered_array_with_position_to_replace_5, array_with_position_to_replace_4_V, filtered_array_with_position_to_replace_6, array_with_position_to_replace_7, array_with_position_to_replace_L, array_with_position_to_replace_T
+
+    filtered_array_with_position_to_replace_4_V = []
+    for positions in array_with_position_to_replace_4_V:
+        # Sprawdź, czy zestaw bloków nie spełnia warunków dla 4 bloków
+        if not any(
+                len(set(positions) & set(five_positions)) == 4 for five_positions in array_with_position_to_replace_5):
+            filtered_array_with_position_to_replace_4_V.append(positions)
+    return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, filtered_array_with_position_to_replace_5, filtered_array_with_position_to_replace_4_V, filtered_array_with_position_to_replace_6, array_with_position_to_replace_7, array_with_position_to_replace_L, array_with_position_to_replace_T
 
 
 def check_for_rows(board_with_powered, board_without_powered, move, origin_board, all_moves, ):
