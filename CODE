@@ -2313,25 +2313,46 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 print(f'checking if position not in powered {board_p_copy[pos[0]][pos[1]]}')
                 if board_p_copy[pos[0]][pos[1]] not in powered:
                     print('position not in powered')
-                    if pos == rows[1]:
-                        power = ''
-                        power_np = ''
-                        if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
-                        if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
-                        if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
-                        if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
-                        if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
-                        if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
-                        if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
-                        board_np_copy[pos[0]][pos[1]] = power_np
-                        board_p_copy[pos[0]][pos[1]] = power
-                        a = (pos[0], pos[1], power, power_np)
-                        to_change_to_diff.append(a) # if commented out, planet 4 breaks
-                    else:
-                        '''board_p_copy[pos[0]][pos[1]] = '⬛'
-                    board_np_copy[pos[0]][pos[1]] = "⬛"'''
-                    a = (pos[0], pos[1],'2328')
-                    to_turn_black.append(a)
+                    if move[3] == '4l':
+                        if pos == rows[1]:
+                            power = ''
+                            power_np = ''
+                            if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                            if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                            if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                            if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                            if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                            if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                            if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                            board_np_copy[pos[0]][pos[1]] = power_np
+                            board_p_copy[pos[0]][pos[1]] = power
+                            a = (pos[0], pos[1], power, power_np,'2328')
+                            to_change_to_diff.append(a) # if commented out, planet 4 breaks
+                        else:
+                            '''board_p_copy[pos[0]][pos[1]] = '⬛'
+                        board_np_copy[pos[0]][pos[1]] = "⬛"'''
+                        a = (pos[0], pos[1],'2328')
+                        to_turn_black.append(a)
+                    elif move[3] == '4r':
+                        if pos == rows[2]:
+                            power = ''
+                            power_np = ''
+                            if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                            if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                            if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                            if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                            if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                            if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                            if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                            board_np_copy[pos[0]][pos[1]] = power_np
+                            board_p_copy[pos[0]][pos[1]] = power
+                            a = (pos[0], pos[1], power, power_np,'2328')
+                            to_change_to_diff.append(a) # if commented out, planet 4 breaks
+                        else:
+                            '''board_p_copy[pos[0]][pos[1]] = '⬛'
+                        board_np_copy[pos[0]][pos[1]] = "⬛"'''
+                        a = (pos[0], pos[1],'2328')
+                        to_turn_black.append(a)
     pos_with_gems = []
     for rows in array_3:
         for pos in rows:
