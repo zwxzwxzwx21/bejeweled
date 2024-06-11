@@ -2306,9 +2306,13 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 a = (pos[0], pos[1],'2305')
                 to_turn_black.append(a)
     for rows in array_4:
+        print('checking array_4')
         if rows not in array_4_V:
+            print('array not in array4V')
             for pos in rows:
+                print(f'checking if position not in powered {board_p_copy[pos[0]][pos[1]]}')
                 if board_p_copy[pos[0]][pos[1]] not in powered:
+                    print('position not in powered')
                     if pos == rows[1]:
                         power = ''
                         power_np = ''
@@ -2321,8 +2325,8 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                         if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
                         board_np_copy[pos[0]][pos[1]] = power_np
                         board_p_copy[pos[0]][pos[1]] = power
-                        '''a = (pos[0], pos[1], power, power_np)
-                        to_change_to_diff.append(a)'''
+                        a = (pos[0], pos[1], power, power_np)
+                        to_change_to_diff.append(a) # if commented out, planet 4 breaks
                     else:
                         '''board_p_copy[pos[0]][pos[1]] = '⬛'
                     board_np_copy[pos[0]][pos[1]] = "⬛"'''
@@ -2334,16 +2338,17 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
             print(f' powered or no {board_p_copy[pos[0]][pos[1]]}')
             if board_p_copy[pos[0]][pos[1]] in powered:
                 gem_pos = (pos[0], pos[1])
-                if gem_pos not in power_gem_pos:
-                    power_gem_pos.append(gem_pos)
+
+                power_gem_pos.append(gem_pos)
             print(f'current pos {pos[0]}, {pos[1]}')
-            pos_with_gems.append(pos)
+            #pos_with_gems.append(pos)
             if board_np_copy[pos[0]][pos[1]] not in powered:
                 board_np_copy[pos[0]][pos[1]] = "⬛"
             if board_p_copy[pos[0]][pos[1]] not in powered:
                 board_p_copy[pos[0]][pos[1]] = "⬛"
         #board_p_copy = przesun_czarne_do_gory(board_p_copy)
         #board_np_copy = przesun_czarne_do_gory(board_np_copy)
+    #print(pos_with_gems,'9999'),
     if len(power_gem_pos) != 0:
 
         print(f'powered gem pos {power_gem_pos}')
@@ -2386,12 +2391,13 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     for pos in powered_gem_pos:
 
         print(pos, 'pos')
+        pos_with_gems.append(pos)
         if pos[3] == 'p':
 
             pwrd.append(pos)
         elif pos[3] == 'np':
             npwrd.append(pos)
-
+    print(pos_with_gems,'999')
     for row2 in pwrd:
         board_p_copy[row2[0]][row2[1]] = row2[2]
     for row2 in npwrd:
@@ -2400,11 +2406,33 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     print(f'to turnblack {to_turn_black}')
     if len(to_turn_black)>0:
         for pos in to_turn_black:
-            print(pos)
-            print(pos[2])
-            board_np_copy[pos[0]][pos[1]] = '⬛'
-            board_p_copy[pos[0]][pos[1]] = '⬛'
-        print(f'to change {to_change_to_diff}')
+            if len(pos_with_gems)>0:
+                if pos[0] != pos_with_gems[0] or pos[1] != pos_with_gems[1]:
+                    print(pos)
+                    print(pos[2])
+                    board_np_copy[pos[0]][pos[1]] = '⬛'
+                    board_p_copy[pos[0]][pos[1]] = '⬛'
+                else:
+                    print('2137')
+                    power = ''
+                    power_np = ''
+                    if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                    if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                    if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                    if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                    if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                    if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                    if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                    board_np_copy[pos[0]][pos[1]] = power_np
+                    board_p_copy[pos[0]][pos[1]] = power
+
+            else:
+                print(pos)
+                print(pos[2])
+                board_np_copy[pos[0]][pos[1]] = '⬛'
+                board_p_copy[pos[0]][pos[1]] = '⬛'
+
+            print(f'to change {to_change_to_diff}')
     if len(to_change_to_diff)>0:
         for pos in to_change_to_diff:
             board_np_copy[pos[0]][pos[1]] = pos[3]
