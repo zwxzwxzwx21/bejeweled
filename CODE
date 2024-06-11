@@ -2254,10 +2254,10 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
                 if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
                 if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
-                '''a = (pos[0], pos[1], power, power_np)
-                to_change_to_diff.append(a)'''
-                board_np_copy[pos[0]][pos[1]] = power_np
-                board_p_copy[pos[0]][pos[1]] = power
+                a = (pos[0], pos[1], power, power_np)
+                to_change_to_diff.append(a)
+                '''board_np_copy[pos[0]][pos[1]] = power_np
+                board_p_copy[pos[0]][pos[1]] = power'''
                 print(f' power and np PA {power} {power_np}')
     for rows in array_6:
 
@@ -2360,6 +2360,27 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                         board_np_copy[pos[0]][pos[1]] = "⬛"'''
                         a = (pos[0], pos[1],'2328')
                         to_turn_black.append(a)
+                    else:
+                        if pos == rows[1]:
+                            power = ''
+                            power_np = ''
+                            if board_p_copy[pos[0]][pos[1]] == '🟪': power = '🟣';power_np = '🟪'
+                            if board_p_copy[pos[0]][pos[1]] == '🟦': power = '🔵';power_np = '🟦'
+                            if board_p_copy[pos[0]][pos[1]] == '🟩': power = '🟢';power_np = '🟩'
+                            if board_p_copy[pos[0]][pos[1]] == '🟨': power = '🟡';power_np = '🟨'
+                            if board_p_copy[pos[0]][pos[1]] == '🟧': power = '🟠';power_np = '🟧'
+                            if board_p_copy[pos[0]][pos[1]] == '🟥': power = '🔴';power_np = '🟥'
+                            if board_p_copy[pos[0]][pos[1]] == '⬜': power = '⚪';power_np = '⬜'
+                            board_np_copy[pos[0]][pos[1]] = power_np
+                            board_p_copy[pos[0]][pos[1]] = power
+                            a = (pos[0], pos[1], power, power_np, '2328')
+                            to_change_to_diff.append(a)  # if commented out, planet 4 breaks ##### if this one doenst work just change it a little  and shoud be good
+                            # that is change the pos == rows to 2
+                        else:
+                            '''board_p_copy[pos[0]][pos[1]] = '⬛'
+                        board_np_copy[pos[0]][pos[1]] = "⬛"'''
+                        a = (pos[0], pos[1],'2328')
+                        to_turn_black.append(a)
     pos_with_gems = []
     for rows in array_3:
         for pos in rows:
@@ -2404,10 +2425,17 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
     for rows in array_5:
         for pos in rows:
             if pos != rows[2]:
-                '''board_p_copy[pos[0]][pos[1]] = '⬛'
-                board_np_copy[pos[0]][pos[1]] = "⬛"'''
-                a = (pos[0], pos[1],'2373')
-                to_turn_black.append(a)
+                if board_p_copy[pos[0]][pos[1]] not in powered:
+                    '''board_p_copy[pos[0]][pos[1]] = '⬛'
+                    board_np_copy[pos[0]][pos[1]] = "⬛"'''
+                    a = (pos[0], pos[1],'2373')
+                    to_turn_black.append(a)
+                    a = copy.deepcopy(board_np_copy)
+                else:
+                    board_p_copy = explode_gem(board_p_copy, pos[1], pos[0], 'dfg', a,origin_board)
+                    b = copy.deepcopy(board_p_copy)
+                    board_np_copy = convert_board(b)
+
             else:
                 '''board_p_copy[pos[0]][pos[1]] = '🌈'
                 board_np_copy[pos[0]][pos[1]] = "🌈"'''
@@ -2578,20 +2606,17 @@ def explode_gem(board, y, x, strin, board_to_overwrite, original_board):
     for i in range(8):
         for j in range(8):
             if board2[j][i] == '⬛' or board2[j][i] == '🌈':
-                board_to_overwrite[j][i] = '⬛'
-    for row in board_to_overwrite:
+                board2[j][i] = '⬛'
+    for row in board2:
         print(' '.join(row))
-    board2 = original_board
+    #board2 = original_board
     print('------------------------')
-    wynik = przesun_czarne_do_gory(board_to_overwrite)
+    wynik = przesun_czarne_do_gory(board2)
     for wiersz in wynik:
         print(" ".join(wiersz))
-    for i in range(8):
-        for j in range(8):
-            if board_to_overwrite[j][i] == '⬛':
-                score += 100
+    print('wynik')
 
-    return board_to_overwrite
+    return board2
 
 
 def convert_board(board):
@@ -2684,10 +2709,7 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                             if isdigit(copy_np[j][i]):
                                 copy_np[j][i] = copy_np[j][i]-1
                                 copy_p[j][i] = copy_p[j][i]-1
-                    '''val = int(copy_np[move[1]][move[0]]) - 1
-                    copy_np[move[1]][move[0]] = str(val)
-                    copy_p[move[1]][move[0]] = str(val)
-                    flag_move = 1'''
+
                 except:
                     print('no bomb movement')
                 print('ĆĆ', copy_np[move[1]][move[0] - 1])
@@ -2697,10 +2719,7 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                             if isdigit(copy_np[j][i]):
                                 copy_np[j][i] = copy_np[j][i] - 1
                                 copy_p[j][i] = copy_p[j][i] - 1
-                    '''val = int(copy_np[move[1]][move[0] - 1]) - 1
-                    copy_np[move[1]][move[0] - 1] = str(val)
-                    copy_p[move[1]][move[0] - 1] = str(val)
-                    flag_move = 1'''
+
                 except:
                     print('no bomb movement')
                 copy_np[move[1]][move[0]], copy_np[move[1]][move[0] - 1] = copy_np[move[1]][
@@ -2710,13 +2729,20 @@ def next_move(board_p, moves, already_done_moves, orig_board):
             elif move[3] == 'R':
                 gem = copy_np[move[1]][move[0] - 1]
                 gem_p = copy_p[move[1]][move[0] - 1]
+                print(f'gem_p {gem_p}')
                 copy_np[move[1]][move[0]] = '⬛'
                 copy_p[move[1]][move[0]] = '⬛'
                 for y in range(8):
                     for x in range(8):
                         if copy_np[x][y] == gem:
                             copy_np[x][y] = '⬛'
-                            copy_p[x][y] = '⬛'
+                            if copy_p[x][y] in powered:
+                                a = copy.deepcopy(copy_p)
+                                copy_p = explode_gem(copy_p, x, y, 'rainbowexplode', a, orig_board)
+                                b = copy.deepcopy(copy_p)
+                                copy_np = convert_board(b)
+                            else:
+                                copy_p[x][y] = '⬛'
                             if gem_p in powered:
                                 throwaway = copy.deepcopy(copy_p)
                                 copy_p = explode_gem(copy_p, move[1], move[0] - 1, 'moveLr', throwaway, orig_board)
@@ -2753,13 +2779,20 @@ def next_move(board_p, moves, already_done_moves, orig_board):
             elif move[3] == 'R':
                 gem = copy_np[move[1]][move[0] + 1]
                 gem_p = copy_p[move[1]][move[0] + 1]
+                print(f'gem_p {gem_p}')
                 copy_np[move[1]][move[0]] = '⬛'
                 copy_p[move[1]][move[0]] = '⬛'
                 for y in range(8):
                     for x in range(8):
                         if copy_np[x][y] == gem:
                             copy_np[x][y] = '⬛'
-                            copy_p[x][y] = '⬛'
+                            if copy_p[x][y] in powered:
+                                a = copy.deepcopy(copy_p)
+                                copy_p = explode_gem(copy_p, x, y, 'rainbowexplode', a, orig_board)
+                                b = copy.deepcopy(copy_p)
+                                copy_np = convert_board(b)
+                            else:
+                                copy_p[x][y] = '⬛'
                             if gem_p in powered:
                                 throwaway = copy.deepcopy(copy_p)
                                 copy_p = explode_gem(copy_p, move[1], move[0] + 1, 'moveRr', throwaway, orig_board)
@@ -2783,10 +2816,7 @@ def next_move(board_p, moves, already_done_moves, orig_board):
                             if isdigit(copy_np[j][i]):
                                 copy_np[j][i] = copy_np[j][i]-1
                                 copy_p[j][i] = copy_p[j][i]-1
-                    '''val = int(copy_np[move[1] - 1][move[0]]) - 1
-                    copy_np[move[1] - 1][move[0]] = str(val)
-                    copy_p[move[1] - 1][move[0]] = str(val)
-                    flag_move = 1'''
+
                 except:
                     pass
                 copy_np[move[1]][move[0]], copy_np[move[1] - 1][move[0]] = copy_np[move[1] - 1][
@@ -2796,13 +2826,21 @@ def next_move(board_p, moves, already_done_moves, orig_board):
             elif move[3] == 'R':
                 gem = copy_np[move[1] - 1][move[0]]
                 gem_p = copy_p[move[1] - 1][move[0]]
+                print(f'gem_p {gem_p} {gem}')
                 copy_np[move[1]][move[0]] = '⬛'
                 copy_p[move[1]][move[0]] = '⬛'
                 for y in range(8):
                     for x in range(8):
                         if copy_np[x][y] == gem:
+
                             copy_np[x][y] = '⬛'
-                            copy_p[x][y] = '⬛'
+                            if copy_p[x][y] in powered:
+                                a = copy.deepcopy(copy_p)
+                                copy_p = explode_gem(copy_p,x,y,'rainbowexplode',a,orig_board)
+                                b = copy.deepcopy(copy_p)
+                                copy_np = convert_board(b)
+                            else:
+                                copy_p[x][y] = '⬛'
                             if gem_p in powered:
                                 throwaway = copy.deepcopy(copy_p)
                                 copy_p = explode_gem(copy_p, move[1] - 1, move[0], 'moveUr', throwaway, orig_board)
@@ -2839,13 +2877,21 @@ def next_move(board_p, moves, already_done_moves, orig_board):
             elif move[3] == 'R':
                 gem = copy_np[move[1] + 1][move[0]]
                 gem_p = copy_p[move[1] + 1][move[0]]
+                print(f'gem_p {gem_p}')
                 copy_np[move[1]][move[0]] = '⬛'
+
                 copy_p[move[1]][move[0]] = '⬛'
                 for y in range(8):
                     for x in range(8):
                         if copy_np[x][y] == gem:
                             copy_np[x][y] = '⬛'
-                            copy_p[x][y] = '⬛'
+                            if copy_p[x][y] in powered:
+                                a = copy.deepcopy(copy_p)
+                                copy_p = explode_gem(copy_p, x, y, 'rainbowexplode', a, orig_board)
+                                b = copy.deepcopy(copy_p)
+                                copy_np = convert_board(b)
+                            else:
+                                copy_p[x][y] = '⬛'
                             if gem_p in powered:
                                 throwaway = copy.deepcopy(copy_p)
                                 copy_p = explode_gem(copy_p, move[1] + 1, move[0], 'moveDr', throwaway, orig_board)
@@ -2959,23 +3005,34 @@ def next_move(board_p, moves, already_done_moves, orig_board):
 
 
 test()
+'''array_with_moves = check_for_moves(brd)
+sieved_moves = sieve_moves(array_with_moves)
+sieved_moves = [(7, 6, 'left', '┥r')]
+next_move(brd_p, sieved_moves, [], brd_p)'''
+# print(f'not sieved   {array_with_moves}')
+# print(f'sieved moves {sieved_moves}')
+
+#check_for_rows(brd,brd,(1, 6, 'down', '4l'),brd,[(1, 7, 'up', '4l'), (1, 6, 'down', '4l')])
+
+# rainbow broken, moves with it doesnt seem to work
 brd = \
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
  ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '🟧', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['1', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['🟧', '🟥', '⬛', '⬛', '⬛', '🟧', '🟧', '⬛'],
- ['🟥', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '0'],
- ['🟧', '🟥', '🟧', '⬛', '⬛', '🟧', '🟥', '🟧'],
- ['🌫️', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🌫️']]
-brd_p = [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
  ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '🟧', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['1', '🟥', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['🟧', '🟥', '⬛', '⬛', '⬛', '🟧', '🟧', '⬛'],
- ['🟥', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '0'],
- ['🟧', '🟥', '🟧', '⬛', '⬛', '🟧', '🟥', '🟧'],
- ['🌫️', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🌫️']]
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '⬛', '⬛', '⬛', '🟨', '⬛', '⬛', '⬛'],
+ ['⬛', '🟧', '🟥', '⬛', '🟥', '⬛', '🟨', '⬛'],
+ ['⬛', '🟥', '⬜', '🟥', '🟨', '🟨', '⬜', '🟨'],
+ ['⬛', '⬜', '🟨', '🟨', '🟥', '🟨', '🟨', '⬜']]
+brd_p = \
+[['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
+ ['⬛', '⬛', '⬛', '⬛', '🟨', '⬛', '⬛', '⬛'],
+ ['⬛', '🟧', '🟥', '⬛', '🟥', '⬛', '🟨', '⬛'],
+ ['⬛', '🟥', '⬜', '🟥', '🟨', '🟨', '⬜', '🟨'],
+ ['⬛', '⬜', '🟨', '🟨', '🟥', '🟨', '🟨', '⬜']]
 
 [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
  ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
@@ -3040,15 +3097,7 @@ brd_p = [['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
  ['⬛', '⬛', '⬛', '🟩', '🟩', '⬛', '🟩', '⬛'],
  ['⬛', '⬛', '⬛', '🟥', '⬜', '🟩', '⬜', '⬛'],
  ['⬛', '🟥', '🟥', '⬜', '🟥', '🟥', '⬜', '🟩']]
-#array_with_moves = check_for_moves(brd)
-#sieved_moves = sieve_moves(array_with_moves)
-# print(f'not sieved   {array_with_moves}')
-# print(f'sieved moves {sieved_moves}')
-#sieved_moves = [(6, 7, 'up', '┴d')]
-#next_move(brd_p, sieved_moves, [], brd_p)
-#check_for_rows(brd,brd,(1, 6, 'down', '4l'),brd,[(1, 7, 'up', '4l'), (1, 6, 'down', '4l')])
 
-# rainbow broken, moves with it doesnt seem to work
 '''⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
 ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
