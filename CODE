@@ -1882,32 +1882,32 @@ def array_creation(
 
             if (i + 1 < 8 and i - 1 > -1 and j + 2 < 8 and tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] ==
                     tablica[j + 1][i] == tablica[j + 2][i] != "⬛" and
-                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j + 1][i] == tablica[j + 2][
-                        i] != '🌫️' and
-                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j + 1][i] == tablica[j + 2][
-                        i] != '🌈'):
+                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] ==
+                    tablica[j + 1][i] == tablica[j + 2][i] != '🌫️' and
+                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] ==
+                    tablica[j + 1][i] == tablica[j + 2][i] != '🌈'):
                 array_with_position_to_replace_T.append([(j, i), (j, i - 1), (j, i + 1), (j + 1, i), (j + 2, i)])
             if (i + 1 < 8 and i - 1 > -1 and j - 2 > -1 and tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] ==
                     tablica[j - 1][i] == tablica[j - 2][i] != "⬛" and
-                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j - 1][i] == tablica[j - 2][
-                        i] != '🌫️' and
-                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] == tablica[j - 1][i] == tablica[j - 2][
-                        i] != '🌈'):
+                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] ==
+                    tablica[j - 1][i] == tablica[j - 2][i] != '🌫️' and
+                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i - 1] ==
+                    tablica[j - 1][i] == tablica[j - 2][i] != '🌈'):
                 array_with_position_to_replace_T.append([(j, i), (j, i - 1), (j, i + 1), (j - 1, i), (j - 2, i)])
             if (i + 2 < 8 and j - 1 > -1 and j + 1 < 8 and tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] ==
                     tablica[j - 1][i] == tablica[j + 1][i] != "⬛" and
-                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j - 1][i] == tablica[j + 1][
-                        i] != '🌫️' and
-                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] == tablica[j - 1][i] == tablica[j + 1][
-                        i] != '🌈'):
+                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] ==
+                    tablica[j - 1][i] == tablica[j + 1][i] != '🌫️' and
+                    tablica[j][i] == tablica[j][i + 1] == tablica[j][i + 2] ==
+                    tablica[j - 1][i] == tablica[j + 1][i] != '🌈'):
                 array_with_position_to_replace_T.append([(j, i), (j, i + 1), (j, i + 2), (j - 1, i), (j + 1, i)])
-            if (i - 2 < 8 and j - 1 > -1 and j + 1 < 8 and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] ==
+            if (i - 2 > -1 and j - 1 > -1 and j + 1 < 8 and j -1 > -1 and tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] ==
                     tablica[j - 1][i] == tablica[j + 1][i] != "⬛" and
-                    tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j - 1][i] == tablica[j + 1][
-                        i] != '🌫️' and
-                    tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] == tablica[j - 1][i] == tablica[j + 1][
-                        i] != '🌈'):
-                array_with_position_to_replace_T.append([(j, i), (j, i + 1), (j, i + 2), (j - 1, i), (j + 1, i)])
+                    tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] ==
+                    tablica[j - 1][i] == tablica[j + 1][i] != '🌫️' and
+                    tablica[j][i] == tablica[j][i - 1] == tablica[j][i - 2] ==
+                    tablica[j - 1][i] == tablica[j + 1][i] != '🌈'):
+                array_with_position_to_replace_T.append([(j, i), (j, i - 1), (j, i - 2), (j - 1, i), (j + 1, i)])
 
     if printing:print(
         f'array to replace 5 {array_with_position_to_replace_5} array to replace 6 {array_with_position_to_replace_6}')
@@ -1945,6 +1945,7 @@ def array_creation(
         if not any(
                 len(set(positions) & set(five_positions)) == 4 for five_positions in array_with_position_to_replace_5):
             filtered_array_with_position_to_replace_4_V.append(positions)
+
     return filtered_array_with_position_to_replace_3, filtered_array_with_position_to_replace_4, filtered_array_with_position_to_replace_5, filtered_array_with_position_to_replace_4_V, filtered_array_with_position_to_replace_6, array_with_position_to_replace_7, array_with_position_to_replace_L, array_with_position_to_replace_T
 
 
@@ -3122,24 +3123,24 @@ def next_move(board_p, moves, already_done_moves, orig_board):
 
 # rainbow broken, moves with it doesnt seem to work
 brd = \
-[['⬛', '⬛', '🌫️', '⬛', '⬛', '⬛', '⬛', '🌫️'],
- ['⬛', '⬛', '🌫️', '⬛', '🌫️', '⬛', '⬛', '🌫️'],
- ['⬛', '⬛', '🌫️', '⬛', '🌫️', '⬛', '⬛', '🌫️'],
- ['🌫️', '⬛', '🌫️', '⬛', '🟦', '⬛', '🌫️', '🌫️'],
- ['⬜', '⬛', '🌫️', '⬛', '🌫️', '🟥', '🌫️', '🌫️'],
- ['1', '⬛', '🌫️', '🌫️', '🟥', '🟦', '🟥', '🌫️'],
- ['⬜', '⬛', '🌫️', '🌫️', '🟦', '🌫️', '🌫️', '🌫️'],
- ['🌈', '⬛', '🌫️', '🌫️', '🌫️', '🌫️', '🌫️', '🌫️']]
+[['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '2'],
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '🟥'],
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['⬛', '🟧', '🟧', '⬛', '⬛', '🟥', '🟧', '🟥'],
+ ['3', '🟥', '🟥', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['🟥', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🟥'],
+ ['🟧', '🟥', '🟧', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['🌫️', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🌫️']]
 
 brd_p = \
-[['⬛', '⬛', '🌫️', '⬛', '⬛', '⬛', '⬛', '🌫️'],
- ['⬛', '⬛', '🌫️', '⬛', '🌫️', '⬛', '⬛', '🌫️'],
- ['⬛', '⬛', '🌫️', '⬛', '🌫️', '⬛', '⬛', '🌫️'],
- ['🌫️', '⬛', '🌫️', '⬛', '🟦', '⬛', '🌫️', '🌫️'],
- ['⬜', '⬛', '🌫️', '⬛', '🌫️', '🟥', '🌫️', '🌫️'],
- ['1', '⬛', '🌫️', '🌫️', '🟥', '🟦', '🟥', '🌫️'],
- ['⬜', '⬛', '🌫️', '🌫️', '🟦', '🌫️', '🌫️', '🌫️'],
- ['🌈', '⬛', '🌫️', '🌫️', '🌫️', '🌫️', '🌫️', '🌫️']]
+[['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '2'],
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '🟥'],
+ ['⬛', '⬛', '⬛', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['⬛', '🟧', '🟧', '⬛', '⬛', '🟥', '🟧', '🟥'],
+ ['3', '🟥', '🟥', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['🟥', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🟥'],
+ ['🟧', '🟥', '🟧', '⬛', '⬛', '🟧', '🟥', '🟧'],
+ ['🌫️', '🟧', '🟥', '⬛', '⬛', '🟥', '🟧', '🌫️']]
 
 
 # 🟥🟨🟦🟪⬜🟩🟧🌈⚪🔵🔴🟣🟢🟠🟡⬛🌫️⚫
@@ -3247,7 +3248,7 @@ test()
 
 '''array_with_moves = check_for_moves(brd)
 sieved_moves = sieve_moves(array_with_moves)
-#sieved_moves = [(4, 6, 'right', 3)]
+sieved_moves = [(2, 5, 'left', 3)]
 next_move(brd_p, sieved_moves, [], brd_p)
 '''
 '''⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛ ⬛
