@@ -2196,7 +2196,38 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 board_p_copy[pos[0]][pos[1]] = "⬛"
         #board_p_copy = przesun_czarne_do_gory(board_p_copy)
         #board_np_copy = przesun_czarne_do_gory(board_np_copy)
+    for rows in array_5:
+        for pos in rows:
+            if pos != rows[2]:
+                if board_p_copy[pos[0]][pos[1]] not in powered:
+                    print(board_p_copy[pos[0]][pos[1]],'kurwas',pos[0],pos[1])
+                    '''board_p_copy[pos[0]][pos[1]] = '⬛'
+                    board_np_copy[pos[0]][pos[1]] = "⬛"'''
+                    a = (pos[0], pos[1],'2373')
+                    to_turn_black.append(a)
 
+                else:
+                    z = (board_p_copy, board_np_copy, pos[0], pos[1], '2175dfg', move)
+                    to_explode.append(z)
+                    '''a = copy.deepcopy(board_np_copy)
+                    board_p_copy = explode_gem(board_p_copy, pos[0], pos[1], 'dfg',move, a,origin_board)
+                    b = copy.deepcopy(board_p_copy)
+                    board_np_copy = convert_board(b)'''
+
+            else:
+
+                if board_p_copy[rows[1][0]][rows[1][1]] not in powered and board_p_copy[rows[2][0]][rows[2][1]] not in powered and board_p_copy[rows[3][0]][rows[3][1]] not in powered:
+                    '''a = (pos[0], pos[1], '🌈', '🌈')
+                    to_change_to_diff.append(a)'''
+                    board_p_copy[pos[0]][pos[1]] = '🌈'
+                    board_np_copy[pos[0]][pos[1]] = "🌈"
+                else:
+                    z = (board_p_copy, board_np_copy, pos[0], pos[1], '2175', move)
+                    to_explode.append(z)
+                    '''a = copy.deepcopy(board_np_copy)
+                    board_p_copy = explode_gem(board_p_copy, pos[0], pos[1], 'dfg',move, a,origin_board)
+                    b = copy.deepcopy(board_p_copy)
+                    board_np_copy = convert_board(b)'''
     if len(power_gem_pos) != 0:
 
         if printing:print(f'powered gem pos {power_gem_pos}')
@@ -2222,33 +2253,7 @@ def check_for_rows(board_with_powered, board_without_powered, move, origin_board
                 print(' '.join(row))
             print('board exploded')
 
-    for rows in array_5:
-        for pos in rows:
-            if pos != rows[2]:
-                if board_p_copy[pos[0]][pos[1]] not in powered:
-                    print(board_p_copy[pos[0]][pos[1]],'kurwas',pos[0],pos[1])
-                    '''board_p_copy[pos[0]][pos[1]] = '⬛'
-                    board_np_copy[pos[0]][pos[1]] = "⬛"'''
-                    a = (pos[0], pos[1],'2373')
-                    to_turn_black.append(a)
 
-                else:
-                    a = copy.deepcopy(board_np_copy)
-                    board_p_copy = explode_gem(board_p_copy, pos[0], pos[1], 'dfg',move, a,origin_board)
-                    b = copy.deepcopy(board_p_copy)
-                    board_np_copy = convert_board(b)
-
-            else:
-                '''board_p_copy[pos[0]][pos[1]] = '🌈'
-                board_np_copy[pos[0]][pos[1]] = "🌈"'''
-                if board_p_copy[rows[1][0]][rows[1][1]] not in powered and board_p_copy[rows[2][0]][rows[2][1]] not in powered and board_p_copy[rows[3][0]][rows[3][1]] not in powered:
-                    a = (pos[0], pos[1], '🌈', '🌈')
-                    to_change_to_diff.append(a)
-                else:
-                    a = copy.deepcopy(board_np_copy)
-                    board_p_copy = explode_gem(board_p_copy, pos[0], pos[1], 'dfg',move, a,origin_board)
-                    b = copy.deepcopy(board_p_copy)
-                    board_np_copy = convert_board(b)
     pwrd = []
     npwrd = []
     for pos in powered_gem_pos:
@@ -2880,24 +2885,24 @@ def next_move(board_p, moves, already_done_moves, orig_board):
 
 # rainbow broken, moves with it doesnt seem to work
 brd = \
-[['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬜', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '🟨', '🟨', '🟥', '🟨', '⬛', '⬛'],
- ['⬛', '⬛', '⬜', '🟨', '🟨', '⬜', '⬛', '⬛']]
+[['🟦', '⬜', '🟦', '⬜', '🟦', '⬜', '🟦', '⬜'],
+ ['⬜', '🟦', '⬜', '🟦', '⬜', '🟦', '⬜', '🟦'],
+ ['🟦', '⬜', '🟦', '⬜', '🟦', '⬜', '🟦', '⬜'],
+ ['⬜', '🟦', '⬜', '🟦', '⬜', '🟦', '⬜', '🟦'],
+ ['🟦', '⬜', '🟦', '⬜', '🟦', '⬜', '🟦', '⬜'],
+ ['⬜', '🟦', '⬜', '🟦', '⬜', '🟦', '⬜', '🟦'],
+ ['🟦', '⬜', '🟦', '⬜', '🟦', '⬜', '🟦', '⬜'],
+ ['⬜', '🟦', '⬜', '🟦', '⬜', '🟦', '⬜', '🟦']]
 
 brd_p = \
-[['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '⬜', '⬛', '⬛', '⬛', '⬛', '⬛'],
- ['⬛', '⬛', '🟨', '🟨', '🟥', '🟡', '⬛', '⬛'],
- ['⬛', '⬛', '⬜', '🟨', '🟨', '⬜', '⬛', '⬛']]
+[['🟦', '⬜', '⬛', '⬛', '🟦', '⬜', '🟦', '⬜'],
+ ['⬜', '🟦', '⬛', '⬛', '⬜', '🟦', '⬜', '🟦'],
+ ['🟦', '⬜', '⬛', '⬛', '🟦', '⬜', '🟦', '⬜'],
+ ['⬜', '🟦', '🟦', '⬜', '⬜', '🟦', '⬜', '🟦'],
+ ['🟦', '⬜', '⬜', '🟦', '🟦', '⬜', '🟦', '⬜'],
+ ['⬜', '🟦', '🟦', '⬜', '⬜', '🟦', '⬜', '🟦'],
+ ['🟦', '⬜', '⬜', '🟦', '🟦', '⬜', '🟦', '⬜'],
+ ['⬜', '🟦', '🟦', '⬜', '⬜', '🟦', '⬜', '🟦']]
 
 
 # 🟥🟨🟦🟪⬜🟩🟧🌈⚪🔵🔴🟣🟢🟠🟡⬛🌫️⚫
